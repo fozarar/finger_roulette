@@ -1,0 +1,49 @@
+name: finger_roulette
+description: "Finger Roulette — a multi-touch party game that randomly picks a winner from up to 6 players."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.8
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_native_splash: ^2.4.3
+  audioplayers: ^6.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/sounds/tick.wav
+    - assets/sounds/win.wav
+
+flutter_native_splash:
+  color: "#111111"
+  image: splash_logo.png
+  color_dark: "#111111"
+  image_dark: splash_logo.png
+  android_12:
+    color: "#111111"
+    image: splash_logo.png
+    color_dark: "#111111"
+    image_dark: splash_logo.png
+  fullscreen: true
+  web: false
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "icon_source.png"
+  remove_alpha_ios: true
+  min_sdk_android: 21
+  web:
+    generate: false
+  macos:
+    generate: false
