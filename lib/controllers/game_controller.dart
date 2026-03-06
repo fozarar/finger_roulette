@@ -68,6 +68,11 @@ class GameController extends ChangeNotifier {
     if (selectedWinnerCount != null && selectedWinnerCount! >= count) {
       selectedWinnerCount = null;
     }
+    // 2 oyuncuda kazanan sayısı zaten 1, seçim ekranını atla
+    if (count == 2) {
+      selectWinnerCount(1);
+      return;
+    }
     notifyListeners();
   }
 
