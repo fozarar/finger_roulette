@@ -11,5 +11,8 @@ void main() {
   // Tam ekran mod — sistem çubuklarını gizle
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   runApp(const FingerRouletteApp());
-  FlutterNativeSplash.remove();
+  // İlk frame çizildikten sonra splash'i kaldır — erken kaldırınca siyah ekran çıkar
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    FlutterNativeSplash.remove();
+  });
 }
