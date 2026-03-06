@@ -58,7 +58,7 @@ class SelectionScreen extends StatelessWidget {
               const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [2, 3, 4, 5, 6]
+                children: [2, 3, 4, 5]
                     .map(
                       (n) => OptionButton(
                         label: '$n',

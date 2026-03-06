@@ -1,7 +1,7 @@
 name: finger_roulette
-description: "Finger Roulette — a multi-touch party game that randomly picks a winner from up to 6 players."
+description: "Fingerlette — a multi-touch party game that randomly picks a winner from up to 5 players."
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ^3.10.8
