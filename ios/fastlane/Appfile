@@ -1,8 +1,8 @@
 app_identifier("com.furkanozarar.fingerroulette")
 
-# Apple Developer hesabının e-postası. Boş bırakılırsa fastlane ilk
-# çalıştırmada sorar ve girdiğin değeri kendi oturumunda saklar.
-# apple_id("seninhesabin@example.com")
+# Apple Developer hesabının e-postası. Şifre burada tutulmaz — fastlane
+# onu macOS Keychain'e yazar ve 2FA kodunu her oturumda sorar.
+apple_id("fozarardev@gmail.com")
 
 # Birden fazla App Store Connect ekibindeysen gerekir, tek ekipteysen gerekmez.
 # itc_team_id("...")

@@ -1,0 +1,45 @@
+# Lane'ler `ios/` klasöründen çalıştırılır:  fastlane <lane_adı>
+#
+# Hesap ve bundle id Appfile'da, deliver ayarları Deliverfile'da.
+# Metinlerin kaynağı ../app_store_metadata/metadata.json —
+# düzenledikten sonra ../tool/gen_fastlane_metadata.py çalıştır.
+
+default_platform(:ios)
+
+# Surum tek kaynaktan gelsin: pubspec.yaml. Boylece fastlane hangi App Store
+# surumunu duzenleyecegini tahmin etmez, acikca soyleriz.
+def flutter_version
+  pubspec = File.read(File.expand_path("../../pubspec.yaml", __dir__),
+                      encoding: "UTF-8")
+  v = pubspec[/^version:\s*(\d+\.\d+\.\d+)\+/, 1]
+  UI.user_error!("pubspec.yaml icinde surum bulunamadi") if v.nil?
+  v
+end
+
+platform :ios do
+  desc "App Store metinlerini yükler. Build'e ve ekran görüntülerine dokunmaz, " \
+       "incelemeye göndermez, puanları sıfırlamaz."
+  lane :metadata do
+    version = flutter_version
+    UI.message("Hedef App Store surumu: #{version}")
+    deliver(
+      app_version: version,
+      skip_binary_upload: true,
+      skip_screenshots: true,
+    )
+  end
+
+  desc "Derlenmiş ipa'yı TestFlight'a yükler. Önce: flutter build ipa"
+  lane :beta do
+    # __dir__ = bu dosyanın klasörü (ios/fastlane). fastlane'in çalışma
+    # dizinine güvenmiyoruz; yol her durumda proje köküne göre çözülsün.
+    ipa = File.expand_path("../../build/ios/ipa/Fingerlette.ipa", __dir__)
+    unless File.exist?(ipa)
+      UI.user_error!("ipa bulunamadi: #{ipa}\nOnce calistir: flutter build ipa")
+    end
+    upload_to_testflight(
+      ipa: ipa,
+      skip_waiting_for_build_processing: true,
+    )
+  end
+end

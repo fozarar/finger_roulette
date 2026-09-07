@@ -26,6 +26,9 @@ FIELDS = {
     'description': ('description.txt',      4000),
     'promo':       ('promotional_text.txt',  170),
     'whatsnew':    ('release_notes.txt',    4000),
+    # URL alanlarının karakter limiti yok; None ile doğrulamayı atlıyoruz
+    'privacy_url': ('privacy_url.txt',      None),
+    'support_url': ('support_url.txt',      None),
 }
 
 
@@ -40,7 +43,7 @@ def main():
                 errors.append(f'{loc}: "{key}" alanı yok')
                 continue
             value = d[key]
-            if len(value) > limit:
+            if limit is not None and len(value) > limit:
                 errors.append(f'{loc}/{fname}: {len(value)} karakter > {limit}')
             if value != value.strip():
                 errors.append(f'{loc}/{fname}: baştaki/sondaki boşluk')

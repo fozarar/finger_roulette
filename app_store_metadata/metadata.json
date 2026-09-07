@@ -6,7 +6,9 @@
     "keywords": "decide,decision,choose,wheel,spin,roulette,luck,draw,team,split,order,turn,loser,select,friend",
     "promo": "Settle any argument in two seconds. Everyone puts a finger on the screen — the app picks one at random. No sign-up, no ads, works offline.",
     "description": "Who pays the bill? Who goes first? Who does the dishes?\n\nStop arguing. Put your fingers on the screen and let chance decide.\n\nHOW IT WORKS\n1. Choose how many players (2–5) and how many winners.\n2. Everyone puts a finger on the screen and holds.\n3. The circles light up one by one, then stop on the winner.\n\nPERFECT FOR\n• Deciding who pays the bill\n• Picking who goes first in a board game\n• Choosing a driver, a volunteer, or a loser\n• Settling any argument between friends\n• Drinking games and party dares\n• Keeping kids happy without a coin toss\n\nWHY YOU'LL LIKE IT\n• Completely fair — every finger has exactly the same chance\n• Instant, no setup, no account, no internet needed\n• Sound and vibration build the tension before the reveal\n• Clean, dark design that looks good on any phone\n• Free, with no ads interrupting the game\n\nPut a finger down. Let luck do the rest.",
-    "whatsnew": "• Now available in 16 languages\n• Added haptic feedback during the countdown — you can feel the tension build\n• Smoother, more reliable winner reveal"
+    "whatsnew": "• Now available in 16 languages\n• Added haptic feedback during the countdown — you can feel the tension build\n• Smoother, more reliable winner reveal",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "tr": {
     "storefront": "Turkish",
@@ -15,7 +17,9 @@
     "keywords": "karar,seçici,şans,çark,çevir,rulet,ebe,takım,sıra,ilk,kaybeden,hesap,arkadaş,parti,oyun,çekiliş",
     "promo": "Tartışmayı iki saniyede bitir. Herkes ekrana bir parmak koyar, uygulama rastgele birini seçer. Üyelik yok, reklam yok, internetsiz çalışır.",
     "description": "Hesabı kim ödeyecek? Kim başlayacak? Bulaşıkları kim yıkayacak?\n\nTartışmayı bırakın. Parmaklarınızı ekrana koyun, kararı şans versin.\n\nNASIL ÇALIŞIR\n1. Kaç oyuncu (2–5) ve kaç kazanan olacağını seçin.\n2. Herkes ekrana bir parmağını koyup bekler.\n3. Daireler sırayla yanar ve kazananın üzerinde durur.\n\nNEREDE İŞE YARAR\n• Hesabı kimin ödeyeceğine karar verirken\n• Kutu oyununda kimin başlayacağını belirlerken\n• Şoför, gönüllü ya da ebe seçerken\n• Arkadaşlar arasındaki her tartışmayı bitirirken\n• Parti oyunlarında ve cezalı oyunlarda\n• Çocuklar arasında adil paylaşım yaparken\n\nNEDEN BEĞENECEKSİNİZ\n• Tamamen adil — her parmağın şansı birebir aynı\n• Anında çalışır; kurulum, hesap ya da internet gerekmez\n• Ses ve titreşim, açıklanmadan önce gerilimi yükseltir\n• Sade, koyu tasarım her telefonda iyi görünür\n• Ücretsiz ve oyunu bölen reklam yok\n\nParmağını koy, gerisini şansa bırak.",
-    "whatsnew": "• Artık 16 dilde\n• Geri sayım sırasında titreşim eklendi — gerilimi parmağınızda hissedin\n• Kazanan açıklaması daha akıcı ve kararlı"
+    "whatsnew": "• Artık 16 dilde\n• Geri sayım sırasında titreşim eklendi — gerilimi parmağınızda hissedin\n• Kazanan açıklaması daha akıcı ve kararlı",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "es-MX": {
     "storefront": "Spanish (Mexico)",
@@ -24,7 +28,9 @@
     "keywords": "decidir,sorteo,ruleta,girar,suerte,equipo,turno,primero,perdedor,cuenta,amigos,fiesta,juego,reto",
     "promo": "Resuelve cualquier discusión en dos segundos. Todos ponen un dedo en la pantalla y la app elige al azar. Sin registro, sin anuncios, funciona sin internet.",
     "description": "¿Quién paga la cuenta? ¿Quién empieza? ¿Quién lava los platos?\n\nDejen de discutir. Pongan los dedos en la pantalla y que decida la suerte.\n\nCÓMO FUNCIONA\n1. Elige cuántos jugadores (2–5) y cuántos ganadores.\n2. Todos ponen un dedo en la pantalla y esperan.\n3. Los círculos se encienden uno por uno y se detienen en el ganador.\n\nPERFECTO PARA\n• Decidir quién paga la cuenta\n• Elegir quién empieza en un juego de mesa\n• Escoger conductor, voluntario o perdedor\n• Terminar cualquier discusión entre amigos\n• Juegos de fiesta y retos\n• Repartir turnos entre niños sin pelear\n\nPOR QUÉ TE VA A GUSTAR\n• Totalmente justo: cada dedo tiene exactamente la misma probabilidad\n• Instantáneo, sin configuración, sin cuenta y sin internet\n• El sonido y la vibración aumentan la tensión antes del resultado\n• Diseño oscuro y limpio que se ve bien en cualquier teléfono\n• Gratis y sin anuncios que interrumpan el juego\n\nPon un dedo y deja que la suerte haga lo demás.",
-    "whatsnew": "• Ahora disponible en 16 idiomas\n• Vibración durante la cuenta regresiva: siente cómo sube la tensión\n• Revelación del ganador más fluida y confiable"
+    "whatsnew": "• Ahora disponible en 16 idiomas\n• Vibración durante la cuenta regresiva: siente cómo sube la tensión\n• Revelación del ganador más fluida y confiable",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "pt-BR": {
     "storefront": "Portuguese (Brazil)",
@@ -33,7 +39,9 @@
     "keywords": "decidir,decisão,roleta,girar,sorte,time,rodada,primeiro,perdedor,conta,amigos,festa,jogo,escolher",
     "promo": "Resolva qualquer discussão em dois segundos. Todos põem um dedo na tela e o app sorteia. Sem cadastro, sem anúncios, funciona offline.",
     "description": "Quem paga a conta? Quem começa? Quem lava a louça?\n\nParem de discutir. Coloquem os dedos na tela e deixem a sorte decidir.\n\nCOMO FUNCIONA\n1. Escolha quantos jogadores (2–5) e quantos vencedores.\n2. Todos colocam um dedo na tela e seguram.\n3. Os círculos acendem um por um e param no vencedor.\n\nPERFEITO PARA\n• Decidir quem paga a conta\n• Escolher quem começa no jogo de tabuleiro\n• Sortear motorista, voluntário ou perdedor\n• Encerrar qualquer discussão entre amigos\n• Jogos de festa e desafios\n• Dividir a vez entre crianças sem briga\n\nPOR QUE VOCÊ VAI GOSTAR\n• Totalmente justo — cada dedo tem exatamente a mesma chance\n• Instantâneo, sem configuração, sem conta e sem internet\n• Som e vibração aumentam a tensão antes do resultado\n• Design escuro e limpo que fica bem em qualquer celular\n• Grátis e sem anúncios interrompendo o jogo\n\nColoque o dedo e deixe a sorte fazer o resto.",
-    "whatsnew": "• Agora em 16 idiomas\n• Vibração durante a contagem — sinta a tensão aumentar\n• Revelação do vencedor mais fluida e confiável"
+    "whatsnew": "• Agora em 16 idiomas\n• Vibração durante a contagem — sinta a tensão aumentar\n• Revelação do vencedor mais fluida e confiável",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "de-DE": {
     "storefront": "German",
@@ -42,7 +50,9 @@
     "keywords": "entscheiden,losen,glücksrad,drehen,glück,team,reihenfolge,erster,verlierer,rechnung,freunde,party",
     "promo": "Beendet jede Diskussion in zwei Sekunden. Alle legen einen Finger auf den Bildschirm — die App wählt zufällig aus. Ohne Anmeldung, ohne Werbung, offline.",
     "description": "Wer zahlt die Rechnung? Wer fängt an? Wer spült ab?\n\nHört auf zu diskutieren. Legt die Finger auf den Bildschirm und lasst den Zufall entscheiden.\n\nSO GEHT'S\n1. Wählt, wie viele Spieler (2–5) und wie viele Gewinner.\n2. Alle legen einen Finger auf den Bildschirm und halten ihn dort.\n3. Die Kreise leuchten nacheinander auf und stoppen beim Gewinner.\n\nPERFEKT FÜR\n• Entscheiden, wer die Rechnung zahlt\n• Auswählen, wer beim Brettspiel anfängt\n• Fahrer, Freiwillige oder Verlierer bestimmen\n• Jede Diskussion unter Freunden beenden\n• Partyspiele und Mutproben\n• Kinder fair abwechseln lassen\n\nWARUM ES GEFÄLLT\n• Völlig fair — jeder Finger hat exakt die gleiche Chance\n• Sofort einsatzbereit, ohne Einrichtung, Konto oder Internet\n• Ton und Vibration bauen Spannung auf\n• Klares, dunkles Design, das auf jedem Handy gut aussieht\n• Kostenlos und ohne störende Werbung\n\nFinger drauf — der Rest ist Glück.",
-    "whatsnew": "• Jetzt in 16 Sprachen\n• Vibration während des Countdowns — die Spannung ist spürbar\n• Flüssigere und zuverlässigere Gewinner-Anzeige"
+    "whatsnew": "• Jetzt in 16 Sprachen\n• Vibration während des Countdowns — die Spannung ist spürbar\n• Flüssigere und zuverlässigere Gewinner-Anzeige",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "fr-FR": {
     "storefront": "French",
@@ -51,7 +61,9 @@
     "keywords": "décider,roue,tourner,chance,équipe,tour,premier,perdant,addition,amis,soirée,jeu,choisir,gage,sort",
     "promo": "Réglez n'importe quel débat en deux secondes. Chacun pose un doigt sur l'écran, l'app tire au sort. Sans inscription, sans pub, fonctionne hors ligne.",
     "description": "Qui paie l'addition ? Qui commence ? Qui fait la vaisselle ?\n\nArrêtez de débattre. Posez vos doigts sur l'écran et laissez le hasard trancher.\n\nCOMMENT ÇA MARCHE\n1. Choisissez le nombre de joueurs (2–5) et de gagnants.\n2. Chacun pose un doigt sur l'écran et le maintient.\n3. Les cercles s'allument un par un, puis s'arrêtent sur le gagnant.\n\nPARFAIT POUR\n• Décider qui paie l'addition\n• Désigner qui commence au jeu de société\n• Tirer au sort un conducteur, un volontaire ou un perdant\n• Mettre fin à n'importe quel débat entre amis\n• Jeux de soirée et gages\n• Faire passer les enfants chacun leur tour\n\nPOURQUOI VOUS AIMEREZ\n• Parfaitement équitable — chaque doigt a exactement la même chance\n• Instantané, sans configuration, sans compte, sans connexion\n• Le son et la vibration font monter la tension\n• Design sombre et épuré, élégant sur tous les téléphones\n• Gratuit, sans publicité qui coupe le jeu\n\nPosez un doigt, laissez faire le hasard.",
-    "whatsnew": "• Désormais en 16 langues\n• Vibration pendant le décompte — la tension se ressent\n• Révélation du gagnant plus fluide et plus fiable"
+    "whatsnew": "• Désormais en 16 langues\n• Vibration pendant le décompte — la tension se ressent\n• Révélation du gagnant plus fluide et plus fiable",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "ru": {
     "storefront": "Russian",
@@ -60,7 +72,9 @@
     "keywords": "жребий,рандом,колесо,крутить,удача,команда,очередь,первый,проигравший,счет,друзья,игра,решить",
     "promo": "Закончите любой спор за две секунды. Все кладут палец на экран — приложение выбирает случайно. Без регистрации, без рекламы, работает офлайн.",
     "description": "Кто платит по счёту? Кто ходит первым? Кто моет посуду?\n\nХватит спорить. Положите пальцы на экран и доверьтесь случаю.\n\nКАК ЭТО РАБОТАЕТ\n1. Выберите число игроков (2–5) и число победителей.\n2. Все кладут палец на экран и держат.\n3. Круги загораются по очереди и останавливаются на победителе.\n\nИДЕАЛЬНО ДЛЯ\n• Решить, кто платит по счёту\n• Определить, кто ходит первым в настольной игре\n• Выбрать водителя, добровольца или проигравшего\n• Закончить любой спор между друзьями\n• Вечеринок, фантов и весёлых наказаний\n• Честной очереди между детьми\n\nПОЧЕМУ ПОНРАВИТСЯ\n• Абсолютно честно — у каждого пальца одинаковый шанс\n• Мгновенно: без настройки, аккаунта и интернета\n• Звук и вибрация нагнетают напряжение перед результатом\n• Чистый тёмный дизайн, который хорошо смотрится на любом экране\n• Бесплатно и без рекламы, прерывающей игру\n\nПоложите палец — остальное сделает удача.",
-    "whatsnew": "• Теперь на 16 языках\n• Вибрация во время обратного отсчёта — напряжение чувствуется\n• Более плавное и стабильное объявление победителя"
+    "whatsnew": "• Теперь на 16 языках\n• Вибрация во время обратного отсчёта — напряжение чувствуется\n• Более плавное и стабильное объявление победителя",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "ar-SA": {
     "storefront": "Arabic",
@@ -69,7 +83,9 @@
     "keywords": "قرعة,عجلة,حظ,فريق,دور,الأول,خاسر,الحساب,أصدقاء,حفلة,لعبة,اختر,قرر,يانصيب,مجموعة,ترتيب,عقاب,تحدي",
     "promo": "أنهِ أي نقاش في ثانيتين. يضع الجميع إصبعًا على الشاشة والتطبيق يختار عشوائيًا. بدون تسجيل، بدون إعلانات، ويعمل دون إنترنت.",
     "description": "من يدفع الحساب؟ من يبدأ؟ من يغسل الصحون؟\n\nتوقفوا عن الجدال. ضعوا أصابعكم على الشاشة ودعوا الحظ يقرر.\n\nكيف يعمل\n١. اختر عدد اللاعبين (٢–٥) وعدد الفائزين.\n٢. يضع الجميع إصبعًا على الشاشة ويثبّتونه.\n٣. تضيء الدوائر واحدة تلو الأخرى ثم تتوقف عند الفائز.\n\nمثالي لـ\n• تحديد من يدفع الحساب\n• اختيار من يبدأ في ألعاب الطاولة\n• اختيار سائق أو متطوع أو خاسر\n• إنهاء أي خلاف بين الأصدقاء\n• ألعاب الحفلات والتحديات\n• توزيع الأدوار بين الأطفال بإنصاف\n\nلماذا ستحبه\n• عادل تمامًا — لكل إصبع الفرصة نفسها بالضبط\n• فوري: بلا إعداد ولا حساب ولا إنترنت\n• الصوت والاهتزاز يرفعان التشويق قبل النتيجة\n• تصميم داكن أنيق يبدو جميلًا على أي هاتف\n• مجاني وبلا إعلانات تقاطع اللعب\n\nضع إصبعك ودع الحظ يكمل الباقي.",
-    "whatsnew": "• متوفر الآن بـ ١٦ لغة\n• اهتزاز أثناء العد التنازلي — ستشعر بالتشويق\n• إعلان الفائز أصبح أكثر سلاسة وثباتًا"
+    "whatsnew": "• متوفر الآن بـ ١٦ لغة\n• اهتزاز أثناء العد التنازلي — ستشعر بالتشويق\n• إعلان الفائز أصبح أكثر سلاسة وثباتًا",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "hi": {
     "storefront": "Hindi",
@@ -78,7 +94,9 @@
     "keywords": "फैसला,चुनना,लॉटरी,पहिया,घुमाओ,भाग्य,टीम,बारी,पहला,हारने,बिल,दोस्त,पार्टी,गेम,चिट्ठी,ग्रुप,सज़ा",
     "promo": "कोई भी बहस दो सेकंड में खत्म करें। सब स्क्रीन पर उंगली रखें, ऐप रैंडम चुनेगा। न साइन-अप, न विज्ञापन, बिना इंटरनेट चलता है।",
     "description": "बिल कौन देगा? पहले कौन खेलेगा? बर्तन कौन धोएगा?\n\nबहस बंद करें। स्क्रीन पर उंगलियाँ रखें और किस्मत को फैसला करने दें।\n\nयह कैसे काम करता है\n1. चुनें कि कितने खिलाड़ी (2–5) और कितने विजेता।\n2. सब स्क्रीन पर एक उंगली रखें और पकड़े रहें।\n3. गोले बारी-बारी जलते हैं और विजेता पर रुक जाते हैं।\n\nकिसके लिए बढ़िया है\n• तय करना कि बिल कौन देगा\n• बोर्ड गेम में पहली बारी किसकी हो\n• ड्राइवर, वॉलंटियर या हारने वाला चुनना\n• दोस्तों की किसी भी बहस को खत्म करना\n• पार्टी गेम और चैलेंज\n• बच्चों के बीच बिना झगड़े बारी बाँटना\n\nआपको क्यों पसंद आएगा\n• पूरी तरह निष्पक्ष — हर उंगली का मौका बिल्कुल बराबर\n• तुरंत तैयार: न सेटअप, न अकाउंट, न इंटरनेट\n• आवाज़ और वाइब्रेशन नतीजे से पहले रोमांच बढ़ाते हैं\n• साफ-सुथरा डार्क डिज़ाइन, हर फोन पर अच्छा लगता है\n• मुफ़्त, और खेल बीच में रोकने वाले विज्ञापन नहीं\n\nउंगली रखिए, बाकी किस्मत पर छोड़ दीजिए।",
-    "whatsnew": "• अब 16 भाषाओं में उपलब्ध\n• काउंटडाउन के दौरान वाइब्रेशन — रोमांच महसूस कीजिए\n• विजेता की घोषणा अब और स्मूद और भरोसेमंद"
+    "whatsnew": "• अब 16 भाषाओं में उपलब्ध\n• काउंटडाउन के दौरान वाइब्रेशन — रोमांच महसूस कीजिए\n• विजेता की घोषणा अब और स्मूद और भरोसेमंद",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "th": {
     "storefront": "Thai",
@@ -87,7 +105,9 @@
     "keywords": "ตัดสินใจ,จับฉลาก,วงล้อ,หมุน,โชค,ทีม,ลำดับ,คนแรก,แพ้,บิล,เพื่อน,ปาร์ตี้,เกม,เลือก,สุ่ม,กลุ่ม,ลงโทษ",
     "promo": "จบทุกข้อถกเถียงใน 2 วินาที ทุกคนวางนิ้วบนหน้าจอ แล้วแอปจะสุ่มเลือกให้ ไม่ต้องสมัคร ไม่มีโฆษณา ใช้ได้แบบออฟไลน์",
     "description": "ใครจ่ายบิล? ใครเริ่มก่อน? ใครล้างจาน?\n\nเลิกเถียงกันได้แล้ว วางนิ้วบนหน้าจอแล้วให้โชคเป็นคนตัดสิน\n\nวิธีใช้งาน\n1. เลือกจำนวนผู้เล่น (2–5) และจำนวนผู้ชนะ\n2. ทุกคนวางนิ้วบนหน้าจอแล้วกดค้างไว้\n3. วงกลมจะสว่างทีละวง แล้วหยุดที่ผู้ชนะ\n\nเหมาะสำหรับ\n• ตัดสินว่าใครจ่ายบิล\n• เลือกว่าใครเริ่มก่อนในบอร์ดเกม\n• สุ่มหาคนขับรถ อาสาสมัคร หรือคนแพ้\n• ยุติข้อถกเถียงระหว่างเพื่อน\n• เกมปาร์ตี้และการท้าทาย\n• แบ่งลำดับให้เด็ก ๆ อย่างยุติธรรม\n\nทำไมคุณจะชอบ\n• ยุติธรรมเต็มร้อย ทุกนิ้วมีโอกาสเท่ากันพอดี\n• ใช้ได้ทันที ไม่ต้องตั้งค่า ไม่ต้องสมัคร ไม่ต้องใช้เน็ต\n• เสียงและระบบสั่นช่วยสร้างความลุ้นก่อนเฉลย\n• ดีไซน์โทนมืดเรียบง่าย สวยบนทุกเครื่อง\n• ฟรี และไม่มีโฆษณามาขัดจังหวะ\n\nวางนิ้วลงไป แล้วปล่อยให้โชคจัดการที่เหลือ",
-    "whatsnew": "• รองรับ 16 ภาษาแล้ว\n• เพิ่มระบบสั่นระหว่างนับถอยหลัง สัมผัสความลุ้นได้เลย\n• การเฉลยผู้ชนะลื่นไหลและเสถียรขึ้น"
+    "whatsnew": "• รองรับ 16 ภาษาแล้ว\n• เพิ่มระบบสั่นระหว่างนับถอยหลัง สัมผัสความลุ้นได้เลย\n• การเฉลยผู้ชนะลื่นไหลและเสถียรขึ้น",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "vi": {
     "storefront": "Vietnamese",
@@ -96,7 +116,9 @@
     "keywords": "quyết định,bốc thăm,vòng quay,quay,may mắn,đội,lượt,đầu tiên,thua,hóa đơn,bạn bè,tiệc,trò chơi",
     "promo": "Kết thúc mọi tranh cãi trong hai giây. Mọi người đặt một ngón tay lên màn hình, ứng dụng chọn ngẫu nhiên. Không đăng ký, không quảng cáo, chạy offline.",
     "description": "Ai trả hóa đơn? Ai đi trước? Ai rửa bát?\n\nĐừng tranh cãi nữa. Đặt ngón tay lên màn hình và để may mắn quyết định.\n\nCÁCH DÙNG\n1. Chọn số người chơi (2–5) và số người thắng.\n2. Mọi người đặt một ngón tay lên màn hình và giữ yên.\n3. Các vòng tròn sáng lần lượt rồi dừng lại ở người thắng.\n\nHOÀN HẢO ĐỂ\n• Quyết định ai trả hóa đơn\n• Chọn ai đi trước trong board game\n• Bốc ra tài xế, người xung phong hoặc người thua\n• Kết thúc mọi tranh cãi giữa bạn bè\n• Trò chơi tiệc tùng và thử thách\n• Chia lượt cho trẻ con mà không ai giận\n\nVÌ SAO BẠN SẼ THÍCH\n• Hoàn toàn công bằng — mọi ngón tay có cơ hội y hệt nhau\n• Dùng ngay: không cài đặt, không tài khoản, không cần mạng\n• Âm thanh và rung làm tăng hồi hộp trước khi công bố\n• Thiết kế tối giản, nền tối, đẹp trên mọi máy\n• Miễn phí và không quảng cáo chen ngang\n\nĐặt ngón tay xuống, phần còn lại để may mắn lo.",
-    "whatsnew": "• Đã có 16 ngôn ngữ\n• Thêm rung trong lúc đếm ngược — cảm nhận được sự hồi hộp\n• Công bố người thắng mượt và ổn định hơn"
+    "whatsnew": "• Đã có 16 ngôn ngữ\n• Thêm rung trong lúc đếm ngược — cảm nhận được sự hồi hộp\n• Công bố người thắng mượt và ổn định hơn",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "id": {
     "storefront": "Indonesian",
@@ -105,7 +127,9 @@
     "keywords": "undian,putar,roda,tim,giliran,pertama,kalah,tagihan,teman,pesta,game,tentukan,nasib,hukuman,undi",
     "promo": "Selesaikan debat apa pun dalam dua detik. Semua taruh jari di layar, aplikasi memilih secara acak. Tanpa daftar, tanpa iklan, jalan offline.",
     "description": "Siapa yang bayar tagihan? Siapa jalan duluan? Siapa cuci piring?\n\nBerhenti berdebat. Taruh jari di layar dan biarkan keberuntungan yang memutuskan.\n\nCARA KERJANYA\n1. Pilih berapa pemain (2–5) dan berapa pemenang.\n2. Semua menaruh satu jari di layar dan menahannya.\n3. Lingkaran menyala bergantian, lalu berhenti di pemenang.\n\nCOCOK UNTUK\n• Menentukan siapa yang bayar tagihan\n• Memilih siapa yang jalan duluan di board game\n• Mengundi sopir, sukarelawan, atau yang kalah\n• Mengakhiri perdebatan antar teman\n• Permainan pesta dan tantangan\n• Membagi giliran anak-anak tanpa ribut\n\nKENAPA KAMU AKAN SUKA\n• Benar-benar adil — setiap jari punya peluang yang sama persis\n• Langsung pakai: tanpa setelan, tanpa akun, tanpa internet\n• Suara dan getaran bikin tegang sebelum hasilnya keluar\n• Desain gelap yang bersih dan enak dilihat di HP mana pun\n• Gratis dan tanpa iklan yang memotong permainan\n\nTaruh jarimu, sisanya biar keberuntungan yang urus.",
-    "whatsnew": "• Kini tersedia dalam 16 bahasa\n• Getaran saat hitung mundur — ketegangannya terasa\n• Pengumuman pemenang lebih mulus dan stabil"
+    "whatsnew": "• Kini tersedia dalam 16 bahasa\n• Getaran saat hitung mundur — ketegangannya terasa\n• Pengumuman pemenang lebih mulus dan stabil",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "ms": {
     "storefront": "Malay",
@@ -114,7 +138,9 @@
     "keywords": "cabutan,putar,roda,tuah,pasukan,giliran,pertama,kalah,bil,kawan,parti,permainan,tentukan,nasib",
     "promo": "Selesaikan sebarang perdebatan dalam dua saat. Semua letak jari pada skrin, aplikasi pilih secara rawak. Tiada pendaftaran, tiada iklan, boleh guna luar talian.",
     "description": "Siapa bayar bil? Siapa mula dulu? Siapa basuh pinggan?\n\nBerhenti berdebat. Letak jari pada skrin dan biar nasib yang tentukan.\n\nCARA GUNA\n1. Pilih berapa pemain (2–5) dan berapa pemenang.\n2. Semua letak satu jari pada skrin dan tahan.\n3. Bulatan menyala satu per satu, kemudian berhenti pada pemenang.\n\nSESUAI UNTUK\n• Menentukan siapa yang bayar bil\n• Memilih siapa mula dulu dalam permainan papan\n• Mencabut pemandu, sukarelawan atau yang kalah\n• Menamatkan sebarang perdebatan antara kawan\n• Permainan parti dan cabaran\n• Membahagi giliran anak-anak tanpa bergaduh\n\nKENAPA ANDA AKAN SUKA\n• Benar-benar adil — setiap jari ada peluang yang sama tepat\n• Terus guna: tiada tetapan, tiada akaun, tiada internet\n• Bunyi dan getaran menaikkan debaran sebelum keputusan\n• Reka bentuk gelap yang kemas dan cantik pada mana-mana telefon\n• Percuma dan tiada iklan yang mengganggu permainan\n\nLetak jari anda, biar nasib uruskan yang selebihnya.",
-    "whatsnew": "• Kini dalam 16 bahasa\n• Getaran semasa kiraan detik — debarannya terasa\n• Pengumuman pemenang lebih lancar dan stabil"
+    "whatsnew": "• Kini dalam 16 bahasa\n• Getaran semasa kiraan detik — debarannya terasa\n• Pengumuman pemenang lebih lancar dan stabil",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "ko": {
     "storefront": "Korean",
@@ -123,7 +149,9 @@
     "keywords": "사다리타기,제비뽑기,룰렛,돌리기,행운,순서,첫번째,벌칙,계산,친구,파티,게임,선택,랜덤,내기,복불복,술게임,팀나누기,정하기,결정",
     "promo": "어떤 논쟁이든 2초 만에 끝. 모두 화면에 손가락을 올리면 앱이 무작위로 뽑습니다. 가입 없음, 광고 없음, 오프라인에서도 작동.",
     "description": "계산은 누가 하지? 누가 먼저 하지? 설거지는 누가?\n\n그만 싸우고 화면에 손가락을 올리세요. 나머지는 운이 정합니다.\n\n사용 방법\n1. 인원 수(2~5명)와 당첨자 수를 고릅니다.\n2. 모두 화면에 손가락 하나를 올리고 유지합니다.\n3. 원이 하나씩 켜지다가 당첨자에서 멈춥니다.\n\n이럴 때 좋아요\n• 밥값 계산할 사람 정하기\n• 보드게임 첫 순서 정하기\n• 운전자, 지원자, 벌칙 당첨자 뽑기\n• 친구들 사이의 논쟁 끝내기\n• 파티 게임과 벌칙 내기\n• 아이들 순서를 공평하게 나누기\n\n이래서 좋습니다\n• 완벽하게 공정합니다 — 모든 손가락의 확률이 정확히 같습니다\n• 즉시 사용: 설정도, 계정도, 인터넷도 필요 없습니다\n• 소리와 진동이 결과 발표 전 긴장감을 높입니다\n• 어떤 폰에서도 잘 어울리는 깔끔한 다크 디자인\n• 무료이며 게임을 끊는 광고가 없습니다\n\n손가락을 올리고 나머지는 운에 맡기세요.",
-    "whatsnew": "• 이제 16개 언어를 지원합니다\n• 카운트다운 중 진동 추가 — 긴장감이 손끝으로 전해집니다\n• 당첨자 발표가 더 부드럽고 안정적으로 바뀌었습니다"
+    "whatsnew": "• 이제 16개 언어를 지원합니다\n• 카운트다운 중 진동 추가 — 긴장감이 손끝으로 전해집니다\n• 당첨자 발표가 더 부드럽고 안정적으로 바뀌었습니다",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "ja": {
     "storefront": "Japanese",
@@ -132,7 +160,9 @@
     "keywords": "あみだくじ,ルーレット,抽選,運試し,チーム,一番,会計,友達,パーティー,ゲーム,選ぶ,決める,くじ引き,罰ゲーム,順番決め,グループ分け,飲み会,王様ゲーム",
     "promo": "どんな言い争いも2秒で決着。全員が画面に指を置くと、アプリがランダムに選びます。登録不要、広告なし、オフラインでも動きます。",
     "description": "会計は誰が払う？誰が先番？皿洗いは誰？\n\nもめるのはやめて、画面に指を置きましょう。あとは運が決めてくれます。\n\n使い方\n1. 人数（2〜5人）と当たりの数を選びます。\n2. 全員が画面に指を1本置いて、そのまま待ちます。\n3. 円が順番に光り、当たりの人で止まります。\n\nこんなときに\n• 飲み会の会計を誰が払うか決める\n• ボードゲームの先番を決める\n• 運転役・立候補者・罰ゲーム役を選ぶ\n• 友達同士の言い争いに決着をつける\n• パーティーゲームや罰ゲームに\n• 子どもの順番をけんかなく決める\n\n選ばれる理由\n• 完全に公平 — どの指も確率はまったく同じ\n• すぐ使える。設定もアカウントもネットも不要\n• 音とバイブが発表前の緊張感を高めます\n• どの端末でも映える、シンプルなダークデザイン\n• 無料。ゲームを止める広告はありません\n\n指を置いて、あとは運まかせ。",
-    "whatsnew": "• 16言語に対応しました\n• カウントダウン中のバイブを追加 — 緊張感が指先に伝わります\n• 当たり発表がより滑らかで安定しました"
+    "whatsnew": "• 16言語に対応しました\n• カウントダウン中のバイブを追加 — 緊張感が指先に伝わります\n• 当たり発表がより滑らかで安定しました",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   },
   "zh-Hans": {
     "storefront": "Chinese (Simplified)",
@@ -141,6 +171,8 @@
     "keywords": "抽签,转盘,轮盘,运气,分组,队伍,顺序,第一个,惩罚,买单,朋友,聚会,游戏,选择,随机,决定,抓阄,大冒险,真心话,点名,请客",
     "promo": "任何争论两秒解决。所有人把手指放到屏幕上，应用随机选出一个。无需注册，没有广告，离线也能用。",
     "description": "这顿谁买单？谁先开始？谁洗碗？\n\n别争了，把手指放到屏幕上，让运气来决定。\n\n怎么用\n1. 选择人数（2–5 人）和中选人数。\n2. 每个人在屏幕上放一根手指并按住。\n3. 圆圈依次亮起，最后停在中选的人身上。\n\n适合这些场景\n• 决定谁来买单\n• 决定桌游谁先手\n• 抽出司机、志愿者或者受罚的人\n• 结束朋友之间的任何争论\n• 聚会游戏和大冒险\n• 公平地给孩子分先后顺序\n\n为什么好用\n• 完全公平——每根手指的概率完全一样\n• 打开即用：无需设置、无需账号、无需联网\n• 音效和震动在揭晓前把气氛拉满\n• 简洁的深色设计，在任何手机上都好看\n• 免费，且没有打断游戏的广告\n\n放下手指，剩下的交给运气。",
-    "whatsnew": "• 现已支持 16 种语言\n• 倒计时期间加入震动反馈，紧张感直达指尖\n• 揭晓中选者的过程更流畅、更稳定"
+    "whatsnew": "• 现已支持 16 种语言\n• 倒计时期间加入震动反馈，紧张感直达指尖\n• 揭晓中选者的过程更流畅、更稳定",
+    "privacy_url": "https://fozarar.github.io/finger_roulette/privacy_policy.html",
+    "support_url": "https://github.com/fozarar/finger_roulette/issues"
   }
 }
