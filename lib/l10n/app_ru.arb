@@ -1,0 +1,13 @@
+{
+  "@@locale": "ru",
+  "howManyPlayers": "Сколько игроков?",
+  "howManyWinners": "Сколько победителей?",
+  "putFingers": "Поставьте {count} пальцев",
+  "moreFingers": "{count, plural, =1{Ещё 1 палец...} few{Ещё {count} пальца...} other{Ещё {count} пальцев...}}",
+  "getReady": "Приготовьтесь...",
+  "choosing": "Выбираем...",
+  "winnerBanner": "{count, plural, =1{Победитель!} other{Победители!}}",
+  "gameInfo": "{players} игроков · {winners, plural, =1{1 победитель} few{{winners} победителя} other{{winners} победителей}}",
+  "playAgain": "Играть снова",
+  "changeSettings": "Изменить настройки"
+}

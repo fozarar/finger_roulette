@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../controllers/game_controller.dart';
 import '../models/game_phase.dart';
+import '../services/review_service.dart';
+import '../services/stats_service.dart';
 import 'game_screen.dart';
 import 'selection_screen.dart';
 
@@ -13,7 +15,10 @@ import 'selection_screen.dart';
 /// [GameController] dinlenerek phase değişimlerinde animasyonlar tetiklenir;
 /// böylece iş mantığı controller'da, animasyon mantığı widget'ta kalır.
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final StatsService stats;
+  final ReviewService review;
+
+  const HomeScreen({super.key, required this.stats, required this.review});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -75,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       TweenSequenceItem(tween: Tween(begin: 0.3, end: 0.0), weight: 70),
     ]).animate(_flashController);
 
-    _controller = GameController();
+    _controller = GameController(stats: widget.stats, review: widget.review);
     // Controller değiştiğinde animasyon durumunu güncelle
     _controller.addListener(_onControllerChanged);
   }

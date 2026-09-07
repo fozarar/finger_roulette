@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../models/game_phase.dart';
+import '../services/review_service.dart';
 import '../services/sound_service.dart';
+import '../services/stats_service.dart';
 
 /// Tüm oyun mantığını ve durumunu yönetir.
 ///
@@ -56,8 +58,27 @@ class GameController extends ChangeNotifier {
   /// Döngü animasyonu kaçıncı adımda — hız hesabı için kullanılır
   int _cycleStep = 0;
 
-  final Random _random = Random();
-  final SoundService _sound = SoundService();
+  final Random _random;
+  final SoundService _sound;
+  final StatsService _stats;
+  final ReviewService _review;
+
+  /// Kazanan açıklandığında başlayan sayaç güncellemesi.
+  /// Puan isteme anında beklenir; böylece güncel oyun sayısıyla karar verilir.
+  Future<int>? _pendingGameCount;
+
+  bool _disposed = false;
+
+  /// Servisler dışarıdan verilebilir — testlerde sahte implementasyonlar için
+  GameController({
+    Random? random,
+    SoundService? sound,
+    StatsService? stats,
+    ReviewService? review,
+  })  : _random = random ?? Random(),
+        _sound = sound ?? SoundService(),
+        _stats = stats ?? StatsService(),
+        _review = review ?? ReviewService();
 
   // ── Seçim aksiyonları ─────────────────────────────────────────────────────
 
@@ -206,6 +227,8 @@ class GameController extends ChangeNotifier {
       highlightIndex = _cycleStep % lockedPointerIds.length;
       _cycleStep++;
       _sound.playTick();
+      // Her tick'te hafif dokunsal geri bildirim — picker wheel hissi verir
+      HapticFeedback.selectionClick();
       notifyListeners();
       _scheduleCycle(elapsedMs + intervalMs);
     });
@@ -233,10 +256,22 @@ class GameController extends ChangeNotifier {
     _sound.playWin();
     notifyListeners();
 
+    _pendingGameCount = _stats.recordGameCompleted(
+      playerCount: lockedPointerIds.length,
+      winnerCount: winnerPointerIds.length,
+    );
+
     // 2 saniye sonra reset butonlarını göster
-    _resetTimer = Timer(const Duration(seconds: 2), () {
+    _resetTimer = Timer(const Duration(seconds: 2), () async {
+      if (_disposed) return;
       showReset = true;
       notifyListeners();
+
+      // Puan isteme için doğru an: kutlama bitti, kullanıcı ne yapacağına
+      // karar veriyor. Oyunun ortasında asla sorulmaz.
+      final played = await _pendingGameCount;
+      if (_disposed || played == null) return;
+      await _review.maybeRequestReview(played);
     });
   }
 
@@ -251,33 +286,6 @@ class GameController extends ChangeNotifier {
     showReset = false;
     highlightIndex = 0;
     notifyListeners();
-  }
-
-  // ── UI metin yardımcıları ─────────────────────────────────────────────────
-
-  /// Oyun aşamasına göre ekran ortasında gösterilecek durum metni
-  String get statusText => switch (phase) {
-        GamePhase.revealed =>
-          (selectedWinnerCount ?? 1) > 1 ? 'Winners!' : 'Winner!',
-        GamePhase.choosing || GamePhase.locked => 'Choosing...',
-        GamePhase.waiting => _waitingStatusText(),
-        GamePhase.setup => '',
-      };
-
-  String _waitingStatusText() {
-    final count = activePointers.length;
-    final target = selectedPlayerCount ?? 0;
-    if (count == 0) return 'Put $target fingers';
-    final needed = target - count;
-    if (needed <= 0) return 'Get ready...';
-    return '$needed more finger${needed > 1 ? 's' : ''}...';
-  }
-
-  /// Oyun ekranı üst kısmındaki kısa bilgi etiketi
-  String get gameInfoLabel {
-    final p = selectedPlayerCount ?? 0;
-    final w = selectedWinnerCount ?? 1;
-    return '$p Players · $w Winner${w > 1 ? 's' : ''}';
   }
 
   // ── Yardımcılar ───────────────────────────────────────────────────────────
@@ -304,6 +312,7 @@ class GameController extends ChangeNotifier {
 
   @override
   void dispose() {
+    _disposed = true;
     _cancelAllTimers();
     _sound.dispose();
     super.dispose();

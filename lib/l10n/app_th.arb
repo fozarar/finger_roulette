@@ -1,0 +1,13 @@
+{
+  "@@locale": "th",
+  "howManyPlayers": "ผู้เล่นกี่คน?",
+  "howManyWinners": "ผู้ชนะกี่คน?",
+  "putFingers": "วาง {count} นิ้ว",
+  "moreFingers": "{count, plural, =1{อีก 1 นิ้ว...} other{อีก {count} นิ้ว...}}",
+  "getReady": "เตรียมตัว...",
+  "choosing": "กำลังเลือก...",
+  "winnerBanner": "{count, plural, =1{ผู้ชนะ!} other{ผู้ชนะ!}}",
+  "gameInfo": "{players} ผู้เล่น · {winners, plural, =1{ผู้ชนะ 1 คน} other{ผู้ชนะ {winners} คน}}",
+  "playAgain": "เล่นอีกครั้ง",
+  "changeSettings": "เปลี่ยนการตั้งค่า"
+}

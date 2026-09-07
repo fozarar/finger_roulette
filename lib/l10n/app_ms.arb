@@ -1,0 +1,13 @@
+{
+  "@@locale": "ms",
+  "howManyPlayers": "Berapa pemain?",
+  "howManyWinners": "Berapa pemenang?",
+  "putFingers": "Letak {count} jari",
+  "moreFingers": "{count, plural, =1{1 jari lagi...} other{{count} jari lagi...}}",
+  "getReady": "Bersedia...",
+  "choosing": "Memilih...",
+  "winnerBanner": "{count, plural, =1{Pemenang!} other{Pemenang!}}",
+  "gameInfo": "{players} pemain · {winners, plural, =1{1 pemenang} other{{winners} pemenang}}",
+  "playAgain": "Main Semula",
+  "changeSettings": "Tukar Tetapan"
+}

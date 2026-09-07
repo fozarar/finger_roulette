@@ -1,0 +1,66 @@
+{
+  "@@locale": "en",
+  "howManyPlayers": "How many players?",
+  "@howManyPlayers": {
+    "description": "Selection screen: player count prompt"
+  },
+  "howManyWinners": "How many winners?",
+  "@howManyWinners": {
+    "description": "Selection screen: winner count prompt"
+  },
+  "putFingers": "Put {count} fingers",
+  "@putFingers": {
+    "description": "Waiting phase, no fingers on screen yet",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "moreFingers": "{count, plural, =1{1 more finger...} other{{count} more fingers...}}",
+  "@moreFingers": {
+    "description": "Waiting phase, some fingers already down",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "getReady": "Get ready...",
+  "@getReady": {
+    "description": "All fingers detected, lock countdown running"
+  },
+  "choosing": "Choosing...",
+  "@choosing": {
+    "description": "Cycle animation is running"
+  },
+  "winnerBanner": "{count, plural, =1{Winner!} other{Winners!}}",
+  "@winnerBanner": {
+    "description": "Shown when winners are revealed",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gameInfo": "{players} players · {winners, plural, =1{1 winner} other{{winners} winners}}",
+  "@gameInfo": {
+    "description": "Small label at the top of the game screen",
+    "placeholders": {
+      "players": {
+        "type": "int"
+      },
+      "winners": {
+        "type": "int"
+      }
+    }
+  },
+  "playAgain": "Play Again",
+  "@playAgain": {
+    "description": "Button: restart with the same settings"
+  },
+  "changeSettings": "Change Settings",
+  "@changeSettings": {
+    "description": "Button: go back to the selection screen"
+  }
+}

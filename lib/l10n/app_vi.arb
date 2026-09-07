@@ -1,0 +1,13 @@
+{
+  "@@locale": "vi",
+  "howManyPlayers": "Bao nhiêu người chơi?",
+  "howManyWinners": "Bao nhiêu người thắng?",
+  "putFingers": "Đặt {count} ngón tay",
+  "moreFingers": "{count, plural, =1{Thêm 1 ngón tay...} other{Thêm {count} ngón tay...}}",
+  "getReady": "Sẵn sàng...",
+  "choosing": "Đang chọn...",
+  "winnerBanner": "{count, plural, =1{Người thắng!} other{Người thắng!}}",
+  "gameInfo": "{players} người chơi · {winners, plural, =1{1 người thắng} other{{winners} người thắng}}",
+  "playAgain": "Chơi lại",
+  "changeSettings": "Đổi cài đặt"
+}

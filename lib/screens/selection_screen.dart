@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../controllers/game_controller.dart';
+import '../l10n/app_localizations.dart';
 import '../widgets/option_button.dart';
 
 /// Oyun başlamadan önce oyuncu ve kazanan sayısının seçildiği ekran.
@@ -15,6 +16,7 @@ class SelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final playersSelected = controller.pendingPlayerCount != null;
     final maxWinners = (controller.pendingPlayerCount ?? 2) - 1;
 
@@ -47,9 +49,9 @@ class SelectionScreen extends StatelessWidget {
               const SizedBox(height: 72),
 
               // ── Oyuncu sayısı seçimi ────────────────────────────────────
-              const Text(
-                'How many players?',
-                style: TextStyle(
+              Text(
+                l10n.howManyPlayers,
+                style: const TextStyle(
                   color: Color(0xAAFFFFFF),
                   fontSize: 16,
                   letterSpacing: 1.5,
@@ -84,9 +86,9 @@ class SelectionScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         const SizedBox(height: 48),
-                        const Text(
-                          'How many winners?',
-                          style: TextStyle(
+                        Text(
+                          l10n.howManyWinners,
+                          style: const TextStyle(
                             color: Color(0xAAFFFFFF),
                             fontSize: 16,
                             letterSpacing: 1.5,

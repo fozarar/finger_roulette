@@ -1,0 +1,13 @@
+{
+  "@@locale": "ko",
+  "howManyPlayers": "플레이어는 몇 명?",
+  "howManyWinners": "당첨자는 몇 명?",
+  "putFingers": "손가락 {count}개를 올리세요",
+  "moreFingers": "{count, plural, =1{1개 더...} other{{count}개 더...}}",
+  "getReady": "준비...",
+  "choosing": "고르는 중...",
+  "winnerBanner": "{count, plural, =1{당첨!} other{당첨!}}",
+  "gameInfo": "{players}명 · {winners, plural, =1{당첨 1명} other{당첨 {winners}명}}",
+  "playAgain": "다시 하기",
+  "changeSettings": "설정 변경"
+}

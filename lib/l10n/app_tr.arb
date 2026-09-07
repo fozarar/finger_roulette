@@ -1,0 +1,13 @@
+{
+  "@@locale": "tr",
+  "howManyPlayers": "Kaç oyuncu?",
+  "howManyWinners": "Kaç kazanan?",
+  "putFingers": "{count} parmak koyun",
+  "moreFingers": "{count, plural, =1{1 parmak daha...} other{{count} parmak daha...}}",
+  "getReady": "Hazır olun...",
+  "choosing": "Seçiliyor...",
+  "winnerBanner": "{count, plural, =1{Kazanan!} other{Kazananlar!}}",
+  "gameInfo": "{players} oyuncu · {winners, plural, =1{1 kazanan} other{{winners} kazanan}}",
+  "playAgain": "Tekrar Oyna",
+  "changeSettings": "Ayarları Değiştir"
+}

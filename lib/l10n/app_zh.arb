@@ -1,0 +1,13 @@
+{
+  "@@locale": "zh",
+  "howManyPlayers": "几位玩家？",
+  "howManyWinners": "几位赢家？",
+  "putFingers": "请放上 {count} 根手指",
+  "moreFingers": "{count, plural, =1{还差 1 根...} other{还差 {count} 根...}}",
+  "getReady": "准备...",
+  "choosing": "正在选择...",
+  "winnerBanner": "{count, plural, =1{赢家！} other{赢家！}}",
+  "gameInfo": "{players} 位玩家 · {winners, plural, =1{1 位赢家} other{{winners} 位赢家}}",
+  "playAgain": "再玩一次",
+  "changeSettings": "更改设置"
+}

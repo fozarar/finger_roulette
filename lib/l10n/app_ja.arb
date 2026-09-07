@@ -1,0 +1,13 @@
+{
+  "@@locale": "ja",
+  "howManyPlayers": "プレイヤーは何人？",
+  "howManyWinners": "当たりは何人？",
+  "putFingers": "指を{count}本置いてください",
+  "moreFingers": "{count, plural, =1{あと1本...} other{あと{count}本...}}",
+  "getReady": "準備して...",
+  "choosing": "選んでいます...",
+  "winnerBanner": "{count, plural, =1{当たり！} other{当たり！}}",
+  "gameInfo": "{players}人 · {winners, plural, =1{当たり1人} other{当たり{winners}人}}",
+  "playAgain": "もう一度",
+  "changeSettings": "設定を変更"
+}

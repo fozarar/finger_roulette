@@ -1,0 +1,13 @@
+{
+  "@@locale": "ar",
+  "howManyPlayers": "كم عدد اللاعبين؟",
+  "howManyWinners": "كم عدد الفائزين؟",
+  "putFingers": "ضع {count} أصابع",
+  "moreFingers": "{count, plural, =1{إصبع واحد إضافي...} =2{إصبعان إضافيان...} few{{count} أصابع إضافية...} other{{count} إصبعًا إضافيًا...}}",
+  "getReady": "استعدوا...",
+  "choosing": "جارٍ الاختيار...",
+  "winnerBanner": "{count, plural, =1{الفائز!} other{الفائزون!}}",
+  "gameInfo": "{players} لاعبين · {winners, plural, =1{فائز واحد} =2{فائزان} few{{winners} فائزين} other{{winners} فائزًا}}",
+  "playAgain": "العب مرة أخرى",
+  "changeSettings": "تغيير الإعدادات"
+}

@@ -1,0 +1,13 @@
+{
+  "@@locale": "hi",
+  "howManyPlayers": "कितने खिलाड़ी?",
+  "howManyWinners": "कितने विजेता?",
+  "putFingers": "{count} उंगलियाँ रखें",
+  "moreFingers": "{count, plural, =1{1 उंगली और...} other{{count} उंगलियाँ और...}}",
+  "getReady": "तैयार हो जाइए...",
+  "choosing": "चुना जा रहा है...",
+  "winnerBanner": "{count, plural, =1{विजेता!} other{विजेता!}}",
+  "gameInfo": "{players} खिलाड़ी · {winners, plural, =1{1 विजेता} other{{winners} विजेता}}",
+  "playAgain": "फिर से खेलें",
+  "changeSettings": "सेटिंग्स बदलें"
+}

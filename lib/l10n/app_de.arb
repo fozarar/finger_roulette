@@ -1,0 +1,13 @@
+{
+  "@@locale": "de",
+  "howManyPlayers": "Wie viele Spieler?",
+  "howManyWinners": "Wie viele Gewinner?",
+  "putFingers": "Legt {count} Finger auf",
+  "moreFingers": "{count, plural, =1{Noch 1 Finger...} other{Noch {count} Finger...}}",
+  "getReady": "Bereit machen...",
+  "choosing": "Wird gewählt...",
+  "winnerBanner": "{count, plural, =1{Gewinner!} other{Gewinner!}}",
+  "gameInfo": "{players} Spieler · {winners, plural, =1{1 Gewinner} other{{winners} Gewinner}}",
+  "playAgain": "Nochmal spielen",
+  "changeSettings": "Einstellungen ändern"
+}

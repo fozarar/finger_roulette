@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../controllers/game_controller.dart';
+import '../l10n/app_localizations.dart';
 import '../models/game_phase.dart';
 import '../painters/finger_painter.dart';
 import '../widgets/particle_overlay.dart';
+import 'game_text.dart';
 
 /// Oyunun oynandığı ekran.
 ///
@@ -26,8 +28,10 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final isLocked = controller.phase == GamePhase.locked ||
         controller.phase == GamePhase.revealed;
+    final statusText = statusTextFor(l10n, controller);
 
     return Scaffold(
       backgroundColor: const Color(0xFF111111),
@@ -74,7 +78,7 @@ class GameScreen extends StatelessWidget {
                     child: IgnorePointer(
                       child: Center(
                         child: Text(
-                          controller.gameInfoLabel,
+                          gameInfoLabelFor(l10n, controller),
                           style: const TextStyle(
                             color: Color(0x55FFFFFF),
                             fontSize: 13,
@@ -101,8 +105,8 @@ class GameScreen extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          controller.statusText,
-                          key: ValueKey(controller.statusText),
+                          statusText,
+                          key: ValueKey(statusText),
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Color(0xBBFFFFFF),
@@ -176,9 +180,9 @@ class GameScreen extends StatelessWidget {
                               elevation: 10,
                               shadowColor: Colors.white30,
                             ),
-                            child: const Text(
-                              'Play Again',
-                              style: TextStyle(
+                            child: Text(
+                              l10n.playAgain,
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 0.8,
@@ -190,9 +194,9 @@ class GameScreen extends StatelessWidget {
                           // Oyuncu/kazanan sayısını değiştir
                           TextButton(
                             onPressed: controller.changeSettings,
-                            child: const Text(
-                              'Change Settings',
-                              style: TextStyle(
+                            child: Text(
+                              l10n.changeSettings,
+                              style: const TextStyle(
                                 color: Color(0x88FFFFFF),
                                 fontSize: 15,
                                 letterSpacing: 0.5,
