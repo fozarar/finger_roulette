@@ -43,6 +43,12 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<!-- Uygulama hicbir sifreleme algoritmasi kullanmiyor: ne kendi
+	     implementasyonu var, ne de ag uzerinden veri gonderiyor.
+	     Bu anahtar olmadan App Store Connect her yuklemede
+	     export compliance sorusunu tekrar soruyor. -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>
