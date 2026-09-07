@@ -1,0 +1,3 @@
+• Now available in 16 languages
+• Added haptic feedback during the countdown — you can feel the tension build
+• Smoother, more reliable winner reveal

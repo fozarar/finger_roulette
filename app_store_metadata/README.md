@@ -1,8 +1,15 @@
 # App Store Connect metadata
 
-16 dil için hazır metin seti. Her `<locale>.txt` bir App Store Connect
-lokalizasyonuna birebir karşılık gelir; `metadata.json` aynı verinin makine
-okunabilir hâlidir.
+16 dil için hazır metin seti.
+
+`metadata.json` **tek kaynaktır.** Metinleri orada düzenle, sonra
+
+```
+python3 tool/gen_fastlane_metadata.py
+```
+
+çalıştır; fastlane'in okuduğu `ios/fastlane/metadata/<locale>/*.txt`
+dosyaları yeniden üretilir ve karakter limitleri doğrulanır.
 
 ## Alanlar ve limitler
 
@@ -26,13 +33,21 @@ açıklamayı** indeksler. Yani buradaki `DESCRIPTION` metinleri App Store'da
 sıralamaya girmez ama Play Store'da doğrudan sıralama sinyalidir. Play'e
 çıkarken açıklamaları aynen kullan.
 
-## Uygulama sırası
+## Yükleme
 
-1. App Store Connect → App Information → **Localizable Information**'a 16 dili
-   ekle. Sıralama önemli değil ama indirmeye göre öncelik: tr, es-MX, hi, pt-BR,
-   th, id, ms, vi, ko, ja, ar, de, fr, ru, zh-Hans.
-2. Her dil için `<locale>.txt` içeriğini ilgili alanlara yapıştır.
-3. Yeni sürümü (1.0.3) gönder.
+fastlane ile, `ios/` klasöründen:
+
+```
+fastlane deliver --skip_binary_upload --skip_screenshots
+```
+
+16 dilin metadata'sını tek seferde gönderir. İlk çalıştırmada Apple hesabını
+sorar ve göndermeden önce tarayıcıda bir önizleme açar.
+
+Elle girmeyi tercih edersen alanlar App Store Connect'te **iki ayrı sayfada**:
+App Name ve Subtitle → App Information; Keywords, Description, Promotional Text
+ve What's New → sürüm sayfası. Her ikisinin de kendi dil menüsü var ve
+kaydetme otomatik değil.
 
 **Önemli:** App Name, Subtitle ve Keywords **sürüme bağlıdır** — yalnızca yeni
 bir build gönderirken değiştirilebilir. Promotional Text ise istediğin zaman,
