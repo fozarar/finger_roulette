@@ -31,6 +31,17 @@ platform :ios do
 
   desc "Derlenmiş ipa'yı TestFlight'a yükler. Önce: flutter build ipa"
   lane :beta do
+    # altool yalnizca uygulamaya ozel sifreyle calisir. Degisken yoksa fastlane
+    # sessizce keychain'deki normal Apple ID sifresine duser ve Apple bunu
+    # -22938 ile reddeder. Kafa karistirici hata yerine burada acikca dur.
+    if ENV["FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD"].to_s.empty?
+      UI.user_error!("FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD tanimli degil.\n" \
+                     "account.apple.com > Sign-In and Security > App-Specific Passwords " \
+                     "uzerinden uret. Ekrana ve kabuk gecmisine yazilmamasi icin soyle gir:\n" \
+                     "  read -s 'FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD?Sifre: ' && " \
+                     "export FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD; echo")
+    end
+
     # __dir__ = bu dosyanın klasörü (ios/fastlane). fastlane'in çalışma
     # dizinine güvenmiyoruz; yol her durumda proje köküne göre çözülsün.
     # ipa'nin adi CFBundleName'den turuyor ve uygulama adi degisince
@@ -43,6 +54,11 @@ platform :ios do
     UI.message("Yuklenecek ipa: #{File.basename(ipa)}")
     upload_to_testflight(
       ipa: ipa,
+      # Uygulamanin sayisal App Store Connect kimligi (Appfile'daki e-posta
+      # olan apple_id ile karistirma). Verilince pilot yuklemeden once web
+      # oturumu acmaz, yalnizca uygulamaya ozel sifreyle yukler. Web
+      # oturumu birkac gunde dusuyor ve her acilista 2FA istiyor.
+      apple_id: "6759880651",
       skip_waiting_for_build_processing: true,
     )
   end
