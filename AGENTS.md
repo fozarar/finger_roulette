@@ -2,8 +2,15 @@
 
 ## Project
 
-Fingerlette (Finger Roulette) is a Flutter app for a multi-touch party game
-that randomly picks a winner from up to 5 players.
+Finger Chooser (formerly Fingerlette) is a Flutter app for a multi-touch party
+game that randomly picks a winner from up to 5 players.
+
+The Dart package name `finger_roulette` and the bundle id
+`com.furkanozarar.fingerroulette` predate the rename. Keep them: App Store
+Connect ties the listing, ratings and TestFlight builds to the bundle id.
+The name users see must stay consistent across three places — the App Store
+name, `CFBundleDisplayName` in `ios/Runner/Info.plist`, and `android:label` —
+or review rejects under Guideline 2.3.8.
 
 ## Common Commands
 

@@ -33,10 +33,14 @@ platform :ios do
   lane :beta do
     # __dir__ = bu dosyanın klasörü (ios/fastlane). fastlane'in çalışma
     # dizinine güvenmiyoruz; yol her durumda proje köküne göre çözülsün.
-    ipa = File.expand_path("../../build/ios/ipa/Fingerlette.ipa", __dir__)
-    unless File.exist?(ipa)
-      UI.user_error!("ipa bulunamadi: #{ipa}\nOnce calistir: flutter build ipa")
+    # ipa'nin adi CFBundleName'den turuyor ve uygulama adi degisince
+    # degisiyor; sabit bir dosya adi yerine klasordeki en yeni ipa'yi al.
+    ipas = Dir[File.expand_path("../../build/ios/ipa/*.ipa", __dir__)]
+    if ipas.empty?
+      UI.user_error!("build/ios/ipa altinda ipa yok\nOnce calistir: flutter build ipa")
     end
+    ipa = ipas.max_by { |f| File.mtime(f) }
+    UI.message("Yuklenecek ipa: #{File.basename(ipa)}")
     upload_to_testflight(
       ipa: ipa,
       skip_waiting_for_build_processing: true,

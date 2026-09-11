@@ -38,7 +38,7 @@ class SelectionScreen extends StatelessWidget {
                 ),
               ),
               const Text(
-                'ROULETTE',
+                'CHOOSER',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 26,
