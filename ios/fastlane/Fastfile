@@ -69,6 +69,11 @@ platform :ios do
       app_version: version,
       skip_binary_upload: true,
       skip_screenshots: true,
+      # precheck'in satin alma kontrolu API anahtariyla calismiyor ve deliver'i
+      # metinlere hic bakmadan durduruyor. Uygulamada tek bir satin alma yok,
+      # dolayisiyla kapatmakla kaybedilen bir dogrulama da yok — precheck'in asil
+      # ise yarayan kismi (yer tutucu metin, rakip platform adi, kufur) calisiyor.
+      precheck_include_in_app_purchases: false,
     )
   end
 
