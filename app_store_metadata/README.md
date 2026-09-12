@@ -56,7 +56,7 @@ sürüm gerektirdiği için zamanlama doğru.
 
 ## İsim değişikliği hakkında
 
-Mevcut isim `Fingerlette: Finger Roulette`. "Fingerlette" uydurma bir kelime;
+Eski isim `Fingerlette: Finger Roulette`ti. "Fingerlette" uydurma bir kelime;
 arama hacmi yok ve 30 karakterlik en değerli alanın yarısını harcıyor. Yeni
 isimler her dilde gerçek arama terimleri üzerine kurulu ("kim ödeyecek",
 "あみだくじ", "사다리타기", "谁买单" gibi).
@@ -64,6 +64,18 @@ isimler her dilde gerçek arama terimleri üzerine kurulu ("kim ödeyecek",
 Uygulama adını değiştirmek **puanları ve yorumları sıfırlamaz** — 4.8
 ortalaman aynen taşınır. Yeni sürüm gönderirken App Store Connect'teki
 **"Reset ratings" seçeneğine dokunma**; sıfırlama yalnızca o kutuyla olur.
+
+## Alkol ve Guideline 1.4.3
+
+App Review, 1.0.3 (4) sürümünü Guideline 1.4.3 altında reddetti: en-US
+açıklamasındaki "Drinking games", ja anahtar kelimelerindeki `飲み会` /
+`王様ゲーム` ve ko'daki `술게임` alkol tüketimini teşvik ediyor sayıldı.
+Uygulamanın kendisinde alkolle ilgili tek bir metin bile yok; sorun tamamen
+mağaza metinleriydi.
+
+Buraya yeni metin yazarken hiçbir dilde içki/alkol çağrışımı olan terim
+kullanma — "parti oyunu", "ceza", "kura" gibi nötr karşılıkları var ve arama
+hacimleri de benzer.
 
 ## ABD mağazasında ekstra kazanç
 
