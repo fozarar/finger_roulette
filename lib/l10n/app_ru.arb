@@ -7,7 +7,19 @@
   "getReady": "Приготовьтесь...",
   "choosing": "Выбираем...",
   "winnerBanner": "{count, plural, =1{Победитель!} other{Победители!}}",
-  "gameInfo": "{players} игроков · {winners, plural, =1{1 победитель} few{{winners} победителя} other{{winners} победителей}}",
+  "gameInfo": "{players, plural, few{{players} игрока} other{{players} игроков}} · {winners, plural, =1{1 победитель} few{{winners} победителя} other{{winners} победителей}}",
   "playAgain": "Играть снова",
-  "changeSettings": "Изменить настройки"
+  "changeSettings": "Изменить настройки",
+  "modeWinners": "Победитель",
+  "modeLosers": "Проигравший",
+  "modeTeams": "Команды",
+  "modeOrder": "Порядок",
+  "howManyLosers": "Сколько проигравших?",
+  "loserBanner": "{count, plural, =1{Проигравший!} other{Проигравшие!}}",
+  "teamsBanner": "Команды готовы!",
+  "orderBanner": "Порядок определён!",
+  "gameInfoLosers": "{players, plural, few{{players} игрока} other{{players} игроков}} · {losers, plural, =1{1 проигравший} other{{losers} проигравших}}",
+  "gameInfoTeams": "{players, plural, few{{players} игрока} other{{players} игроков}} · {teams, plural, few{{teams} команды} other{{teams} команд}}",
+  "gameInfoOrder": "{players, plural, few{{players} игрока} other{{players} игроков}} · очерёдность",
+  "modePick": "Выбор"
 }

@@ -9,5 +9,17 @@
   "winnerBanner": "{count, plural, =1{Pemenang!} other{Pemenang!}}",
   "gameInfo": "{players} pemain · {winners, plural, =1{1 pemenang} other{{winners} pemenang}}",
   "playAgain": "Main Semula",
-  "changeSettings": "Tukar Tetapan"
+  "changeSettings": "Tukar Tetapan",
+  "modeWinners": "Pemenang",
+  "modeLosers": "Yang Kalah",
+  "modeTeams": "Pasukan",
+  "modeOrder": "Giliran",
+  "howManyLosers": "Berapa yang kalah?",
+  "loserBanner": "{count, plural, =1{Kalah!} other{Kalah!}}",
+  "teamsBanner": "Pasukan sudah dibahagi!",
+  "orderBanner": "Ini gilirannya!",
+  "gameInfoLosers": "{players} pemain · {losers, plural, =1{1 kalah} other{{losers} kalah}}",
+  "gameInfoTeams": "{players} pemain · {teams} pasukan",
+  "gameInfoOrder": "{players} pemain · giliran",
+  "modePick": "Pilih"
 }

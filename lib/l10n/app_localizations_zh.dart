@@ -63,4 +63,60 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get changeSettings => '更改设置';
+
+  @override
+  String get modeWinners => '赢家';
+
+  @override
+  String get modeLosers => '输家';
+
+  @override
+  String get modeTeams => '分队';
+
+  @override
+  String get modeOrder => '顺序';
+
+  @override
+  String get howManyLosers => '几位输家？';
+
+  @override
+  String loserBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '输家！',
+      one: '输家！',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get teamsBanner => '分队完成！';
+
+  @override
+  String get orderBanner => '顺序已定！';
+
+  @override
+  String gameInfoLosers(int players, int losers) {
+    String _temp0 = intl.Intl.pluralLogic(
+      losers,
+      locale: localeName,
+      other: '$losers 位输家',
+      one: '1 位输家',
+    );
+    return '$players 位玩家 · $_temp0';
+  }
+
+  @override
+  String gameInfoTeams(int players, int teams) {
+    return '$players 位玩家 · $teams 队';
+  }
+
+  @override
+  String gameInfoOrder(int players) {
+    return '$players 位玩家 · 排顺序';
+  }
+
+  @override
+  String get modePick => '选人';
 }

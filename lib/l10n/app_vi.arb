@@ -9,5 +9,17 @@
   "winnerBanner": "{count, plural, =1{Người thắng!} other{Người thắng!}}",
   "gameInfo": "{players} người chơi · {winners, plural, =1{1 người thắng} other{{winners} người thắng}}",
   "playAgain": "Chơi lại",
-  "changeSettings": "Đổi cài đặt"
+  "changeSettings": "Đổi cài đặt",
+  "modeWinners": "Người thắng",
+  "modeLosers": "Người thua",
+  "modeTeams": "Chia đội",
+  "modeOrder": "Thứ tự",
+  "howManyLosers": "Bao nhiêu người thua?",
+  "loserBanner": "{count, plural, =1{Người thua!} other{Người thua!}}",
+  "teamsBanner": "Đã chia đội!",
+  "orderBanner": "Đã có thứ tự!",
+  "gameInfoLosers": "{players} người chơi · {losers, plural, =1{1 người thua} other{{losers} người thua}}",
+  "gameInfoTeams": "{players} người chơi · {teams} đội",
+  "gameInfoOrder": "{players} người chơi · thứ tự lượt chơi",
+  "modePick": "Chọn"
 }

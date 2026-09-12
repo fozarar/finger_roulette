@@ -9,5 +9,17 @@
   "winnerBanner": "{count, plural, =1{الفائز!} other{الفائزون!}}",
   "gameInfo": "{players} لاعبين · {winners, plural, =1{فائز واحد} =2{فائزان} few{{winners} فائزين} other{{winners} فائزًا}}",
   "playAgain": "العب مرة أخرى",
-  "changeSettings": "تغيير الإعدادات"
+  "changeSettings": "تغيير الإعدادات",
+  "modeWinners": "الفائز",
+  "modeLosers": "الخاسر",
+  "modeTeams": "الفرق",
+  "modeOrder": "الترتيب",
+  "howManyLosers": "كم عدد الخاسرين؟",
+  "loserBanner": "{count, plural, =1{الخاسر!} other{الخاسرون!}}",
+  "teamsBanner": "الفرق جاهزة!",
+  "orderBanner": "هذا هو الترتيب!",
+  "gameInfoLosers": "{players} لاعبين · {losers, plural, =1{خاسر واحد} =2{خاسران} few{{losers} خاسرين} other{{losers} خاسرًا}}",
+  "gameInfoTeams": "{players} لاعبين · {teams, plural, =2{فريقان} few{{teams} فرق} other{{teams} فريقًا}}",
+  "gameInfoOrder": "{players} لاعبين · ترتيب الأدوار",
+  "modePick": "اختيار"
 }

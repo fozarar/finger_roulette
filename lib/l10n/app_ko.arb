@@ -9,5 +9,17 @@
   "winnerBanner": "{count, plural, =1{당첨!} other{당첨!}}",
   "gameInfo": "{players}명 · {winners, plural, =1{당첨 1명} other{당첨 {winners}명}}",
   "playAgain": "다시 하기",
-  "changeSettings": "설정 변경"
+  "changeSettings": "설정 변경",
+  "modeWinners": "당첨",
+  "modeLosers": "꽝",
+  "modeTeams": "팀 나누기",
+  "modeOrder": "순서",
+  "howManyLosers": "꽝은 몇 명?",
+  "loserBanner": "{count, plural, =1{꽝!} other{꽝!}}",
+  "teamsBanner": "팀 완성!",
+  "orderBanner": "순서 결정!",
+  "gameInfoLosers": "{players}명 · {losers, plural, =1{꽝 1명} other{꽝 {losers}명}}",
+  "gameInfoTeams": "{players}명 · {teams}팀",
+  "gameInfoOrder": "{players}명 · 순서 정하기",
+  "modePick": "뽑기"
 }

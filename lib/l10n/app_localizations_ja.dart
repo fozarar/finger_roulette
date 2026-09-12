@@ -63,4 +63,60 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get changeSettings => '設定を変更';
+
+  @override
+  String get modeWinners => '当たり';
+
+  @override
+  String get modeLosers => 'ハズレ';
+
+  @override
+  String get modeTeams => 'チーム分け';
+
+  @override
+  String get modeOrder => '順番';
+
+  @override
+  String get howManyLosers => 'ハズレは何人？';
+
+  @override
+  String loserBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ハズレ！',
+      one: 'ハズレ！',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get teamsBanner => 'チーム決定！';
+
+  @override
+  String get orderBanner => '順番決定！';
+
+  @override
+  String gameInfoLosers(int players, int losers) {
+    String _temp0 = intl.Intl.pluralLogic(
+      losers,
+      locale: localeName,
+      other: 'ハズレ$losers人',
+      one: 'ハズレ1人',
+    );
+    return '$players人 · $_temp0';
+  }
+
+  @override
+  String gameInfoTeams(int players, int teams) {
+    return '$players人 · $teamsチーム';
+  }
+
+  @override
+  String gameInfoOrder(int players) {
+    return '$players人 · 順番決め';
+  }
+
+  @override
+  String get modePick => '選ぶ';
 }

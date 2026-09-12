@@ -63,4 +63,60 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get changeSettings => 'Đổi cài đặt';
+
+  @override
+  String get modeWinners => 'Người thắng';
+
+  @override
+  String get modeLosers => 'Người thua';
+
+  @override
+  String get modeTeams => 'Chia đội';
+
+  @override
+  String get modeOrder => 'Thứ tự';
+
+  @override
+  String get howManyLosers => 'Bao nhiêu người thua?';
+
+  @override
+  String loserBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Người thua!',
+      one: 'Người thua!',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get teamsBanner => 'Đã chia đội!';
+
+  @override
+  String get orderBanner => 'Đã có thứ tự!';
+
+  @override
+  String gameInfoLosers(int players, int losers) {
+    String _temp0 = intl.Intl.pluralLogic(
+      losers,
+      locale: localeName,
+      other: '$losers người thua',
+      one: '1 người thua',
+    );
+    return '$players người chơi · $_temp0';
+  }
+
+  @override
+  String gameInfoTeams(int players, int teams) {
+    return '$players người chơi · $teams đội';
+  }
+
+  @override
+  String gameInfoOrder(int players) {
+    return '$players người chơi · thứ tự lượt chơi';
+  }
+
+  @override
+  String get modePick => 'Chọn';
 }

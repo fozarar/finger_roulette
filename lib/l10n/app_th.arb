@@ -9,5 +9,17 @@
   "winnerBanner": "{count, plural, =1{ผู้ชนะ!} other{ผู้ชนะ!}}",
   "gameInfo": "{players} ผู้เล่น · {winners, plural, =1{ผู้ชนะ 1 คน} other{ผู้ชนะ {winners} คน}}",
   "playAgain": "เล่นอีกครั้ง",
-  "changeSettings": "เปลี่ยนการตั้งค่า"
+  "changeSettings": "เปลี่ยนการตั้งค่า",
+  "modeWinners": "ผู้ชนะ",
+  "modeLosers": "ผู้แพ้",
+  "modeTeams": "แบ่งทีม",
+  "modeOrder": "ลำดับ",
+  "howManyLosers": "ผู้แพ้กี่คน?",
+  "loserBanner": "{count, plural, =1{ผู้แพ้!} other{ผู้แพ้!}}",
+  "teamsBanner": "แบ่งทีมเรียบร้อย!",
+  "orderBanner": "ได้ลำดับแล้ว!",
+  "gameInfoLosers": "{players} ผู้เล่น · {losers, plural, =1{ผู้แพ้ 1 คน} other{ผู้แพ้ {losers} คน}}",
+  "gameInfoTeams": "{players} ผู้เล่น · {teams} ทีม",
+  "gameInfoOrder": "{players} ผู้เล่น · ลำดับการเล่น",
+  "modePick": "เลือก"
 }

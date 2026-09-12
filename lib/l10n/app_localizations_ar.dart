@@ -67,4 +67,69 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get changeSettings => 'تغيير الإعدادات';
+
+  @override
+  String get modeWinners => 'الفائز';
+
+  @override
+  String get modeLosers => 'الخاسر';
+
+  @override
+  String get modeTeams => 'الفرق';
+
+  @override
+  String get modeOrder => 'الترتيب';
+
+  @override
+  String get howManyLosers => 'كم عدد الخاسرين؟';
+
+  @override
+  String loserBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'الخاسرون!',
+      one: 'الخاسر!',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get teamsBanner => 'الفرق جاهزة!';
+
+  @override
+  String get orderBanner => 'هذا هو الترتيب!';
+
+  @override
+  String gameInfoLosers(int players, int losers) {
+    String _temp0 = intl.Intl.pluralLogic(
+      losers,
+      locale: localeName,
+      other: '$losers خاسرًا',
+      few: '$losers خاسرين',
+      two: 'خاسران',
+      one: 'خاسر واحد',
+    );
+    return '$players لاعبين · $_temp0';
+  }
+
+  @override
+  String gameInfoTeams(int players, int teams) {
+    String _temp0 = intl.Intl.pluralLogic(
+      teams,
+      locale: localeName,
+      other: '$teams فريقًا',
+      few: '$teams فرق',
+      two: 'فريقان',
+    );
+    return '$players لاعبين · $_temp0';
+  }
+
+  @override
+  String gameInfoOrder(int players) {
+    return '$players لاعبين · ترتيب الأدوار';
+  }
+
+  @override
+  String get modePick => 'اختيار';
 }

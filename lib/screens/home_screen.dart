@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../controllers/game_controller.dart';
 import '../models/game_phase.dart';
+import '../models/spin_beam.dart';
 import '../services/review_service.dart';
 import '../services/stats_service.dart';
 import 'game_screen.dart';
@@ -31,20 +32,34 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   // ── Animasyonlar ──────────────────────────────────────────────────────────
 
-  /// Kazanan dairenin scale animasyonu: 1.0 → 1.4, elastic overshoot
+  /// Öne çıkan dairelerin scale animasyonu: 1.0 → 1.4, elastic overshoot
   late AnimationController _winnerScaleController;
   late Animation<double> _winnerScaleAnimation;
 
-  /// Kazanan dairenin nabız gibi parlayan glow animasyonu: 0.35 → 1.0
+  /// Öne çıkan dairelerin nabız gibi parlayan glow animasyonu: 0.35 → 1.0
   late AnimationController _winnerGlowController;
   late Animation<double> _winnerGlowAnimation;
 
-  /// Kazanan açıklandığında ekranı kısaca beyaza yakın flash yapan animasyon
+  /// Sonuç açıklandığında ekranı kısaca beyaza yakın flash yapan animasyon
   late AnimationController _flashController;
   late Animation<double> _flashAnimation;
 
-  /// Bir önceki frame'deki kazanan listesi — animasyon tetikleme için
-  bool _hadWinners = false;
+  /// Rulet ışınının dönüşü. Süresi [GameController.spinDuration] ile aynı
+  /// olmak zorunda: ışın tam sonuç açıklanırken hedefin üstünde durmalı.
+  late AnimationController _beamController;
+
+  /// Kare başına bir kez hesaplanan ışın geometrisi. Hem çizim hem de tik
+  /// sesi bunu okur; iki yerde ayrı hesaplansaydı ses ile görüntü ayrışırdı.
+  final ValueNotifier<SpinBeam?> _beam = ValueNotifier(null);
+
+  /// Işının en son hangi parmağı gösterdiği; değiştiği karede tik çalar
+  int _lastBeamIndex = -1;
+
+  /// Bir önceki bildirimde sonuç açıklanmış mıydı — animasyon tetikleme için
+  bool _wasRevealed = false;
+
+  /// Bir önceki bildirimde ışın dönüyor muydu
+  bool _wasSpinning = false;
 
   // ── Lifecycle ──────────────────────────────────────────────────────────────
 
@@ -80,6 +95,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       TweenSequenceItem(tween: Tween(begin: 0.3, end: 0.0), weight: 70),
     ]).animate(_flashController);
 
+    _beamController = AnimationController(
+      vsync: this,
+      duration: GameController.spinDuration,
+    )..addListener(_updateBeam);
+
     _controller = GameController(stats: widget.stats, review: widget.review);
     // Controller değiştiğinde animasyon durumunu güncelle
     _controller.addListener(_onControllerChanged);
@@ -93,23 +113,37 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     _winnerScaleController.dispose();
     _winnerGlowController.dispose();
     _flashController.dispose();
+    _beamController
+      ..removeListener(_updateBeam)
+      ..dispose();
+    _beam.dispose();
     super.dispose();
   }
 
   // ── Animasyon tetikleyici ──────────────────────────────────────────────────
 
   /// Controller her bildirim gönderdiğinde çağrılır.
-  /// Kazanan listesi boştan dolmaya geçince animasyonları başlatır;
-  /// tersine geçince durdurur.
+  /// Sonuç açıklanınca animasyonları başlatır; oyun sıfırlanınca durdurur.
   void _onControllerChanged() {
-    final hasWinners = _controller.winnerPointerIds.isNotEmpty;
+    final isRevealed = _controller.phase == GamePhase.revealed;
+    final isSpinning = _controller.phase == GamePhase.locked;
 
-    if (!_hadWinners && hasWinners) {
-      // Kazanan(lar) yeni seçildi — animasyonları başlat
+    if (!_wasSpinning && isSpinning) {
+      // Parmaklar kilitlendi — ışın dönmeye başlasın
+      _lastBeamIndex = -1;
+      _beamController.forward(from: 0);
+    } else if (_wasSpinning && !isSpinning) {
+      _beamController.stop();
+      _beam.value = null;
+    }
+    _wasSpinning = isSpinning;
+
+    if (!_wasRevealed && isRevealed) {
+      // Sonuç yeni açıklandı — animasyonları başlat
       _winnerScaleController.forward();
       _winnerGlowController.repeat(reverse: true);
       _flashController.forward(from: 0);
-    } else if (_hadWinners && !hasWinners) {
+    } else if (_wasRevealed && !isRevealed) {
       // Oyun sıfırlandı — animasyonları durdur
       _winnerScaleController.reset();
       _winnerGlowController
@@ -118,7 +152,34 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       _flashController.reset();
     }
 
-    _hadWinners = hasWinners;
+    _wasRevealed = isRevealed;
+  }
+
+  // ── Işın geometrisi ────────────────────────────────────────────────────────
+
+  /// Işın animasyonunun her karesinde çağrılır: geometriyi yeniden hesaplar
+  /// ve ışın yeni bir parmağın üstüne geçtiyse tik sesini tetikler.
+  ///
+  /// Tik'i zamanlayıcıyla üretmek yerine gerçek geçişi kullanmak sesi
+  /// görüntüye bağlar: ışın yavaşladıkça tik'ler kendiliğinden seyrekleşir.
+  void _updateBeam() {
+    if (_controller.phase != GamePhase.locked) {
+      _beam.value = null;
+      return;
+    }
+
+    final beam = SpinBeam.of(
+      lockedPointerIds: _controller.lockedPointerIds,
+      positions: _controller.activePointers,
+      targetPointerId: _controller.spinTargetPointerId,
+      t: _beamController.value,
+    );
+
+    if (beam != null && beam.highlightIndex != _lastBeamIndex) {
+      _lastBeamIndex = beam.highlightIndex;
+      _controller.playSpinTick();
+    }
+    _beam.value = beam;
   }
 
   // ── Build ──────────────────────────────────────────────────────────────────
@@ -134,6 +195,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         }
         return GameScreen(
           controller: _controller,
+          beam: _beam,
           winnerScaleAnimation: _winnerScaleAnimation,
           winnerGlowAnimation: _winnerGlowAnimation,
           flashAnimation: _flashAnimation,

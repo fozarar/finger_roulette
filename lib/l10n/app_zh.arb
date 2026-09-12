@@ -9,5 +9,17 @@
   "winnerBanner": "{count, plural, =1{赢家！} other{赢家！}}",
   "gameInfo": "{players} 位玩家 · {winners, plural, =1{1 位赢家} other{{winners} 位赢家}}",
   "playAgain": "再玩一次",
-  "changeSettings": "更改设置"
+  "changeSettings": "更改设置",
+  "modeWinners": "赢家",
+  "modeLosers": "输家",
+  "modeTeams": "分队",
+  "modeOrder": "顺序",
+  "howManyLosers": "几位输家？",
+  "loserBanner": "{count, plural, =1{输家！} other{输家！}}",
+  "teamsBanner": "分队完成！",
+  "orderBanner": "顺序已定！",
+  "gameInfoLosers": "{players} 位玩家 · {losers, plural, =1{1 位输家} other{{losers} 位输家}}",
+  "gameInfoTeams": "{players} 位玩家 · {teams} 队",
+  "gameInfoOrder": "{players} 位玩家 · 排顺序",
+  "modePick": "选人"
 }

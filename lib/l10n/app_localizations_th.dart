@@ -63,4 +63,60 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get changeSettings => 'เปลี่ยนการตั้งค่า';
+
+  @override
+  String get modeWinners => 'ผู้ชนะ';
+
+  @override
+  String get modeLosers => 'ผู้แพ้';
+
+  @override
+  String get modeTeams => 'แบ่งทีม';
+
+  @override
+  String get modeOrder => 'ลำดับ';
+
+  @override
+  String get howManyLosers => 'ผู้แพ้กี่คน?';
+
+  @override
+  String loserBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ผู้แพ้!',
+      one: 'ผู้แพ้!',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get teamsBanner => 'แบ่งทีมเรียบร้อย!';
+
+  @override
+  String get orderBanner => 'ได้ลำดับแล้ว!';
+
+  @override
+  String gameInfoLosers(int players, int losers) {
+    String _temp0 = intl.Intl.pluralLogic(
+      losers,
+      locale: localeName,
+      other: 'ผู้แพ้ $losers คน',
+      one: 'ผู้แพ้ 1 คน',
+    );
+    return '$players ผู้เล่น · $_temp0';
+  }
+
+  @override
+  String gameInfoTeams(int players, int teams) {
+    return '$players ผู้เล่น · $teams ทีม';
+  }
+
+  @override
+  String gameInfoOrder(int players) {
+    return '$players ผู้เล่น · ลำดับการเล่น';
+  }
+
+  @override
+  String get modePick => 'เลือก';
 }

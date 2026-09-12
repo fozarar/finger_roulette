@@ -63,4 +63,60 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get changeSettings => 'सेटिंग्स बदलें';
+
+  @override
+  String get modeWinners => 'विजेता';
+
+  @override
+  String get modeLosers => 'हारने वाला';
+
+  @override
+  String get modeTeams => 'टीम';
+
+  @override
+  String get modeOrder => 'क्रम';
+
+  @override
+  String get howManyLosers => 'कितने हारने वाले?';
+
+  @override
+  String loserBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'हारने वाले!',
+      one: 'हारने वाला!',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get teamsBanner => 'टीमें तैयार!';
+
+  @override
+  String get orderBanner => 'क्रम तय हो गया!';
+
+  @override
+  String gameInfoLosers(int players, int losers) {
+    String _temp0 = intl.Intl.pluralLogic(
+      losers,
+      locale: localeName,
+      other: '$losers हारने वाले',
+      one: '1 हारने वाला',
+    );
+    return '$players खिलाड़ी · $_temp0';
+  }
+
+  @override
+  String gameInfoTeams(int players, int teams) {
+    return '$players खिलाड़ी · $teams टीमें';
+  }
+
+  @override
+  String gameInfoOrder(int players) {
+    return '$players खिलाड़ी · बारी का क्रम';
+  }
+
+  @override
+  String get modePick => 'चुनें';
 }

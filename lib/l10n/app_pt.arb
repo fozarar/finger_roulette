@@ -9,5 +9,17 @@
   "winnerBanner": "{count, plural, =1{Vencedor!} other{Vencedores!}}",
   "gameInfo": "{players} jogadores · {winners, plural, =1{1 vencedor} other{{winners} vencedores}}",
   "playAgain": "Jogar de novo",
-  "changeSettings": "Mudar configurações"
+  "changeSettings": "Mudar configurações",
+  "modeWinners": "Vencedor",
+  "modeLosers": "Perdedor",
+  "modeTeams": "Times",
+  "modeOrder": "Ordem",
+  "howManyLosers": "Quantos perdedores?",
+  "loserBanner": "{count, plural, =1{Perdedor!} other{Perdedores!}}",
+  "teamsBanner": "Times formados!",
+  "orderBanner": "Esta é a ordem!",
+  "gameInfoLosers": "{players} jogadores · {losers, plural, =1{1 perdedor} other{{losers} perdedores}}",
+  "gameInfoTeams": "{players} jogadores · {teams} times",
+  "gameInfoOrder": "{players} jogadores · ordem de jogada",
+  "modePick": "Escolher"
 }

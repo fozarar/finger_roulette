@@ -9,5 +9,17 @@
   "winnerBanner": "{count, plural, =1{विजेता!} other{विजेता!}}",
   "gameInfo": "{players} खिलाड़ी · {winners, plural, =1{1 विजेता} other{{winners} विजेता}}",
   "playAgain": "फिर से खेलें",
-  "changeSettings": "सेटिंग्स बदलें"
+  "changeSettings": "सेटिंग्स बदलें",
+  "modeWinners": "विजेता",
+  "modeLosers": "हारने वाला",
+  "modeTeams": "टीम",
+  "modeOrder": "क्रम",
+  "howManyLosers": "कितने हारने वाले?",
+  "loserBanner": "{count, plural, =1{हारने वाला!} other{हारने वाले!}}",
+  "teamsBanner": "टीमें तैयार!",
+  "orderBanner": "क्रम तय हो गया!",
+  "gameInfoLosers": "{players} खिलाड़ी · {losers, plural, =1{1 हारने वाला} other{{losers} हारने वाले}}",
+  "gameInfoTeams": "{players} खिलाड़ी · {teams} टीमें",
+  "gameInfoOrder": "{players} खिलाड़ी · बारी का क्रम",
+  "modePick": "चुनें"
 }

@@ -62,5 +62,79 @@
   "changeSettings": "Change Settings",
   "@changeSettings": {
     "description": "Button: go back to the selection screen"
+  },
+  "modeWinners": "Winner",
+  "@modeWinners": {
+    "description": "Selection screen: the picked fingers win. Half of a two-part toggle, keep it short"
+  },
+  "modeLosers": "Loser",
+  "@modeLosers": {
+    "description": "Selection screen: the picked fingers lose (who pays the bill, who does the dishes). Half of a two-part toggle, keep it short"
+  },
+  "modeTeams": "Teams",
+  "@modeTeams": {
+    "description": "Selection screen: mode tile. All fingers are split into teams. One or two words"
+  },
+  "modeOrder": "Order",
+  "@modeOrder": {
+    "description": "Selection screen: mode tile. Every finger gets a turn number (who goes first). One or two words"
+  },
+  "howManyLosers": "How many losers?",
+  "@howManyLosers": {
+    "description": "Selection screen: loser count prompt"
+  },
+  "loserBanner": "{count, plural, =1{Loser!} other{Losers!}}",
+  "@loserBanner": {
+    "description": "Shown when losers are revealed",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "teamsBanner": "Teams are set!",
+  "@teamsBanner": {
+    "description": "Shown when teams are revealed; each circle shows its team letter"
+  },
+  "orderBanner": "Here’s the order!",
+  "@orderBanner": {
+    "description": "Shown when the turn order is revealed; each circle shows its number"
+  },
+  "gameInfoLosers": "{players} players · {losers, plural, =1{1 loser} other{{losers} losers}}",
+  "@gameInfoLosers": {
+    "description": "Small label at the top of the game screen in loser mode",
+    "placeholders": {
+      "players": {
+        "type": "int"
+      },
+      "losers": {
+        "type": "int"
+      }
+    }
+  },
+  "gameInfoTeams": "{players} players · {teams} teams",
+  "@gameInfoTeams": {
+    "description": "Small label at the top of the game screen in team mode",
+    "placeholders": {
+      "players": {
+        "type": "int"
+      },
+      "teams": {
+        "type": "int"
+      }
+    }
+  },
+  "gameInfoOrder": "{players} players · turn order",
+  "@gameInfoOrder": {
+    "description": "Small label at the top of the game screen in turn order mode",
+    "placeholders": {
+      "players": {
+        "type": "int"
+      }
+    }
+  },
+  "modePick": "Pick",
+  "@modePick": {
+    "description": "Selection screen: mode tile. Some of the fingers get picked. One or two words, the tile is narrow"
   }
 }

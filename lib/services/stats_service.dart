@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/game_mode.dart';
+
 /// Kalıcı kullanım sayaçlarını tutar.
 ///
 /// İki işi var:
@@ -46,16 +48,21 @@ class StatsService {
   /// Uygulamanın kaç kez açıldığı
   int get launchCount => _prefs?.getInt(_kLaunchCount) ?? 0;
 
-  /// Bir oyun kazananı açıklanınca çağrılır; sayacı artırıp yeni değeri döner
+  /// Bir oyunun sonucu açıklanınca çağrılır; sayacı artırıp yeni değeri döner.
+  /// [outcome] ve [pickCount] yalnızca seç modunda anlamlı.
   Future<int> recordGameCompleted({
+    required GameMode mode,
     required int playerCount,
-    required int winnerCount,
+    PickOutcome? outcome,
+    int? pickCount,
   }) async {
     final next = gamesPlayed + 1;
     await _prefs?.setInt(_kGamesPlayed, next);
     logEvent('game_completed', {
+      'mode': mode.name,
+      'outcome': ?outcome?.name,
       'players': playerCount,
-      'winners': winnerCount,
+      'picks': ?pickCount,
       'total_games': next,
     });
     return next;

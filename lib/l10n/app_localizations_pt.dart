@@ -63,4 +63,60 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get changeSettings => 'Mudar configurações';
+
+  @override
+  String get modeWinners => 'Vencedor';
+
+  @override
+  String get modeLosers => 'Perdedor';
+
+  @override
+  String get modeTeams => 'Times';
+
+  @override
+  String get modeOrder => 'Ordem';
+
+  @override
+  String get howManyLosers => 'Quantos perdedores?';
+
+  @override
+  String loserBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Perdedores!',
+      one: 'Perdedor!',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get teamsBanner => 'Times formados!';
+
+  @override
+  String get orderBanner => 'Esta é a ordem!';
+
+  @override
+  String gameInfoLosers(int players, int losers) {
+    String _temp0 = intl.Intl.pluralLogic(
+      losers,
+      locale: localeName,
+      other: '$losers perdedores',
+      one: '1 perdedor',
+    );
+    return '$players jogadores · $_temp0';
+  }
+
+  @override
+  String gameInfoTeams(int players, int teams) {
+    return '$players jogadores · $teams times';
+  }
+
+  @override
+  String gameInfoOrder(int players) {
+    return '$players jogadores · ordem de jogada';
+  }
+
+  @override
+  String get modePick => 'Escolher';
 }

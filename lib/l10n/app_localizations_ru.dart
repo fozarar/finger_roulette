@@ -51,13 +51,19 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String gameInfo(int players, int winners) {
     String _temp0 = intl.Intl.pluralLogic(
+      players,
+      locale: localeName,
+      other: '$players игроков',
+      few: '$players игрока',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
       winners,
       locale: localeName,
       other: '$winners победителей',
       few: '$winners победителя',
       one: '1 победитель',
     );
-    return '$players игроков · $_temp0';
+    return '$_temp0 · $_temp1';
   }
 
   @override
@@ -65,4 +71,84 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get changeSettings => 'Изменить настройки';
+
+  @override
+  String get modeWinners => 'Победитель';
+
+  @override
+  String get modeLosers => 'Проигравший';
+
+  @override
+  String get modeTeams => 'Команды';
+
+  @override
+  String get modeOrder => 'Порядок';
+
+  @override
+  String get howManyLosers => 'Сколько проигравших?';
+
+  @override
+  String loserBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Проигравшие!',
+      one: 'Проигравший!',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get teamsBanner => 'Команды готовы!';
+
+  @override
+  String get orderBanner => 'Порядок определён!';
+
+  @override
+  String gameInfoLosers(int players, int losers) {
+    String _temp0 = intl.Intl.pluralLogic(
+      players,
+      locale: localeName,
+      other: '$players игроков',
+      few: '$players игрока',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
+      losers,
+      locale: localeName,
+      other: '$losers проигравших',
+      one: '1 проигравший',
+    );
+    return '$_temp0 · $_temp1';
+  }
+
+  @override
+  String gameInfoTeams(int players, int teams) {
+    String _temp0 = intl.Intl.pluralLogic(
+      players,
+      locale: localeName,
+      other: '$players игроков',
+      few: '$players игрока',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
+      teams,
+      locale: localeName,
+      other: '$teams команд',
+      few: '$teams команды',
+    );
+    return '$_temp0 · $_temp1';
+  }
+
+  @override
+  String gameInfoOrder(int players) {
+    String _temp0 = intl.Intl.pluralLogic(
+      players,
+      locale: localeName,
+      other: '$players игроков',
+      few: '$players игрока',
+    );
+    return '$_temp0 · очерёдность';
+  }
+
+  @override
+  String get modePick => 'Выбор';
 }

@@ -63,4 +63,60 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get changeSettings => '설정 변경';
+
+  @override
+  String get modeWinners => '당첨';
+
+  @override
+  String get modeLosers => '꽝';
+
+  @override
+  String get modeTeams => '팀 나누기';
+
+  @override
+  String get modeOrder => '순서';
+
+  @override
+  String get howManyLosers => '꽝은 몇 명?';
+
+  @override
+  String loserBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '꽝!',
+      one: '꽝!',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get teamsBanner => '팀 완성!';
+
+  @override
+  String get orderBanner => '순서 결정!';
+
+  @override
+  String gameInfoLosers(int players, int losers) {
+    String _temp0 = intl.Intl.pluralLogic(
+      losers,
+      locale: localeName,
+      other: '꽝 $losers명',
+      one: '꽝 1명',
+    );
+    return '$players명 · $_temp0';
+  }
+
+  @override
+  String gameInfoTeams(int players, int teams) {
+    return '$players명 · $teams팀';
+  }
+
+  @override
+  String gameInfoOrder(int players) {
+    return '$players명 · 순서 정하기';
+  }
+
+  @override
+  String get modePick => '뽑기';
 }

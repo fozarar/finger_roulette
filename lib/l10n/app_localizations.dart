@@ -185,6 +185,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Change Settings'**
   String get changeSettings;
+
+  /// Selection screen: the picked fingers win. Half of a two-part toggle, keep it short
+  ///
+  /// In en, this message translates to:
+  /// **'Winner'**
+  String get modeWinners;
+
+  /// Selection screen: the picked fingers lose (who pays the bill, who does the dishes). Half of a two-part toggle, keep it short
+  ///
+  /// In en, this message translates to:
+  /// **'Loser'**
+  String get modeLosers;
+
+  /// Selection screen: mode tile. All fingers are split into teams. One or two words
+  ///
+  /// In en, this message translates to:
+  /// **'Teams'**
+  String get modeTeams;
+
+  /// Selection screen: mode tile. Every finger gets a turn number (who goes first). One or two words
+  ///
+  /// In en, this message translates to:
+  /// **'Order'**
+  String get modeOrder;
+
+  /// Selection screen: loser count prompt
+  ///
+  /// In en, this message translates to:
+  /// **'How many losers?'**
+  String get howManyLosers;
+
+  /// Shown when losers are revealed
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Loser!} other{Losers!}}'**
+  String loserBanner(int count);
+
+  /// Shown when teams are revealed; each circle shows its team letter
+  ///
+  /// In en, this message translates to:
+  /// **'Teams are set!'**
+  String get teamsBanner;
+
+  /// Shown when the turn order is revealed; each circle shows its number
+  ///
+  /// In en, this message translates to:
+  /// **'Here’s the order!'**
+  String get orderBanner;
+
+  /// Small label at the top of the game screen in loser mode
+  ///
+  /// In en, this message translates to:
+  /// **'{players} players · {losers, plural, =1{1 loser} other{{losers} losers}}'**
+  String gameInfoLosers(int players, int losers);
+
+  /// Small label at the top of the game screen in team mode
+  ///
+  /// In en, this message translates to:
+  /// **'{players} players · {teams} teams'**
+  String gameInfoTeams(int players, int teams);
+
+  /// Small label at the top of the game screen in turn order mode
+  ///
+  /// In en, this message translates to:
+  /// **'{players} players · turn order'**
+  String gameInfoOrder(int players);
+
+  /// Selection screen: mode tile. Some of the fingers get picked. One or two words, the tile is narrow
+  ///
+  /// In en, this message translates to:
+  /// **'Pick'**
+  String get modePick;
 }
 
 class _AppLocalizationsDelegate

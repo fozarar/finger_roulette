@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:fake_async/fake_async.dart';
 import 'package:finger_roulette/controllers/game_controller.dart';
+import 'package:finger_roulette/models/game_mode.dart';
 import 'package:finger_roulette/models/game_phase.dart';
 import 'package:finger_roulette/services/review_service.dart';
 import 'package:finger_roulette/services/sound_service.dart';
@@ -22,17 +23,23 @@ class _SilentSound extends SoundService {
 /// SharedPreferences'e gitmeyen sayaç servisi
 class _FakeStats extends StatsService {
   int completed = 0;
+  GameMode? lastMode;
+  PickOutcome? lastOutcome;
   int? lastPlayers;
-  int? lastWinners;
+  int? lastPicks;
 
   @override
   Future<int> recordGameCompleted({
+    required GameMode mode,
     required int playerCount,
-    required int winnerCount,
+    PickOutcome? outcome,
+    int? pickCount,
   }) async {
     completed++;
+    lastMode = mode;
+    lastOutcome = outcome;
     lastPlayers = playerCount;
-    lastWinners = winnerCount;
+    lastPicks = pickCount;
     return completed;
   }
 
@@ -62,13 +69,21 @@ void main() {
   void up(GameController c, int id) =>
       c.handlePointerUp(PointerUpEvent(pointer: id));
 
+  /// [fingers] parmağı koyar ve sonuç açıklanana kadar zamanı ilerletir
+  void playRound(FakeAsync async, GameController c, int fingers) {
+    for (var i = 1; i <= fingers; i++) {
+      down(c, i, at: Offset(70.0 * i, 300));
+    }
+    async.elapse(const Duration(milliseconds: 2800));
+  }
+
   group('seçim', () {
     test('2 oyuncuda kazanan seçimi atlanır ve oyun başlar', () {
       final c = build();
       c.selectPlayerCount(2);
       expect(c.phase, GamePhase.waiting);
       expect(c.selectedPlayerCount, 2);
-      expect(c.selectedWinnerCount, 1);
+      expect(c.selectedPickCount, 1);
       c.dispose();
     });
 
@@ -76,18 +91,71 @@ void main() {
       final c = build();
       c.selectPlayerCount(4);
       expect(c.phase, GamePhase.setup);
-      c.selectWinnerCount(2);
+      c.selectPickCount(2);
       expect(c.phase, GamePhase.waiting);
-      expect(c.selectedWinnerCount, 2);
+      expect(c.selectedPickCount, 2);
       c.dispose();
     });
 
     test('oyuncu sayısı düşünce geçersiz kazanan seçimi temizlenir', () {
       final c = build();
       c.selectPlayerCount(5);
-      c.selectWinnerCount(4);
+      c.selectPickCount(4);
       c.selectPlayerCount(3); // 4 kazanan artık geçersiz
-      expect(c.selectedWinnerCount, isNull);
+      expect(c.selectedPickCount, isNull);
+      c.dispose();
+    });
+
+    test('kaybeden seçilse de kaç kişi sorusu aynı şekilde sorulur', () {
+      final c = build();
+      c.selectOutcome(PickOutcome.losers);
+      c.selectPlayerCount(4);
+      expect(c.phase, GamePhase.setup);
+      c.selectPickCount(1);
+      expect(c.phase, GamePhase.waiting);
+      c.dispose();
+    });
+
+    test('kazanan/kaybeden değişimi bekleyen oyuncu seçimini korur', () {
+      final c = build();
+      c.selectPlayerCount(4);
+      c.selectOutcome(PickOutcome.losers);
+      expect(c.outcome, PickOutcome.losers);
+      expect(c.pendingPlayerCount, 4, reason: 'çekiliş değişmedi');
+      expect(c.phase, GamePhase.setup);
+      c.dispose();
+    });
+
+    test('takım ve sıra modları oyuncu sayısından sonra hemen başlar', () {
+      for (final mode in [GameMode.teams, GameMode.order]) {
+        final c = build();
+        c.selectMode(mode);
+        c.selectPlayerCount(4);
+        expect(c.phase, GamePhase.waiting, reason: mode.name);
+        expect(c.selectedPlayerCount, 4, reason: mode.name);
+        expect(c.selectedPickCount, isNull, reason: mode.name);
+        c.dispose();
+      }
+    });
+
+    test('mod değişince yarım kalan seçim sıfırlanır', () {
+      final c = build();
+      c.selectPlayerCount(4);
+      expect(c.pendingPlayerCount, 4);
+      c.selectMode(GameMode.teams);
+      expect(c.pendingPlayerCount, isNull);
+      expect(c.phase, GamePhase.setup);
+      c.dispose();
+    });
+
+    test('ayarları değiştirmek modu ve kazanan/kaybeden seçimini korur', () {
+      final c = build();
+      c.selectOutcome(PickOutcome.losers);
+      c.selectPlayerCount(3);
+      c.changeSettings();
+      expect(c.phase, GamePhase.setup);
+      expect(c.mode, GameMode.pick);
+      expect(c.outcome, PickOutcome.losers);
       c.dispose();
     });
   });
@@ -96,7 +164,7 @@ void main() {
     test('sol üst köşedeki geri butonu alanı yok sayılır', () {
       final c = build();
       c.selectPlayerCount(3);
-      c.selectWinnerCount(1);
+      c.selectPickCount(1);
       down(c, 1, at: const Offset(20, 20)); // geri butonu bölgesi
       expect(c.activePointers, isEmpty);
       down(c, 2, at: const Offset(200, 200));
@@ -107,7 +175,7 @@ void main() {
     test('hedeften fazla parmak kabul edilmez', () {
       final c = build();
       c.selectPlayerCount(3);
-      c.selectWinnerCount(1);
+      c.selectPickCount(1);
       for (var i = 1; i <= 5; i++) {
         down(c, i, at: Offset(100.0 * i, 300));
       }
@@ -121,7 +189,7 @@ void main() {
       fakeAsync((async) {
         final c = build();
         c.selectPlayerCount(3);
-        c.selectWinnerCount(1);
+        c.selectPickCount(1);
 
         for (var i = 1; i <= 3; i++) {
           down(c, i, at: Offset(100.0 * i, 300));
@@ -134,15 +202,18 @@ void main() {
 
         async.elapse(const Duration(seconds: 2));
         expect(c.phase, GamePhase.revealed);
-        expect(c.winnerPointerIds.length, 1);
-        expect(c.lockedPointerIds, contains(c.winnerPointerIds.single));
+        expect(c.pickedPointerIds.length, 1);
+        expect(c.lockedPointerIds, contains(c.pickedPointerIds.single));
+        expect(c.spotlightPointerIds, c.pickedPointerIds);
 
         async.elapse(const Duration(seconds: 2));
         async.flushMicrotasks();
         expect(c.showReset, isTrue);
         expect(stats.completed, 1);
+        expect(stats.lastMode, GameMode.pick);
+        expect(stats.lastOutcome, PickOutcome.winners);
         expect(stats.lastPlayers, 3);
-        expect(stats.lastWinners, 1);
+        expect(stats.lastPicks, 1);
 
         c.dispose();
       });
@@ -152,7 +223,7 @@ void main() {
       fakeAsync((async) {
         final c = build();
         c.selectPlayerCount(4);
-        c.selectWinnerCount(2);
+        c.selectPickCount(2);
 
         for (var i = 1; i <= 4; i++) {
           down(c, i, at: Offset(80.0 * i, 300));
@@ -160,9 +231,9 @@ void main() {
         async.elapse(const Duration(milliseconds: 2800));
 
         expect(c.phase, GamePhase.revealed);
-        expect(c.winnerPointerIds.length, 2);
-        expect(c.winnerPointerIds.toSet().length, 2, reason: 'kazananlar tekil');
-        for (final w in c.winnerPointerIds) {
+        expect(c.pickedPointerIds.length, 2);
+        expect(c.pickedPointerIds.toSet().length, 2, reason: 'kazananlar tekil');
+        for (final w in c.pickedPointerIds) {
           expect(c.lockedPointerIds, contains(w));
         }
 
@@ -174,7 +245,7 @@ void main() {
       fakeAsync((async) {
         final c = build();
         c.selectPlayerCount(3);
-        c.selectWinnerCount(1);
+        c.selectPickCount(1);
 
         for (var i = 1; i <= 3; i++) {
           down(c, i, at: Offset(100.0 * i, 300));
@@ -184,7 +255,7 @@ void main() {
 
         async.elapse(const Duration(milliseconds: 800));
         expect(c.phase, GamePhase.waiting);
-        expect(c.winnerPointerIds, isEmpty);
+        expect(c.pickedPointerIds, isEmpty);
         expect(stats.completed, 0);
 
         c.dispose();
@@ -195,7 +266,7 @@ void main() {
       fakeAsync((async) {
         final c = build();
         c.selectPlayerCount(3);
-        c.selectWinnerCount(1);
+        c.selectPickCount(1);
 
         for (var i = 1; i <= 3; i++) {
           down(c, i, at: Offset(100.0 * i, 300));
@@ -208,7 +279,7 @@ void main() {
         expect(c.lockedPointerIds.length, 3);
 
         async.elapse(const Duration(seconds: 2));
-        expect(c.winnerPointerIds.length, 1);
+        expect(c.pickedPointerIds.length, 1);
 
         c.dispose();
       });
@@ -218,7 +289,7 @@ void main() {
       fakeAsync((async) {
         final c = build();
         c.selectPlayerCount(3);
-        c.selectWinnerCount(1);
+        c.selectPickCount(1);
         for (var i = 1; i <= 3; i++) {
           down(c, i, at: Offset(100.0 * i, 300));
         }
@@ -228,10 +299,170 @@ void main() {
         c.changeSettings();
         expect(c.phase, GamePhase.setup);
         expect(c.selectedPlayerCount, isNull);
-        expect(c.selectedWinnerCount, isNull);
+        expect(c.selectedPickCount, isNull);
         expect(c.activePointers, isEmpty);
-        expect(c.winnerPointerIds, isEmpty);
+        expect(c.pickedPointerIds, isEmpty);
         expect(c.showReset, isFalse);
+
+        c.dispose();
+      });
+    });
+  });
+
+  group('modlar', () {
+    test('kaybeden seçilince daire kırmızıya döner', () {
+      fakeAsync((async) {
+        final c = build();
+        c.selectOutcome(PickOutcome.losers);
+        c.selectPlayerCount(3);
+        c.selectPickCount(1);
+        playRound(async, c, 3);
+
+        expect(c.phase, GamePhase.revealed);
+        final loser = c.pickedPointerIds.single;
+        expect(c.pointerColors[loser], GameController.loserColor);
+        expect(c.spotlightPointerIds, [loser]);
+
+        async.elapse(const Duration(seconds: 2));
+        async.flushMicrotasks();
+        expect(stats.lastMode, GameMode.pick);
+        expect(stats.lastOutcome, PickOutcome.losers);
+        expect(stats.lastPicks, 1);
+
+        c.dispose();
+      });
+    });
+
+    test('takım modunda herkes dengeli iki takıma dağılır', () {
+      fakeAsync((async) {
+        for (final players in GameMode.teams.playerCounts) {
+          final c = build();
+          c.selectMode(GameMode.teams);
+          c.selectPlayerCount(players);
+          playRound(async, c, players);
+
+          expect(c.phase, GamePhase.revealed, reason: '$players oyuncu');
+          expect(c.teamOfPointer.keys.toSet(), c.lockedPointerIds.toSet());
+
+          final sizes = List.filled(GameController.teamCount, 0);
+          for (final team in c.teamOfPointer.values) {
+            sizes[team]++;
+          }
+          expect(
+            sizes.reduce(max) - sizes.reduce(min),
+            lessThanOrEqualTo(1),
+            reason: '$players oyuncu: takımlar $sizes',
+          );
+
+          for (final MapEntry(key: id, value: team)
+              in c.teamOfPointer.entries) {
+            expect(c.pointerColors[id], GameController.teamColors[team]);
+          }
+          // Takım modunda kimse seçilmez, herkes öne çıkar
+          expect(c.pickedPointerIds, isEmpty);
+          expect(c.spotlightPointerIds.toSet(), c.lockedPointerIds.toSet());
+
+          c.dispose();
+        }
+      });
+    });
+
+    test('sıra modunda her parmak tekil bir sıra alır', () {
+      fakeAsync((async) {
+        final c = build();
+        c.selectMode(GameMode.order);
+        c.selectPlayerCount(4);
+        playRound(async, c, 4);
+
+        expect(c.phase, GamePhase.revealed);
+        expect(c.rankedPointerIds.length, 4);
+        expect(c.rankedPointerIds.toSet(), c.lockedPointerIds.toSet());
+        // Yalnızca birinci öne çıkar
+        expect(c.spotlightPointerIds, [c.rankedPointerIds.first]);
+
+        async.elapse(const Duration(seconds: 2));
+        async.flushMicrotasks();
+        expect(stats.lastMode, GameMode.order);
+        expect(stats.lastOutcome, isNull);
+        expect(stats.lastPicks, isNull);
+
+        c.dispose();
+      });
+    });
+
+    test('ışının hedefi kilitlenince belli olur, sonuçla aynı çıkar', () {
+      fakeAsync((async) {
+        final c = build();
+        c.selectPlayerCount(3);
+        c.selectPickCount(1);
+        for (var i = 1; i <= 3; i++) {
+          down(c, i, at: Offset(100.0 * i, 300));
+        }
+
+        async.elapse(const Duration(milliseconds: 800));
+        // Işın dönmeye başlamadan hedefi bilinmeli — nereye ineceği baştan
+        // belli olmalı — ama sonuç henüz açıklanmamış olmalı
+        expect(c.phase, GamePhase.locked);
+        expect(c.lockedPointerIds, contains(c.spinTargetPointerId));
+        expect(c.pickedPointerIds, isEmpty);
+        expect(c.spotlightPointerIds, isEmpty);
+
+        final target = c.spinTargetPointerId;
+        async.elapse(GameController.spinDuration);
+        expect(c.pickedPointerIds.single, target);
+
+        c.dispose();
+      });
+    });
+
+    test('sıra modunda ışın birinciye, takım modunda kimseye inmez', () {
+      fakeAsync((async) {
+        final order = build();
+        order.selectMode(GameMode.order);
+        order.selectPlayerCount(4);
+        playRound(async, order, 4);
+        expect(order.spinTargetPointerId, order.rankedPointerIds.first);
+        order.dispose();
+
+        final teams = build();
+        teams.selectMode(GameMode.teams);
+        teams.selectPlayerCount(4);
+        // Takım modunda kimse öne çıkmaz; ışın kimseyi göstermeden durur
+        playRound(async, teams, 4);
+        expect(teams.spinTargetPointerId, isNull);
+        teams.dispose();
+      });
+    });
+
+    test('tur sıfırlanınca ışın hedefi de temizlenir', () {
+      fakeAsync((async) {
+        final c = build();
+        c.selectPlayerCount(3);
+        c.selectPickCount(1);
+        playRound(async, c, 3);
+        expect(c.spinTargetPointerId, isNotNull);
+
+        c.resetGame();
+        expect(c.spinTargetPointerId, isNull);
+
+        c.dispose();
+      });
+    });
+
+    test('tekrar oynamak önceki sonucu temizler, modu korur', () {
+      fakeAsync((async) {
+        final c = build();
+        c.selectMode(GameMode.teams);
+        c.selectPlayerCount(4);
+        playRound(async, c, 4);
+        expect(c.teamOfPointer, isNotEmpty);
+
+        c.resetGame();
+        expect(c.phase, GamePhase.waiting);
+        expect(c.teamOfPointer, isEmpty);
+        expect(c.spotlightPointerIds, isEmpty);
+        expect(c.pointerColors, isEmpty);
+        expect(c.mode, GameMode.teams);
 
         c.dispose();
       });

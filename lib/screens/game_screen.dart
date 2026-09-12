@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/game_controller.dart';
 import '../l10n/app_localizations.dart';
 import '../models/game_phase.dart';
+import '../models/spin_beam.dart';
 import '../painters/finger_painter.dart';
 import '../widgets/particle_overlay.dart';
 import 'game_text.dart';
@@ -14,6 +16,11 @@ import 'game_text.dart';
 /// Geri butonu [Listener]'ın dışında konumlanır — her zaman dokunulabilir.
 class GameScreen extends StatelessWidget {
   final GameController controller;
+
+  /// Dönen rulet ışını; her karede [HomeScreen] tarafından güncellenir,
+  /// sonuç açıklanınca null olur
+  final ValueListenable<SpinBeam?> beam;
+
   final Animation<double> winnerScaleAnimation;
   final Animation<double> winnerGlowAnimation;
   final Animation<double> flashAnimation;
@@ -21,6 +28,7 @@ class GameScreen extends StatelessWidget {
   const GameScreen({
     super.key,
     required this.controller,
+    required this.beam,
     required this.winnerScaleAnimation,
     required this.winnerGlowAnimation,
     required this.flashAnimation,
@@ -32,6 +40,8 @@ class GameScreen extends StatelessWidget {
     final isLocked = controller.phase == GamePhase.locked ||
         controller.phase == GamePhase.revealed;
     final statusText = statusTextFor(l10n, controller);
+    final spotlight = controller.spotlightPointerIds;
+    final labels = resultLabelsFor(controller);
 
     return Scaffold(
       backgroundColor: const Color(0xFF111111),
@@ -52,6 +62,7 @@ class GameScreen extends StatelessWidget {
                     animation: Listenable.merge([
                       winnerScaleAnimation,
                       winnerGlowAnimation,
+                      beam,
                     ]),
                     builder: (context, _) => CustomPaint(
                       painter: FingerPainter(
@@ -59,9 +70,10 @@ class GameScreen extends StatelessWidget {
                         pointerColors: Map.of(controller.pointerColors),
                         lockedPointerIds:
                             List.of(controller.lockedPointerIds),
-                        winnerPointerIds:
-                            List.of(controller.winnerPointerIds),
-                        highlightIndex: controller.highlightIndex,
+                        spotlightPointerIds: spotlight,
+                        labels: labels,
+                        dimOthers: controller.mode.picksSubset,
+                        beam: beam.value,
                         isLocked: isLocked,
                         winnerScale: winnerScaleAnimation.value,
                         winnerGlow: winnerGlowAnimation.value,
@@ -137,22 +149,18 @@ class GameScreen extends StatelessWidget {
                     ),
                   ),
 
-                  // ── Konfeti parçacıkları ──────────────────────────────────
-                  if (controller.winnerPointerIds.isNotEmpty)
+                  // ── Konfeti parçacıkları — öne çıkan dairelerden ──────────
+                  if (spotlight.isNotEmpty)
                     ParticleOverlay(
                       key: const ValueKey('particles'),
-                      origins: controller.winnerPointerIds
-                          .map(
-                            (id) =>
-                                controller.activePointers[id] ?? Offset.zero,
-                          )
-                          .toList(),
-                      colors: controller.winnerPointerIds
-                          .map(
-                            (id) =>
-                                controller.pointerColors[id] ?? Colors.white,
-                          )
-                          .toList(),
+                      origins: [
+                        for (final id in spotlight)
+                          controller.activePointers[id] ?? Offset.zero,
+                      ],
+                      colors: [
+                        for (final id in spotlight)
+                          controller.pointerColors[id] ?? Colors.white,
+                      ],
                     ),
 
                   // ── Reset butonları ───────────────────────────────────────
@@ -191,7 +199,7 @@ class GameScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 14),
 
-                          // Oyuncu/kazanan sayısını değiştir
+                          // Mod, oyuncu ve kazanan sayısını değiştir
                           TextButton(
                             onPressed: controller.changeSettings,
                             child: Text(

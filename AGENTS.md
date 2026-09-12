@@ -18,6 +18,12 @@ or review rejects under Guideline 2.3.8.
 - `flutter gen-l10n` — regenerate localization code after editing ARB files
 - `flutter analyze`
 - `flutter test`
+- `flutter drive --driver=test_driver/integration_test.dart --target=integration_test/screenshots_test.dart -d "iPhone 14"`
+  — plays every mode with synthetic fingers and writes screenshots to
+  `build/screenshots/` (`SCREENSHOT_DIR=...` to change the folder,
+  `--dart-define=SCREENSHOT_LOCALE=tr` for another language). A simulator only
+  delivers two real touches, so this is the only way to see 3+ player screens;
+  App Store screenshots come from here too.
 
 ## Project Notes
 
@@ -34,6 +40,22 @@ or review rejects under Guideline 2.3.8.
 - `GameController` holds all game logic and state; it is pure Dart and knows
   nothing about `BuildContext`. Animation controllers live in `HomeScreen`
   because they need a `TickerProvider`.
+- `GameMode` (pick / teams / order) decides what a round reveals; in pick mode
+  `PickOutcome` only reframes the very same draw as winners or losers, which is
+  why they share one mode tile. Every mode shares the finger mechanic, so the
+  controller fills exactly one of `pickedPointerIds`, `teamOfPointer` or
+  `rankedPointerIds` and exposes `spotlightPointerIds` for the UI.
+- `FingerPainter` knows nothing about modes: it draws whatever is in
+  `spotlightPointerIds` and `labels`. Its glows are radial gradients, not
+  `MaskFilter.blur` — five blurred circles at once (team mode) dropped frames.
+- The roulette beam that spins before the reveal is `SpinBeam`, pure geometry
+  recomputed once per frame in `HomeScreen` and handed to both the painter and
+  the tick sound. Because it has to land on the actual result, the draw happens
+  when the fingers lock (`_drawResult`), not at reveal time; the result waits in
+  private fields so the UI can't reveal it early. The beam spins at a constant
+  speed for the first 75% of `GameController.spinDuration` and decelerates over
+  the rest — an easeOut across the whole spin made the first frames a blur and
+  the tick sounds a machine gun.
 - Services (`SoundService`, `StatsService`, `ReviewService`) are injected into
   `GameController` so tests can substitute fakes. `StatsService` and
   `ReviewService` are created and initialised in `main()` before `runApp`.

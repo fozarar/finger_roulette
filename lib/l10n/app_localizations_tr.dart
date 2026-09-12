@@ -63,4 +63,60 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get changeSettings => 'Ayarları Değiştir';
+
+  @override
+  String get modeWinners => 'Kazanan';
+
+  @override
+  String get modeLosers => 'Kaybeden';
+
+  @override
+  String get modeTeams => 'Takım';
+
+  @override
+  String get modeOrder => 'Sıra';
+
+  @override
+  String get howManyLosers => 'Kaç kaybeden?';
+
+  @override
+  String loserBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Kaybedenler!',
+      one: 'Kaybeden!',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get teamsBanner => 'Takımlar hazır!';
+
+  @override
+  String get orderBanner => 'Sıra belli!';
+
+  @override
+  String gameInfoLosers(int players, int losers) {
+    String _temp0 = intl.Intl.pluralLogic(
+      losers,
+      locale: localeName,
+      other: '$losers kaybeden',
+      one: '1 kaybeden',
+    );
+    return '$players oyuncu · $_temp0';
+  }
+
+  @override
+  String gameInfoTeams(int players, int teams) {
+    return '$players oyuncu · $teams takım';
+  }
+
+  @override
+  String gameInfoOrder(int players) {
+    return '$players oyuncu · sıralama';
+  }
+
+  @override
+  String get modePick => 'Seç';
 }

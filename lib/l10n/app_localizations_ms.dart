@@ -63,4 +63,60 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get changeSettings => 'Tukar Tetapan';
+
+  @override
+  String get modeWinners => 'Pemenang';
+
+  @override
+  String get modeLosers => 'Yang Kalah';
+
+  @override
+  String get modeTeams => 'Pasukan';
+
+  @override
+  String get modeOrder => 'Giliran';
+
+  @override
+  String get howManyLosers => 'Berapa yang kalah?';
+
+  @override
+  String loserBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Kalah!',
+      one: 'Kalah!',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get teamsBanner => 'Pasukan sudah dibahagi!';
+
+  @override
+  String get orderBanner => 'Ini gilirannya!';
+
+  @override
+  String gameInfoLosers(int players, int losers) {
+    String _temp0 = intl.Intl.pluralLogic(
+      losers,
+      locale: localeName,
+      other: '$losers kalah',
+      one: '1 kalah',
+    );
+    return '$players pemain · $_temp0';
+  }
+
+  @override
+  String gameInfoTeams(int players, int teams) {
+    return '$players pemain · $teams pasukan';
+  }
+
+  @override
+  String gameInfoOrder(int players) {
+    return '$players pemain · giliran';
+  }
+
+  @override
+  String get modePick => 'Pilih';
 }

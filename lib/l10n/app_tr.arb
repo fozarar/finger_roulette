@@ -9,5 +9,17 @@
   "winnerBanner": "{count, plural, =1{Kazanan!} other{Kazananlar!}}",
   "gameInfo": "{players} oyuncu · {winners, plural, =1{1 kazanan} other{{winners} kazanan}}",
   "playAgain": "Tekrar Oyna",
-  "changeSettings": "Ayarları Değiştir"
+  "changeSettings": "Ayarları Değiştir",
+  "modeWinners": "Kazanan",
+  "modeLosers": "Kaybeden",
+  "modeTeams": "Takım",
+  "modeOrder": "Sıra",
+  "howManyLosers": "Kaç kaybeden?",
+  "loserBanner": "{count, plural, =1{Kaybeden!} other{Kaybedenler!}}",
+  "teamsBanner": "Takımlar hazır!",
+  "orderBanner": "Sıra belli!",
+  "gameInfoLosers": "{players} oyuncu · {losers, plural, =1{1 kaybeden} other{{losers} kaybeden}}",
+  "gameInfoTeams": "{players} oyuncu · {teams} takım",
+  "gameInfoOrder": "{players} oyuncu · sıralama",
+  "modePick": "Seç"
 }

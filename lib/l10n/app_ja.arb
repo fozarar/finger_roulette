@@ -9,5 +9,17 @@
   "winnerBanner": "{count, plural, =1{当たり！} other{当たり！}}",
   "gameInfo": "{players}人 · {winners, plural, =1{当たり1人} other{当たり{winners}人}}",
   "playAgain": "もう一度",
-  "changeSettings": "設定を変更"
+  "changeSettings": "設定を変更",
+  "modeWinners": "当たり",
+  "modeLosers": "ハズレ",
+  "modeTeams": "チーム分け",
+  "modeOrder": "順番",
+  "howManyLosers": "ハズレは何人？",
+  "loserBanner": "{count, plural, =1{ハズレ！} other{ハズレ！}}",
+  "teamsBanner": "チーム決定！",
+  "orderBanner": "順番決定！",
+  "gameInfoLosers": "{players}人 · {losers, plural, =1{ハズレ1人} other{ハズレ{losers}人}}",
+  "gameInfoTeams": "{players}人 · {teams}チーム",
+  "gameInfoOrder": "{players}人 · 順番決め",
+  "modePick": "選ぶ"
 }

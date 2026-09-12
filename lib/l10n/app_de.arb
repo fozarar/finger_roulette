@@ -9,5 +9,17 @@
   "winnerBanner": "{count, plural, =1{Gewinner!} other{Gewinner!}}",
   "gameInfo": "{players} Spieler · {winners, plural, =1{1 Gewinner} other{{winners} Gewinner}}",
   "playAgain": "Nochmal spielen",
-  "changeSettings": "Einstellungen ändern"
+  "changeSettings": "Einstellungen ändern",
+  "modeWinners": "Gewinner",
+  "modeLosers": "Verlierer",
+  "modeTeams": "Teams",
+  "modeOrder": "Reihenfolge",
+  "howManyLosers": "Wie viele Verlierer?",
+  "loserBanner": "{count, plural, =1{Verlierer!} other{Verlierer!}}",
+  "teamsBanner": "Die Teams stehen!",
+  "orderBanner": "Die Reihenfolge steht!",
+  "gameInfoLosers": "{players} Spieler · {losers, plural, =1{1 Verlierer} other{{losers} Verlierer}}",
+  "gameInfoTeams": "{players} Spieler · {teams} Teams",
+  "gameInfoOrder": "{players} Spieler · Reihenfolge",
+  "modePick": "Wählen"
 }
