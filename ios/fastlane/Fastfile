@@ -16,13 +16,50 @@ def flutter_version
   v
 end
 
+# deliver, altool'un aksine Apple ID ile bir web oturumu acar. Apple'in
+# Olympus ucu su an 404 dondurdugu icin o yol calismiyor — spaceship "Service
+# key is empty" deyip "Could not receive latest API key" ile duruyor
+# (fastlane#30199). App Store Connect API anahtari o ucu hic kullanmaz, o
+# yuzden kesinti bittiginde de dogru yol odur.
+#
+# Anahtar App Store Connect > Users and Access > Integrations altinda
+# uretilir (App Manager rolu yeter). .p8 dosyasi bir kez indirilir; depoya
+# koyma, ev dizininde birak:
+#
+#   export ASC_KEY_ID=XXXXXXXXXX
+#   export ASC_ISSUER_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+#   export ASC_KEY_PATH=~/private_keys/AuthKey_XXXXXXXXXX.p8
+#
+# Degiskenler yoksa nil doner ve deliver eski Apple ID yoluna duser.
+def asc_api_key
+  return nil if ENV["ASC_KEY_ID"].to_s.empty?
+
+  path = File.expand_path(ENV["ASC_KEY_PATH"].to_s)
+  UI.user_error!("ASC_KEY_PATH bulunamadi: #{path}") unless File.exist?(path)
+
+  app_store_connect_api_key(
+    key_id: ENV["ASC_KEY_ID"],
+    issuer_id: ENV["ASC_ISSUER_ID"],
+    key_filepath: path,
+  )
+end
+
 platform :ios do
   desc "App Store metinlerini yükler. Build'e ve ekran görüntülerine dokunmaz, " \
        "incelemeye göndermez, puanları sıfırlamaz."
   lane :metadata do
     version = flutter_version
     UI.message("Hedef App Store surumu: #{version}")
+
+    key = asc_api_key
+    if key.nil?
+      UI.important("ASC_KEY_ID tanimli degil — Apple ID ile giris denenecek. " \
+                   "\"Service key is empty\" hatasi alirsan Apple tarafi " \
+                   "duser; Fastfile'in basindaki API anahtari notuna bak.")
+    end
+
     deliver(
+      api_key: key,
       app_version: version,
       skip_binary_upload: true,
       skip_screenshots: true,
