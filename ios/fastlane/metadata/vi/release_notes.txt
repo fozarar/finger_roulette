@@ -1,3 +1,4 @@
+• Ba chế độ: Chọn người thắng hoặc người thua, Chia đội và bốc Thứ tự
+• Tia sáng quay trên các ngón tay rồi dừng lại ở kết quả
 • Đã có 16 ngôn ngữ
 • Thêm rung trong lúc đếm ngược — cảm nhận được sự hồi hộp
-• Công bố người thắng mượt và ổn định hơn

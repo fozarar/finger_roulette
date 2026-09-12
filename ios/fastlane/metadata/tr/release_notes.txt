@@ -1,3 +1,4 @@
+• Üç mod: Seç (kazanan ya da kaybeden), Takım ve Sıra
+• Açıklamadan önce parmakların üzerinde bir ışın dönüp sonucun üzerinde duruyor
 • Artık 16 dilde
 • Geri sayım sırasında titreşim eklendi — gerilimi parmağınızda hissedin
-• Kazanan açıklaması daha akıcı ve kararlı

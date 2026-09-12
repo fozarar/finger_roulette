@@ -1,3 +1,4 @@
+• Three modes: Pick a winner or a loser, split into Teams, or draw the turn Order
+• A beam now spins over the fingers and lands on the result
 • Now available in 16 languages
 • Added haptic feedback during the countdown — you can feel the tension build
-• Smoother, more reliable winner reveal
