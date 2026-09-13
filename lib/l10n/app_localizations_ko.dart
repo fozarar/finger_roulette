@@ -119,4 +119,28 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get modePick => '뽑기';
+
+  @override
+  String get inputFingers => '손가락';
+
+  @override
+  String get inputNames => '이름';
+
+  @override
+  String get addName => '이름 추가';
+
+  @override
+  String get nameHint => '이름';
+
+  @override
+  String get spin => '돌리기';
+
+  @override
+  String get spinAgain => '다시 돌리기';
+
+  @override
+  String get needTwoNames => '이름을 2개 이상 추가하세요';
+
+  @override
+  String get continueLabel => '계속';
 }

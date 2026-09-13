@@ -21,5 +21,13 @@
   "gameInfoLosers": "{players} joueurs · {losers, plural, =1{1 perdant} other{{losers} perdants}}",
   "gameInfoTeams": "{players} joueurs · {teams} équipes",
   "gameInfoOrder": "{players} joueurs · ordre de passage",
-  "modePick": "Choisir"
+  "modePick": "Choisir",
+  "inputFingers": "Doigts",
+  "inputNames": "Noms",
+  "addName": "Ajouter un nom",
+  "nameHint": "Nom",
+  "spin": "Tourner",
+  "spinAgain": "Tourner encore",
+  "needTwoNames": "Ajoutez au moins 2 noms",
+  "continueLabel": "Continuer"
 }

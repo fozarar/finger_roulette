@@ -1,13 +1,14 @@
 import 'dart:math';
 import 'dart:ui' show Offset;
 
-import 'package:flutter/foundation.dart' show visibleForTesting;
+import 'spin_curve.dart';
+
 
 /// Sonuç açıklanmadan önce parmakların üzerinde dönen rulet ışını.
 ///
 /// Işın, kilitli parmakların ağırlık merkezinden çıkar, birkaç tur döner ve
 /// hedefin tam üstünde durur. Hedef, parmaklar kilitlenirken çekilir
-/// (`GameController.spinTargetPointerId`) — yani ışın rastgele bir yere değil,
+/// (`GameController.spinTargetId`) — yani ışın rastgele bir yere değil,
 /// gerçekten kazananın üstüne iner.
 ///
 /// Ağırlık merkezi ekranın ortasına tercih edilir: parmaklar bir köşede
@@ -90,7 +91,7 @@ class SpinBeam {
         ? _turns * 2 * pi
         : _turns * 2 * pi + _turn(_startAngle, _angleOf(center, target));
 
-    final angle = _startAngle + sweep * rotationFraction(t);
+    final angle = _startAngle + sweep * spinFraction(t);
 
     var highlightIndex = 0;
     var closest = double.infinity;
@@ -110,30 +111,6 @@ class SpinBeam {
     );
   }
 
-  /// Toplam dönüşün [t] anına kadar tamamlanan oranı — 0'da 0, 1'de tam 1.
-  ///
-  /// İlk %75 sabit hızda döner, kalan %25'te hız doğrusal olarak sıfıra iner.
-  /// Baştan sona yavaşlayan bir eğri (easeOut) ilk karelerde ışını okunamaz
-  /// hale getiriyordu; rulet de zaten bir süre sabit döner, sonra yavaşlar.
-  ///
-  /// f(1) = 1 olduğu için ışın hedefin tam üstünde durur, yakınında değil.
-  @visibleForTesting
-  static double rotationFraction(double t) {
-    final clamped = t.clamp(0.0, 1.0);
-
-    /// Sabit hız fazının süresi (toplam sürenin oranı)
-    const fast = 0.75;
-
-    // Sabit fazda "fast", yavaşlama fazında ortalama yarı hızla "(1-fast)/2"
-    // yol alınır; toplam tam 1 etsin diye hız buna göre seçilir.
-    const speed = 1 / (fast + (1 - fast) / 2);
-
-    if (clamped <= fast) return speed * clamped;
-
-    final s = (clamped - fast) / (1 - fast);
-    // Doğrusal yavaşlamanın yol integrali: s - s²/2
-    return speed * fast + speed * (1 - fast) * (s - s * s / 2);
-  }
 
   static double _angleOf(Offset center, Offset point) =>
       atan2(point.dy - center.dy, point.dx - center.dx);

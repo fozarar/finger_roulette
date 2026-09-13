@@ -136,5 +136,37 @@
   "modePick": "Pick",
   "@modePick": {
     "description": "Selection screen: mode tile. Some of the fingers get picked. One or two words, the tile is narrow"
+  },
+  "inputFingers": "Fingers",
+  "@inputFingers": {
+    "description": "Selection screen: input tile — participants are fingers on the screen. One word if possible"
+  },
+  "inputNames": "Names",
+  "@inputNames": {
+    "description": "Selection screen: input tile — participants come from a typed name list. One word if possible"
+  },
+  "addName": "Add name",
+  "@addName": {
+    "description": "Button that adds the typed name to the list"
+  },
+  "nameHint": "Name",
+  "@nameHint": {
+    "description": "Placeholder inside the name text field"
+  },
+  "spin": "Spin",
+  "@spin": {
+    "description": "Button that spins the wheel"
+  },
+  "spinAgain": "Spin again",
+  "@spinAgain": {
+    "description": "Button that spins the wheel again after a result"
+  },
+  "needTwoNames": "Add at least 2 names",
+  "@needTwoNames": {
+    "description": "Shown when the list has fewer than two names, so the wheel cannot spin"
+  },
+  "continueLabel": "Continue",
+  "@continueLabel": {
+    "description": "Button that leaves the setup screen for the wheel, once the name list is ready"
   }
 }

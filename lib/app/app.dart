@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
 import '../screens/home_screen.dart';
+import '../services/names_service.dart';
 import '../services/review_service.dart';
 import '../services/stats_service.dart';
 
@@ -9,11 +10,13 @@ import '../services/stats_service.dart';
 class FingerRouletteApp extends StatelessWidget {
   final StatsService stats;
   final ReviewService review;
+  final NamesService nameStore;
 
   const FingerRouletteApp({
     super.key,
     required this.stats,
     required this.review,
+    required this.nameStore,
   });
 
   @override
@@ -27,7 +30,7 @@ class FingerRouletteApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFF111111),
         colorScheme: const ColorScheme.dark(),
       ),
-      home: HomeScreen(stats: stats, review: review),
+      home: HomeScreen(stats: stats, review: review, nameStore: nameStore),
     );
   }
 }

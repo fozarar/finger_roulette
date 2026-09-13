@@ -1,4 +1,5 @@
 import 'package:finger_roulette/app/app.dart';
+import 'package:finger_roulette/services/names_service.dart';
 import 'package:finger_roulette/services/review_service.dart';
 import 'package:finger_roulette/services/stats_service.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +84,11 @@ void main() {
     await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     await tester.pumpWidget(
       // init() çağrılmadı: sayaç ve puan isteme sessizce devre dışı
-      FingerRouletteApp(stats: StatsService(), review: ReviewService()),
+      FingerRouletteApp(
+        stats: StatsService(),
+        review: ReviewService(),
+        nameStore: NamesService(),
+      ),
     );
     await settle(tester);
     await shot(tester, '0_select');
@@ -112,5 +117,58 @@ void main() {
     await shot(tester, '4_order_select');
     await choose(tester, find.text('4'));
     await playRound(tester, '4_order', 4);
+  });
+
+  testWidgets('isim listesi ve çark', (tester) async {
+    if (_locale.isNotEmpty) {
+      binding.platformDispatcher.localesTestValue = [Locale(_locale)];
+    }
+    await tester.pumpWidget(
+      FingerRouletteApp(
+        stats: StatsService(),
+        review: ReviewService(),
+        nameStore: NamesService(),
+      ),
+    );
+    await settle(tester);
+
+    // İsim alanı odaktayken imleç yanıp söndüğü için kare akışı hiç durulmaz;
+    // bu bölümde pumpAndSettle yerine sabit süreli pump kullanılıyor.
+    Future<void> tapAndPump(Finder finder) async {
+      await tester.tap(finder);
+      await tester.pump(const Duration(milliseconds: 350));
+    }
+
+    // Girdiyi isim listesine çevir ve kadroyu yaz
+    await tapAndPump(find.byIcon(Icons.format_list_bulleted_rounded));
+    for (final name in const [
+      'Ayşe',
+      'Mehmet',
+      'Zeynep',
+      'Can',
+      'Elif',
+      'Burak',
+    ]) {
+      await tester.enterText(find.byType(TextField), name);
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+    // Görüntüde imleç durmasın
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pump(const Duration(milliseconds: 400));
+    await shot(tester, '5_names_select');
+
+    // Kaç kazanan → çark ekranı
+    await tapAndPump(find.text('1'));
+    await shot(tester, '6_wheel_idle');
+
+    // Çevir: dönüşün ortası ve sonucu
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pump(const Duration(milliseconds: 900));
+    await shot(tester, '7_wheel_spinning');
+    await tester.pump(const Duration(milliseconds: 1600));
+    await shot(tester, '8_wheel_revealed');
+    await tester.pump(const Duration(milliseconds: 1800));
+    await shot(tester, '9_wheel_buttons');
   });
 }

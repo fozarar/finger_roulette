@@ -21,5 +21,13 @@
   "gameInfoLosers": "{players}人 · {losers, plural, =1{ハズレ1人} other{ハズレ{losers}人}}",
   "gameInfoTeams": "{players}人 · {teams}チーム",
   "gameInfoOrder": "{players}人 · 順番決め",
-  "modePick": "選ぶ"
+  "modePick": "選ぶ",
+  "inputFingers": "指",
+  "inputNames": "名前",
+  "addName": "名前を追加",
+  "nameHint": "名前",
+  "spin": "回す",
+  "spinAgain": "もう一度回す",
+  "needTwoNames": "名前を2つ以上追加してください",
+  "continueLabel": "次へ"
 }

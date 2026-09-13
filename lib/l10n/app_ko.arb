@@ -21,5 +21,13 @@
   "gameInfoLosers": "{players}명 · {losers, plural, =1{꽝 1명} other{꽝 {losers}명}}",
   "gameInfoTeams": "{players}명 · {teams}팀",
   "gameInfoOrder": "{players}명 · 순서 정하기",
-  "modePick": "뽑기"
+  "modePick": "뽑기",
+  "inputFingers": "손가락",
+  "inputNames": "이름",
+  "addName": "이름 추가",
+  "nameHint": "이름",
+  "spin": "돌리기",
+  "spinAgain": "다시 돌리기",
+  "needTwoNames": "이름을 2개 이상 추가하세요",
+  "continueLabel": "계속"
 }

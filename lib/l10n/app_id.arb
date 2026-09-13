@@ -21,5 +21,13 @@
   "gameInfoLosers": "{players} pemain · {losers, plural, =1{1 kalah} other{{losers} kalah}}",
   "gameInfoTeams": "{players} pemain · {teams} tim",
   "gameInfoOrder": "{players} pemain · urutan giliran",
-  "modePick": "Pilih"
+  "modePick": "Pilih",
+  "inputFingers": "Jari",
+  "inputNames": "Nama",
+  "addName": "Tambah nama",
+  "nameHint": "Nama",
+  "spin": "Putar",
+  "spinAgain": "Putar lagi",
+  "needTwoNames": "Tambahkan minimal 2 nama",
+  "continueLabel": "Lanjut"
 }

@@ -119,4 +119,28 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get modePick => 'เลือก';
+
+  @override
+  String get inputFingers => 'นิ้ว';
+
+  @override
+  String get inputNames => 'ชื่อ';
+
+  @override
+  String get addName => 'เพิ่มชื่อ';
+
+  @override
+  String get nameHint => 'ชื่อ';
+
+  @override
+  String get spin => 'หมุน';
+
+  @override
+  String get spinAgain => 'หมุนอีกครั้ง';
+
+  @override
+  String get needTwoNames => 'เพิ่มอย่างน้อย 2 ชื่อ';
+
+  @override
+  String get continueLabel => 'ต่อไป';
 }

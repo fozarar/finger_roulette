@@ -119,4 +119,28 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get modePick => 'Chọn';
+
+  @override
+  String get inputFingers => 'Ngón tay';
+
+  @override
+  String get inputNames => 'Tên';
+
+  @override
+  String get addName => 'Thêm tên';
+
+  @override
+  String get nameHint => 'Tên';
+
+  @override
+  String get spin => 'Quay';
+
+  @override
+  String get spinAgain => 'Quay lần nữa';
+
+  @override
+  String get needTwoNames => 'Thêm ít nhất 2 tên';
+
+  @override
+  String get continueLabel => 'Tiếp tục';
 }

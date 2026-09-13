@@ -21,5 +21,13 @@
   "gameInfoLosers": "{players} oyuncu · {losers, plural, =1{1 kaybeden} other{{losers} kaybeden}}",
   "gameInfoTeams": "{players} oyuncu · {teams} takım",
   "gameInfoOrder": "{players} oyuncu · sıralama",
-  "modePick": "Seç"
+  "modePick": "Seç",
+  "inputFingers": "Parmak",
+  "inputNames": "İsim",
+  "addName": "İsim ekle",
+  "nameHint": "İsim",
+  "spin": "Çevir",
+  "spinAgain": "Tekrar çevir",
+  "needTwoNames": "En az 2 isim ekle",
+  "continueLabel": "Devam"
 }

@@ -119,4 +119,28 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get modePick => 'Seç';
+
+  @override
+  String get inputFingers => 'Parmak';
+
+  @override
+  String get inputNames => 'İsim';
+
+  @override
+  String get addName => 'İsim ekle';
+
+  @override
+  String get nameHint => 'İsim';
+
+  @override
+  String get spin => 'Çevir';
+
+  @override
+  String get spinAgain => 'Tekrar çevir';
+
+  @override
+  String get needTwoNames => 'En az 2 isim ekle';
+
+  @override
+  String get continueLabel => 'Devam';
 }

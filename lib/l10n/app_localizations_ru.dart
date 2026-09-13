@@ -151,4 +151,28 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get modePick => 'Выбор';
+
+  @override
+  String get inputFingers => 'Пальцы';
+
+  @override
+  String get inputNames => 'Имена';
+
+  @override
+  String get addName => 'Добавить имя';
+
+  @override
+  String get nameHint => 'Имя';
+
+  @override
+  String get spin => 'Крутить';
+
+  @override
+  String get spinAgain => 'Крутить ещё';
+
+  @override
+  String get needTwoNames => 'Добавьте хотя бы 2 имени';
+
+  @override
+  String get continueLabel => 'Дальше';
 }

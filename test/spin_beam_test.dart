@@ -20,41 +20,6 @@ double angleGap(double a, double b) {
 }
 
 void main() {
-  group('dönüş eğrisi', () {
-    test('başta 0, sonda tam 1', () {
-      expect(SpinBeam.rotationFraction(0), 0.0);
-      expect(SpinBeam.rotationFraction(1), closeTo(1.0, 1e-12));
-    });
-
-    test('geri sarmaz — her adımda artar', () {
-      var previous = -1.0;
-      for (var i = 0; i <= 100; i++) {
-        final value = SpinBeam.rotationFraction(i / 100);
-        expect(value, greaterThan(previous));
-        previous = value;
-      }
-    });
-
-    test('ilk %75 sabit hızda döner', () {
-      final quarter = SpinBeam.rotationFraction(0.25);
-      expect(SpinBeam.rotationFraction(0.50), closeTo(quarter * 2, 1e-12));
-      expect(SpinBeam.rotationFraction(0.75), closeTo(quarter * 3, 1e-12));
-    });
-
-    test('son çeyrekte yavaşlar', () {
-      final fastPhase =
-          SpinBeam.rotationFraction(0.5) - SpinBeam.rotationFraction(0.4);
-      final endPhase =
-          SpinBeam.rotationFraction(1.0) - SpinBeam.rotationFraction(0.9);
-      expect(endPhase, lessThan(fastPhase));
-    });
-
-    test('sınırların dışı kırpılır', () {
-      expect(SpinBeam.rotationFraction(-1), 0.0);
-      expect(SpinBeam.rotationFraction(2), closeTo(1.0, 1e-12));
-    });
-  });
-
   group('geometri', () {
     test('ışın hedefin tam üstünde durur', () {
       final positions = ring(5);

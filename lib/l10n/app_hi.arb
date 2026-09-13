@@ -21,5 +21,13 @@
   "gameInfoLosers": "{players} खिलाड़ी · {losers, plural, =1{1 हारने वाला} other{{losers} हारने वाले}}",
   "gameInfoTeams": "{players} खिलाड़ी · {teams} टीमें",
   "gameInfoOrder": "{players} खिलाड़ी · बारी का क्रम",
-  "modePick": "चुनें"
+  "modePick": "चुनें",
+  "inputFingers": "उंगलियाँ",
+  "inputNames": "नाम",
+  "addName": "नाम जोड़ें",
+  "nameHint": "नाम",
+  "spin": "घुमाएँ",
+  "spinAgain": "फिर घुमाएँ",
+  "needTwoNames": "कम से कम 2 नाम जोड़ें",
+  "continueLabel": "आगे बढ़ें"
 }

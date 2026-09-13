@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'app/app.dart';
+import 'services/names_service.dart';
 import 'services/review_service.dart';
 import 'services/stats_service.dart';
 
@@ -18,10 +19,12 @@ Future<void> main() async {
   // devre dışı kalır — oyun her hâlükârda oynanabilir.
   final stats = StatsService();
   final review = ReviewService();
+  final nameStore = NamesService();
   await stats.init();
   await review.init();
+  await nameStore.init();
 
-  runApp(FingerRouletteApp(stats: stats, review: review));
+  runApp(FingerRouletteApp(stats: stats, review: review, nameStore: nameStore));
   // İlk frame çizildikten sonra splash'i kaldır — erken kaldırınca siyah ekran çıkar
   WidgetsBinding.instance.addPostFrameCallback((_) {
     FlutterNativeSplash.remove();

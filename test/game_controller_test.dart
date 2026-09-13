@@ -4,6 +4,8 @@ import 'package:fake_async/fake_async.dart';
 import 'package:finger_roulette/controllers/game_controller.dart';
 import 'package:finger_roulette/models/game_mode.dart';
 import 'package:finger_roulette/models/game_phase.dart';
+import 'package:finger_roulette/models/input_source.dart';
+import 'package:finger_roulette/services/names_service.dart';
 import 'package:finger_roulette/services/review_service.dart';
 import 'package:finger_roulette/services/sound_service.dart';
 import 'package:finger_roulette/services/stats_service.dart';
@@ -24,6 +26,7 @@ class _SilentSound extends SoundService {
 class _FakeStats extends StatsService {
   int completed = 0;
   GameMode? lastMode;
+  InputSource? lastInput;
   PickOutcome? lastOutcome;
   int? lastPlayers;
   int? lastPicks;
@@ -31,12 +34,14 @@ class _FakeStats extends StatsService {
   @override
   Future<int> recordGameCompleted({
     required GameMode mode,
+    required InputSource input,
     required int playerCount,
     PickOutcome? outcome,
     int? pickCount,
   }) async {
     completed++;
     lastMode = mode;
+    lastInput = input;
     lastOutcome = outcome;
     lastPlayers = playerCount;
     lastPicks = pickCount;
@@ -47,19 +52,35 @@ class _FakeStats extends StatsService {
   void logEvent(String name, [Map<String, Object?> params = const {}]) {}
 }
 
+/// Diske gitmeyen isim deposu
+class _FakeNames extends NamesService {
+  _FakeNames([this.stored = const []]);
+
+  List<String> stored;
+
+  @override
+  List<String> load() => stored;
+
+  @override
+  Future<void> save(List<String> names) async => stored = names;
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   late _FakeStats stats;
+  late _FakeNames nameStore;
 
-  GameController build() {
+  GameController build({List<String> names = const []}) {
     stats = _FakeStats();
+    nameStore = _FakeNames(names);
     return GameController(
       random: Random(42),
       sound: _SilentSound(),
       stats: stats,
       // init() çağrılmadığı için puan isteme sessizce atlanır
       review: ReviewService(),
+      nameStore: nameStore,
     );
   }
 
@@ -202,9 +223,9 @@ void main() {
 
         async.elapse(const Duration(seconds: 2));
         expect(c.phase, GamePhase.revealed);
-        expect(c.pickedPointerIds.length, 1);
-        expect(c.lockedPointerIds, contains(c.pickedPointerIds.single));
-        expect(c.spotlightPointerIds, c.pickedPointerIds);
+        expect(c.pickedIds.length, 1);
+        expect(c.lockedPointerIds, contains(c.pickedIds.single));
+        expect(c.spotlightIds, c.pickedIds);
 
         async.elapse(const Duration(seconds: 2));
         async.flushMicrotasks();
@@ -231,9 +252,9 @@ void main() {
         async.elapse(const Duration(milliseconds: 2800));
 
         expect(c.phase, GamePhase.revealed);
-        expect(c.pickedPointerIds.length, 2);
-        expect(c.pickedPointerIds.toSet().length, 2, reason: 'kazananlar tekil');
-        for (final w in c.pickedPointerIds) {
+        expect(c.pickedIds.length, 2);
+        expect(c.pickedIds.toSet().length, 2, reason: 'kazananlar tekil');
+        for (final w in c.pickedIds) {
           expect(c.lockedPointerIds, contains(w));
         }
 
@@ -255,7 +276,7 @@ void main() {
 
         async.elapse(const Duration(milliseconds: 800));
         expect(c.phase, GamePhase.waiting);
-        expect(c.pickedPointerIds, isEmpty);
+        expect(c.pickedIds, isEmpty);
         expect(stats.completed, 0);
 
         c.dispose();
@@ -279,7 +300,7 @@ void main() {
         expect(c.lockedPointerIds.length, 3);
 
         async.elapse(const Duration(seconds: 2));
-        expect(c.pickedPointerIds.length, 1);
+        expect(c.pickedIds.length, 1);
 
         c.dispose();
       });
@@ -301,7 +322,7 @@ void main() {
         expect(c.selectedPlayerCount, isNull);
         expect(c.selectedPickCount, isNull);
         expect(c.activePointers, isEmpty);
-        expect(c.pickedPointerIds, isEmpty);
+        expect(c.pickedIds, isEmpty);
         expect(c.showReset, isFalse);
 
         c.dispose();
@@ -319,9 +340,9 @@ void main() {
         playRound(async, c, 3);
 
         expect(c.phase, GamePhase.revealed);
-        final loser = c.pickedPointerIds.single;
+        final loser = c.pickedIds.single;
         expect(c.pointerColors[loser], GameController.loserColor);
-        expect(c.spotlightPointerIds, [loser]);
+        expect(c.spotlightIds, [loser]);
 
         async.elapse(const Duration(seconds: 2));
         async.flushMicrotasks();
@@ -342,10 +363,10 @@ void main() {
           playRound(async, c, players);
 
           expect(c.phase, GamePhase.revealed, reason: '$players oyuncu');
-          expect(c.teamOfPointer.keys.toSet(), c.lockedPointerIds.toSet());
+          expect(c.teamOfId.keys.toSet(), c.lockedPointerIds.toSet());
 
           final sizes = List.filled(GameController.teamCount, 0);
-          for (final team in c.teamOfPointer.values) {
+          for (final team in c.teamOfId.values) {
             sizes[team]++;
           }
           expect(
@@ -355,12 +376,12 @@ void main() {
           );
 
           for (final MapEntry(key: id, value: team)
-              in c.teamOfPointer.entries) {
+              in c.teamOfId.entries) {
             expect(c.pointerColors[id], GameController.teamColors[team]);
           }
           // Takım modunda kimse seçilmez, herkes öne çıkar
-          expect(c.pickedPointerIds, isEmpty);
-          expect(c.spotlightPointerIds.toSet(), c.lockedPointerIds.toSet());
+          expect(c.pickedIds, isEmpty);
+          expect(c.spotlightIds.toSet(), c.lockedPointerIds.toSet());
 
           c.dispose();
         }
@@ -375,10 +396,10 @@ void main() {
         playRound(async, c, 4);
 
         expect(c.phase, GamePhase.revealed);
-        expect(c.rankedPointerIds.length, 4);
-        expect(c.rankedPointerIds.toSet(), c.lockedPointerIds.toSet());
+        expect(c.rankedIds.length, 4);
+        expect(c.rankedIds.toSet(), c.lockedPointerIds.toSet());
         // Yalnızca birinci öne çıkar
-        expect(c.spotlightPointerIds, [c.rankedPointerIds.first]);
+        expect(c.spotlightIds, [c.rankedIds.first]);
 
         async.elapse(const Duration(seconds: 2));
         async.flushMicrotasks();
@@ -403,13 +424,13 @@ void main() {
         // Işın dönmeye başlamadan hedefi bilinmeli — nereye ineceği baştan
         // belli olmalı — ama sonuç henüz açıklanmamış olmalı
         expect(c.phase, GamePhase.locked);
-        expect(c.lockedPointerIds, contains(c.spinTargetPointerId));
-        expect(c.pickedPointerIds, isEmpty);
-        expect(c.spotlightPointerIds, isEmpty);
+        expect(c.lockedPointerIds, contains(c.spinTargetId));
+        expect(c.pickedIds, isEmpty);
+        expect(c.spotlightIds, isEmpty);
 
-        final target = c.spinTargetPointerId;
+        final target = c.spinTargetId;
         async.elapse(GameController.spinDuration);
-        expect(c.pickedPointerIds.single, target);
+        expect(c.pickedIds.single, target);
 
         c.dispose();
       });
@@ -421,7 +442,7 @@ void main() {
         order.selectMode(GameMode.order);
         order.selectPlayerCount(4);
         playRound(async, order, 4);
-        expect(order.spinTargetPointerId, order.rankedPointerIds.first);
+        expect(order.spinTargetId, order.rankedIds.first);
         order.dispose();
 
         final teams = build();
@@ -429,7 +450,7 @@ void main() {
         teams.selectPlayerCount(4);
         // Takım modunda kimse öne çıkmaz; ışın kimseyi göstermeden durur
         playRound(async, teams, 4);
-        expect(teams.spinTargetPointerId, isNull);
+        expect(teams.spinTargetId, isNull);
         teams.dispose();
       });
     });
@@ -440,10 +461,10 @@ void main() {
         c.selectPlayerCount(3);
         c.selectPickCount(1);
         playRound(async, c, 3);
-        expect(c.spinTargetPointerId, isNotNull);
+        expect(c.spinTargetId, isNotNull);
 
         c.resetGame();
-        expect(c.spinTargetPointerId, isNull);
+        expect(c.spinTargetId, isNull);
 
         c.dispose();
       });
@@ -455,17 +476,85 @@ void main() {
         c.selectMode(GameMode.teams);
         c.selectPlayerCount(4);
         playRound(async, c, 4);
-        expect(c.teamOfPointer, isNotEmpty);
+        expect(c.teamOfId, isNotEmpty);
 
         c.resetGame();
         expect(c.phase, GamePhase.waiting);
-        expect(c.teamOfPointer, isEmpty);
-        expect(c.spotlightPointerIds, isEmpty);
+        expect(c.teamOfId, isEmpty);
+        expect(c.spotlightIds, isEmpty);
         expect(c.pointerColors, isEmpty);
         expect(c.mode, GameMode.teams);
 
         c.dispose();
       });
+    });
+  });
+
+  group('isim akışı', () {
+    test('saklanan liste açılışta yüklenir', () {
+      final c = build(names: ['Ali', 'Veli']);
+      expect(c.names, ['Ali', 'Veli']);
+      expect(c.input, InputSource.fingers, reason: 'varsayılan parmak');
+      c.dispose();
+    });
+
+    test('liste güncellenince diske yazılır ve üst sınırda kesilir', () {
+      final c = build();
+      c.setNames(['Ali', 'Veli', 'Ayşe']);
+      expect(nameStore.stored, ['Ali', 'Veli', 'Ayşe']);
+
+      final tooMany = List.generate(NamesService.maxNames + 5, (i) => 'Kişi $i');
+      c.setNames(tooMany);
+      expect(c.names.length, NamesService.maxNames);
+      c.dispose();
+    });
+
+    test('isimlerle tur: çark dönerken sonuç saklı, süre dolunca açıklanır', () {
+      fakeAsync((async) {
+        final c = build(names: ['Ali', 'Veli', 'Ayşe', 'Fatma']);
+        c.selectInput(InputSource.names);
+        c.selectPlayerCount(c.names.length);
+        c.selectPickCount(1);
+        expect(c.phase, GamePhase.waiting);
+
+        c.startNameRound();
+        expect(c.phase, GamePhase.locked);
+        expect(c.participantIds, [0, 1, 2, 3]);
+        expect(c.spinTargetId, isNotNull, reason: 'çark hedefi dönüşten önce belli');
+        expect(c.pickedIds, isEmpty, reason: 'sonuç dönüş bitmeden açıklanmaz');
+
+        async.elapse(GameController.spinDuration);
+        expect(c.phase, GamePhase.revealed);
+        expect(c.pickedIds.single, c.spinTargetId);
+        expect(c.pickedIds.single, inInclusiveRange(0, 3));
+        // Çark kendi rengini seçer; parmak renkleri boş kalmalı
+        expect(c.pointerColors, isEmpty);
+
+        async.elapse(const Duration(seconds: 2));
+        async.flushMicrotasks();
+        expect(stats.lastInput, InputSource.names);
+        expect(stats.lastPlayers, 4);
+
+        c.dispose();
+      });
+    });
+
+    test('iki isimden az olunca tur başlamaz', () {
+      final c = build(names: ['Ali']);
+      c.selectInput(InputSource.names);
+      c.phase = GamePhase.waiting;
+      c.startNameRound();
+      expect(c.phase, GamePhase.waiting);
+      c.dispose();
+    });
+
+    test('girdi değişince yarım kalan seçim sıfırlanır', () {
+      final c = build(names: ['Ali', 'Veli', 'Ayşe']);
+      c.selectPlayerCount(4);
+      c.selectInput(InputSource.names);
+      expect(c.pendingPlayerCount, isNull);
+      expect(c.input, InputSource.names);
+      c.dispose();
     });
   });
 }

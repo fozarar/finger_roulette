@@ -119,4 +119,28 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get modePick => 'Pilih';
+
+  @override
+  String get inputFingers => 'Jari';
+
+  @override
+  String get inputNames => 'Nama';
+
+  @override
+  String get addName => 'Tambah nama';
+
+  @override
+  String get nameHint => 'Nama';
+
+  @override
+  String get spin => 'Putar';
+
+  @override
+  String get spinAgain => 'Putar lagi';
+
+  @override
+  String get needTwoNames => 'Tambahkan minimal 2 nama';
+
+  @override
+  String get continueLabel => 'Lanjut';
 }

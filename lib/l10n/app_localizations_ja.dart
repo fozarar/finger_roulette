@@ -119,4 +119,28 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get modePick => '選ぶ';
+
+  @override
+  String get inputFingers => '指';
+
+  @override
+  String get inputNames => '名前';
+
+  @override
+  String get addName => '名前を追加';
+
+  @override
+  String get nameHint => '名前';
+
+  @override
+  String get spin => '回す';
+
+  @override
+  String get spinAgain => 'もう一度回す';
+
+  @override
+  String get needTwoNames => '名前を2つ以上追加してください';
+
+  @override
+  String get continueLabel => '次へ';
 }

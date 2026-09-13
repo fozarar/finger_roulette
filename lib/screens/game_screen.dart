@@ -40,7 +40,7 @@ class GameScreen extends StatelessWidget {
     final isLocked = controller.phase == GamePhase.locked ||
         controller.phase == GamePhase.revealed;
     final statusText = statusTextFor(l10n, controller);
-    final spotlight = controller.spotlightPointerIds;
+    final spotlight = controller.spotlightIds;
     final labels = resultLabelsFor(controller);
 
     return Scaffold(
@@ -70,7 +70,7 @@ class GameScreen extends StatelessWidget {
                         pointerColors: Map.of(controller.pointerColors),
                         lockedPointerIds:
                             List.of(controller.lockedPointerIds),
-                        spotlightPointerIds: spotlight,
+                        spotlightIds: spotlight,
                         labels: labels,
                         dimOthers: controller.mode.picksSubset,
                         beam: beam.value,

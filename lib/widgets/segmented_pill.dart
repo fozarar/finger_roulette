@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
 
-import '../l10n/app_localizations.dart';
-import '../models/game_mode.dart';
-import '../screens/game_text.dart';
-
-/// Seç modunda seçilenlerin kazanan mı kaybeden mi olduğunu belirleyen düğme.
+/// İki ya da üç seçenekli, hap biçiminde seçim düğmesi.
 ///
-/// Çekiliş iki durumda da aynı; değişen yalnızca kutlamanın kime yapıldığı.
-/// Oyuncu sayısının üstünde durur: 2 oyuncuda sayı sorusu atlanıp oyun hemen
-/// başladığı için bu karar ondan önce verilebilmeli.
-class OutcomeToggle extends StatelessWidget {
-  final PickOutcome selected;
-  final ValueChanged<PickOutcome> onSelected;
+/// Seçim ekranında iki yerde kullanılıyor: katılımcılar nereden geliyor
+/// (parmak / isim) ve seçilenler ne oluyor (kazanan / kaybeden). İkisi de
+/// mod kutularının altında duran, kutulardan daha hafif görünmesi gereken
+/// ikincil kararlar — bu yüzden aynı biçim.
+class SegmentedPill<T> extends StatelessWidget {
+  final List<T> values;
+  final T selected;
+  final IconData Function(T value) iconFor;
+  final String Function(T value) labelFor;
+  final ValueChanged<T> onSelected;
 
-  const OutcomeToggle({
+  const SegmentedPill({
     super.key,
+    required this.values,
     required this.selected,
+    required this.iconFor,
+    required this.labelFor,
     required this.onSelected,
   });
 
-  static const Map<PickOutcome, IconData> _icons = {
-    PickOutcome.winners: Icons.emoji_events_outlined,
-    PickOutcome.losers: Icons.sentiment_very_dissatisfied_outlined,
-  };
-
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
     // Uzun çevirilerde (örneğin Rusça "Проигравший") dar ekranlarda küçülsün
     return FittedBox(
       fit: BoxFit.scaleDown,
@@ -35,17 +32,17 @@ class OutcomeToggle extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
           border: Border.all(color: Colors.white24),
-          color: Colors.white.withAlpha(8),
+          color: Colors.white.withValues(alpha: 0.03),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            for (final outcome in PickOutcome.values)
-              _OutcomeSegment(
-                icon: _icons[outcome]!,
-                label: outcomeLabelFor(l10n, outcome),
-                isSelected: outcome == selected,
-                onTap: () => onSelected(outcome),
+            for (final value in values)
+              _Segment(
+                icon: iconFor(value),
+                label: labelFor(value),
+                isSelected: value == selected,
+                onTap: () => onSelected(value),
               ),
           ],
         ),
@@ -54,14 +51,14 @@ class OutcomeToggle extends StatelessWidget {
   }
 }
 
-/// Düğmenin tek bir yarısı
-class _OutcomeSegment extends StatelessWidget {
+/// Hapın tek bir bölümü
+class _Segment extends StatelessWidget {
   final IconData icon;
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
 
-  const _OutcomeSegment({
+  const _Segment({
     required this.icon,
     required this.label,
     required this.isSelected,
@@ -82,7 +79,9 @@ class _OutcomeSegment extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 9),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: isSelected ? Colors.white.withAlpha(45) : Colors.transparent,
+            color: isSelected
+                ? Colors.white.withValues(alpha: 0.18)
+                : Colors.transparent,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,

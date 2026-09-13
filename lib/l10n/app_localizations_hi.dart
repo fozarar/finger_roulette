@@ -119,4 +119,28 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get modePick => 'चुनें';
+
+  @override
+  String get inputFingers => 'उंगलियाँ';
+
+  @override
+  String get inputNames => 'नाम';
+
+  @override
+  String get addName => 'नाम जोड़ें';
+
+  @override
+  String get nameHint => 'नाम';
+
+  @override
+  String get spin => 'घुमाएँ';
+
+  @override
+  String get spinAgain => 'फिर घुमाएँ';
+
+  @override
+  String get needTwoNames => 'कम से कम 2 नाम जोड़ें';
+
+  @override
+  String get continueLabel => 'आगे बढ़ें';
 }

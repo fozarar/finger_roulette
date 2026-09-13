@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../controllers/game_controller.dart';
 import '../models/game_phase.dart';
+import '../models/input_source.dart';
 import '../models/spin_beam.dart';
+import '../models/wheel_spin.dart';
+import '../services/names_service.dart';
 import '../services/review_service.dart';
 import '../services/stats_service.dart';
 import 'game_screen.dart';
 import 'selection_screen.dart';
+import 'wheel_screen.dart';
 
 /// Uygulamanın tek ekranı — seçim ve oyun görünümleri arasında köprü kurar.
 ///
@@ -18,8 +22,14 @@ import 'selection_screen.dart';
 class HomeScreen extends StatefulWidget {
   final StatsService stats;
   final ReviewService review;
+  final NamesService nameStore;
 
-  const HomeScreen({super.key, required this.stats, required this.review});
+  const HomeScreen({
+    super.key,
+    required this.stats,
+    required this.review,
+    required this.nameStore,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -46,14 +56,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   /// Rulet ışınının dönüşü. Süresi [GameController.spinDuration] ile aynı
   /// olmak zorunda: ışın tam sonuç açıklanırken hedefin üstünde durmalı.
-  late AnimationController _beamController;
+  late AnimationController _spinController;
 
   /// Kare başına bir kez hesaplanan ışın geometrisi. Hem çizim hem de tik
   /// sesi bunu okur; iki yerde ayrı hesaplansaydı ses ile görüntü ayrışırdı.
   final ValueNotifier<SpinBeam?> _beam = ValueNotifier(null);
 
+  /// Çarkın o anki dönüşü. Işının aksine sonuç açıklandıktan sonra da
+  /// durduğu yerde kalır — ibrenin kazananı göstermesi açıklamanın parçası.
+  final ValueNotifier<WheelSpin> _wheel =
+      ValueNotifier(const WheelSpin(angle: 0, indexUnderPointer: 0));
+
   /// Işının en son hangi parmağı gösterdiği; değiştiği karede tik çalar
-  int _lastBeamIndex = -1;
+  int _lastSpinIndex = -1;
 
   /// Bir önceki bildirimde sonuç açıklanmış mıydı — animasyon tetikleme için
   bool _wasRevealed = false;
@@ -95,12 +110,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       TweenSequenceItem(tween: Tween(begin: 0.3, end: 0.0), weight: 70),
     ]).animate(_flashController);
 
-    _beamController = AnimationController(
+    _spinController = AnimationController(
       vsync: this,
       duration: GameController.spinDuration,
-    )..addListener(_updateBeam);
+    )..addListener(_updateSpin);
 
-    _controller = GameController(stats: widget.stats, review: widget.review);
+    _controller = GameController(
+      stats: widget.stats,
+      review: widget.review,
+      nameStore: widget.nameStore,
+    );
     // Controller değiştiğinde animasyon durumunu güncelle
     _controller.addListener(_onControllerChanged);
   }
@@ -113,10 +132,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     _winnerScaleController.dispose();
     _winnerGlowController.dispose();
     _flashController.dispose();
-    _beamController
-      ..removeListener(_updateBeam)
+    _spinController
+      ..removeListener(_updateSpin)
       ..dispose();
     _beam.dispose();
+    _wheel.dispose();
     super.dispose();
   }
 
@@ -130,11 +150,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     if (!_wasSpinning && isSpinning) {
       // Parmaklar kilitlendi — ışın dönmeye başlasın
-      _lastBeamIndex = -1;
-      _beamController.forward(from: 0);
+      _lastSpinIndex = -1;
+      _spinController.forward(from: 0);
     } else if (_wasSpinning && !isSpinning) {
-      _beamController.stop();
+      _spinController.stop();
       _beam.value = null;
+      if (_controller.input == InputSource.names) {
+        // Son kare ile süre birebir çakışmayabilir; çarkı hedefe tam oturt
+        _wheel.value = WheelSpin.of(
+          count: _controller.names.length,
+          targetIndex: _controller.spinTargetId,
+          t: 1.0,
+        );
+      }
     }
     _wasSpinning = isSpinning;
 
@@ -150,6 +178,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ..stop()
         ..reset();
       _flashController.reset();
+      _wheel.value = const WheelSpin(angle: 0, indexUnderPointer: 0);
     }
 
     _wasRevealed = isRevealed;
@@ -162,21 +191,35 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   ///
   /// Tik'i zamanlayıcıyla üretmek yerine gerçek geçişi kullanmak sesi
   /// görüntüye bağlar: ışın yavaşladıkça tik'ler kendiliğinden seyrekleşir.
-  void _updateBeam() {
+  void _updateSpin() {
     if (_controller.phase != GamePhase.locked) {
       _beam.value = null;
+      return;
+    }
+
+    if (_controller.input == InputSource.names) {
+      final wheel = WheelSpin.of(
+        count: _controller.names.length,
+        targetIndex: _controller.spinTargetId,
+        t: _spinController.value,
+      );
+      if (wheel.indexUnderPointer != _lastSpinIndex) {
+        _lastSpinIndex = wheel.indexUnderPointer;
+        _controller.playSpinTick();
+      }
+      _wheel.value = wheel;
       return;
     }
 
     final beam = SpinBeam.of(
       lockedPointerIds: _controller.lockedPointerIds,
       positions: _controller.activePointers,
-      targetPointerId: _controller.spinTargetPointerId,
-      t: _beamController.value,
+      targetPointerId: _controller.spinTargetId,
+      t: _spinController.value,
     );
 
-    if (beam != null && beam.highlightIndex != _lastBeamIndex) {
-      _lastBeamIndex = beam.highlightIndex;
+    if (beam != null && beam.highlightIndex != _lastSpinIndex) {
+      _lastSpinIndex = beam.highlightIndex;
       _controller.playSpinTick();
     }
     _beam.value = beam;
@@ -192,6 +235,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         // Seçim tamamlanmadan oyun ekranına geçme
         if (_controller.phase == GamePhase.setup) {
           return SelectionScreen(controller: _controller);
+        }
+        if (_controller.input == InputSource.names) {
+          return WheelScreen(
+            controller: _controller,
+            wheel: _wheel,
+            flashAnimation: _flashAnimation,
+          );
         }
         return GameScreen(
           controller: _controller,

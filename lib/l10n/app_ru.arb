@@ -21,5 +21,13 @@
   "gameInfoLosers": "{players, plural, few{{players} игрока} other{{players} игроков}} · {losers, plural, =1{1 проигравший} other{{losers} проигравших}}",
   "gameInfoTeams": "{players, plural, few{{players} игрока} other{{players} игроков}} · {teams, plural, few{{teams} команды} other{{teams} команд}}",
   "gameInfoOrder": "{players, plural, few{{players} игрока} other{{players} игроков}} · очерёдность",
-  "modePick": "Выбор"
+  "modePick": "Выбор",
+  "inputFingers": "Пальцы",
+  "inputNames": "Имена",
+  "addName": "Добавить имя",
+  "nameHint": "Имя",
+  "spin": "Крутить",
+  "spinAgain": "Крутить ещё",
+  "needTwoNames": "Добавьте хотя бы 2 имени",
+  "continueLabel": "Дальше"
 }

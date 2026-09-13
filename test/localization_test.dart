@@ -35,7 +35,7 @@ GameController controllerIn({
     ..selectedPlayerCount = players
     ..selectedPickCount = picks
     ..phase = phase
-    ..pickedPointerIds = List.of(pickedIds);
+    ..pickedIds = List.of(pickedIds);
   for (var i = 0; i < fingersDown; i++) {
     c.activePointers[i] = Offset(100.0 * i, 200);
   }
@@ -196,13 +196,13 @@ void main() {
       final teams = controllerIn(
         phase: GamePhase.revealed,
         mode: GameMode.teams,
-      )..teamOfPointer = {7: 0, 8: 1, 9: 0};
+      )..teamOfId = {7: 0, 8: 1, 9: 0};
       expect(resultLabelsFor(teams), {7: 'A', 8: 'B', 9: 'A'});
 
       final order = controllerIn(
         phase: GamePhase.revealed,
         mode: GameMode.order,
-      )..rankedPointerIds = [9, 7, 8];
+      )..rankedIds = [9, 7, 8];
       expect(resultLabelsFor(order), {9: '1', 7: '2', 8: '3'});
 
       final picked = controllerIn(phase: GamePhase.revealed, pickedIds: [7]);

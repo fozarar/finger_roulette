@@ -119,4 +119,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get modePick => 'Pick';
+
+  @override
+  String get inputFingers => 'Fingers';
+
+  @override
+  String get inputNames => 'Names';
+
+  @override
+  String get addName => 'Add name';
+
+  @override
+  String get nameHint => 'Name';
+
+  @override
+  String get spin => 'Spin';
+
+  @override
+  String get spinAgain => 'Spin again';
+
+  @override
+  String get needTwoNames => 'Add at least 2 names';
+
+  @override
+  String get continueLabel => 'Continue';
 }

@@ -257,6 +257,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pick'**
   String get modePick;
+
+  /// Selection screen: input tile — participants are fingers on the screen. One word if possible
+  ///
+  /// In en, this message translates to:
+  /// **'Fingers'**
+  String get inputFingers;
+
+  /// Selection screen: input tile — participants come from a typed name list. One word if possible
+  ///
+  /// In en, this message translates to:
+  /// **'Names'**
+  String get inputNames;
+
+  /// Button that adds the typed name to the list
+  ///
+  /// In en, this message translates to:
+  /// **'Add name'**
+  String get addName;
+
+  /// Placeholder inside the name text field
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get nameHint;
+
+  /// Button that spins the wheel
+  ///
+  /// In en, this message translates to:
+  /// **'Spin'**
+  String get spin;
+
+  /// Button that spins the wheel again after a result
+  ///
+  /// In en, this message translates to:
+  /// **'Spin again'**
+  String get spinAgain;
+
+  /// Shown when the list has fewer than two names, so the wheel cannot spin
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least 2 names'**
+  String get needTwoNames;
+
+  /// Button that leaves the setup screen for the wheel, once the name list is ready
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueLabel;
 }
 
 class _AppLocalizationsDelegate

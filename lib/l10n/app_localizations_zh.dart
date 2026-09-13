@@ -119,4 +119,28 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get modePick => '选人';
+
+  @override
+  String get inputFingers => '手指';
+
+  @override
+  String get inputNames => '名字';
+
+  @override
+  String get addName => '添加名字';
+
+  @override
+  String get nameHint => '名字';
+
+  @override
+  String get spin => '转动';
+
+  @override
+  String get spinAgain => '再转一次';
+
+  @override
+  String get needTwoNames => '至少添加 2 个名字';
+
+  @override
+  String get continueLabel => '继续';
 }

@@ -21,5 +21,13 @@
   "gameInfoLosers": "{players} لاعبين · {losers, plural, =1{خاسر واحد} =2{خاسران} few{{losers} خاسرين} other{{losers} خاسرًا}}",
   "gameInfoTeams": "{players} لاعبين · {teams, plural, =2{فريقان} few{{teams} فرق} other{{teams} فريقًا}}",
   "gameInfoOrder": "{players} لاعبين · ترتيب الأدوار",
-  "modePick": "اختيار"
+  "modePick": "اختيار",
+  "inputFingers": "الأصابع",
+  "inputNames": "الأسماء",
+  "addName": "إضافة اسم",
+  "nameHint": "الاسم",
+  "spin": "أدر",
+  "spinAgain": "أدر مرة أخرى",
+  "needTwoNames": "أضف اسمين على الأقل",
+  "continueLabel": "متابعة"
 }

@@ -132,4 +132,28 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get modePick => 'اختيار';
+
+  @override
+  String get inputFingers => 'الأصابع';
+
+  @override
+  String get inputNames => 'الأسماء';
+
+  @override
+  String get addName => 'إضافة اسم';
+
+  @override
+  String get nameHint => 'الاسم';
+
+  @override
+  String get spin => 'أدر';
+
+  @override
+  String get spinAgain => 'أدر مرة أخرى';
+
+  @override
+  String get needTwoNames => 'أضف اسمين على الأقل';
+
+  @override
+  String get continueLabel => 'متابعة';
 }

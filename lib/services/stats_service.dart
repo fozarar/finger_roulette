@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/game_mode.dart';
+import '../models/input_source.dart';
 
 /// Kalıcı kullanım sayaçlarını tutar.
 ///
@@ -52,6 +53,7 @@ class StatsService {
   /// [outcome] ve [pickCount] yalnızca seç modunda anlamlı.
   Future<int> recordGameCompleted({
     required GameMode mode,
+    required InputSource input,
     required int playerCount,
     PickOutcome? outcome,
     int? pickCount,
@@ -60,6 +62,7 @@ class StatsService {
     await _prefs?.setInt(_kGamesPlayed, next);
     logEvent('game_completed', {
       'mode': mode.name,
+      'input': input.name,
       'outcome': ?outcome?.name,
       'players': playerCount,
       'picks': ?pickCount,

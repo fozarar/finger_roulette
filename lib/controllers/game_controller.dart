@@ -4,8 +4,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../models/draw.dart';
 import '../models/game_mode.dart';
+import '../models/input_source.dart';
 import '../models/game_phase.dart';
+import '../services/names_service.dart';
 import '../services/review_service.dart';
 import '../services/sound_service.dart';
 import '../services/stats_service.dart';
@@ -45,6 +48,12 @@ class GameController extends ChangeNotifier {
   /// Seç modunda seçilenler kazanan mı kaybeden mi; ayarlar değişse de korunur
   PickOutcome outcome = PickOutcome.winners;
 
+  /// Katılımcılar parmaklardan mı isim listesinden mi geliyor
+  InputSource input = InputSource.fingers;
+
+  /// Kullanıcının yazdığı isimler; [NamesService] ile cihazda saklanır
+  List<String> names = [];
+
   /// Oyuncu sayısı seçildi, kaç kişi seçileceği henüz belirlenmedi
   int? pendingPlayerCount;
 
@@ -74,13 +83,17 @@ class GameController extends ChangeNotifier {
   // ── Sonuç — moda göre yalnızca biri dolar ─────────────────────────────────
 
   /// Seç modunda seçilen pointer ID'leri (kazananlar ya da kaybedenler)
-  List<int> pickedPointerIds = [];
+  List<int> pickedIds = [];
 
   /// Takım modunda her pointer'ın takım indeksi (0 = A takımı)
-  Map<int, int> teamOfPointer = {};
+  Map<int, int> teamOfId = {};
 
   /// Sıra modunda pointer'lar sırasıyla; ilk eleman 1. sırada
-  List<int> rankedPointerIds = [];
+  List<int> rankedIds = [];
+
+  /// İsim akışında tura giren indeksler — tur başlarken sabitlenir ki
+  /// açıklama sırasında liste düzenlense bile sonuç kaymasın
+  List<int> _nameParticipantIds = [];
 
   // ── Çekilmiş ama henüz açıklanmamış sonuç ────────────────────────────────
 
@@ -88,14 +101,12 @@ class GameController extends ChangeNotifier {
   /// ışının nereye ineceğinin dönüş başlamadan belli olması gerekir. Sonuç o
   /// arada burada bekler; yukarıdaki alanlar boş kaldığı için UI erken
   /// açıklama yapmaz.
-  List<int> _drawnPickedIds = [];
-  Map<int, int> _drawnTeams = {};
-  List<int> _drawnRankedIds = [];
+  Draw? _drawn;
 
   /// Işının üstünde duracağı parmak: seç modunda seçilenlerin ilki, sıra
   /// modunda birinci. Takım modunda kimse öne çıkmadığı için null — ışın
   /// kimseyi işaret etmeden başladığı yerde durur.
-  int? spinTargetPointerId;
+  int? get spinTargetId => _drawn?.spinTarget;
 
   // ── Zamanlayıcılar ────────────────────────────────────────────────────────
 
@@ -107,6 +118,7 @@ class GameController extends ChangeNotifier {
   final SoundService _sound;
   final StatsService _stats;
   final ReviewService _review;
+  final NamesService _nameStore;
 
   /// Sonuç açıklandığında başlayan sayaç güncellemesi.
   /// Puan isteme anında beklenir; böylece güncel oyun sayısıyla karar verilir.
@@ -120,18 +132,30 @@ class GameController extends ChangeNotifier {
     SoundService? sound,
     StatsService? stats,
     ReviewService? review,
+    NamesService? nameStore,
   })  : _random = random ?? Random(),
         _sound = sound ?? SoundService(),
         _stats = stats ?? StatsService(),
-        _review = review ?? ReviewService();
+        _review = review ?? ReviewService(),
+        _nameStore = nameStore ?? NamesService() {
+    // Saklanan liste açılışta hazır olsun; okuma senkron, akış beklemez
+    names = _nameStore.load();
+  }
+
+  /// Turdaki katılımcılar: parmak akışında kilitlenen pointer'lar, isim
+  /// akışında liste indeksleri. Çekiliş yalnızca bunu görür.
+  List<int> get participantIds => switch (input) {
+        InputSource.fingers => lockedPointerIds,
+        InputSource.names => _nameParticipantIds,
+      };
 
   /// Açıklamada öne çıkan pointer'lar: büyür, parlar, konfeti onlardan çıkar.
   /// Takım modunda herkes bir takıma düştüğü için hepsi, sıra modunda birinci.
   /// Sonuç açıklanmadan önce boştur.
-  List<int> get spotlightPointerIds => switch (mode) {
-        GameMode.pick => pickedPointerIds,
-        GameMode.teams => teamOfPointer.keys.toList(),
-        GameMode.order => rankedPointerIds.take(1).toList(),
+  List<int> get spotlightIds => switch (mode) {
+        GameMode.pick => pickedIds,
+        GameMode.teams => teamOfId.keys.toList(),
+        GameMode.order => rankedIds.take(1).toList(),
       };
 
   // ── Seçim aksiyonları ─────────────────────────────────────────────────────
@@ -143,6 +167,27 @@ class GameController extends ChangeNotifier {
     mode = newMode;
     pendingPlayerCount = null;
     selectedPickCount = null;
+    notifyListeners();
+  }
+
+  /// Girdiyi parmak ve isim listesi arasında değiştirir. Katılımcıların
+  /// geldiği yer değiştiği için yarım kalan seçim sıfırlanır.
+  void selectInput(InputSource newInput) {
+    if (newInput == input) return;
+    input = newInput;
+    pendingPlayerCount = null;
+    selectedPickCount = null;
+    notifyListeners();
+  }
+
+  /// İsim listesini günceller ve cihaza yazar
+  void setNames(List<String> newNames) {
+    names = List.of(newNames.take(NamesService.maxNames));
+    // Liste kısaldıysa seçili kazanan sayısı geçersiz kalmış olabilir
+    if (selectedPickCount != null && selectedPickCount! >= names.length) {
+      selectedPickCount = null;
+    }
+    _nameStore.save(names);
     notifyListeners();
   }
 
@@ -177,13 +222,34 @@ class GameController extends ChangeNotifier {
   /// Kaç kişinin seçileceğini belirler ve oyun ekranına geçer
   void selectPickCount(int count) => _confirmSelection(pickCount: count);
 
+  /// İsim listesi hazır; çark ekranına geçer. Kaç kişi seçileceği sorulan
+  /// modlarda bu soruyu [selectPickCount] zaten cevaplıyor.
+  void confirmNames() {
+    if (input != InputSource.names || names.length < 2) return;
+    _confirmSelection(pickCount: null);
+  }
+
   void _confirmSelection({required int? pickCount}) {
-    final playerCount = pendingPlayerCount;
+    // İsim akışında oyuncu sayısı listenin uzunluğudur
+    final playerCount =
+        input == InputSource.names ? names.length : pendingPlayerCount;
     if (playerCount == null) return;
     selectedPlayerCount = playerCount;
     selectedPickCount = pickCount;
     phase = GamePhase.waiting;
     notifyListeners();
+  }
+
+  /// İsim akışında turu başlatır: çark döner, [spinDuration] dolunca sonuç
+  /// açıklanır. Parmakların kilitlenmesinin karşılığı; çekiliş yine dönüş
+  /// başlamadan yapılır, çünkü çarkın nerede duracağı önceden belli olmalı.
+  void startNameRound() {
+    if (phase != GamePhase.waiting || names.length < 2) return;
+    _nameParticipantIds = [for (var i = 0; i < names.length; i++) i];
+    _drawResult();
+    phase = GamePhase.locked;
+    notifyListeners();
+    _pickTimer = Timer(spinDuration, _reveal);
   }
 
   /// Her şeyi sıfırlar ve seçim ekranına döner — mod ve kazanan/kaybeden korunur
@@ -276,27 +342,13 @@ class GameController extends ChangeNotifier {
   /// açıklama arasında yeni parmak kabul edilmediği için aradaki 2 saniyede
   /// sonucu etkileyecek hiçbir şey olmaz.
   void _drawResult() {
-    // Her mod karıştırılmış listeden okur — her parmağın şansı eşit
-    final shuffled = List.of(lockedPointerIds)..shuffle(_random);
-
-    switch (mode) {
-      case GameMode.pick:
-        // Seçilecek sayı: seçilen değer ile katılımcı sayısının küçüğü
-        final count = min(selectedPickCount ?? 1, shuffled.length);
-        _drawnPickedIds = shuffled.take(count).toList();
-        // Birden fazla kişi seçildiyse ışın ilkinin üstünde durur, kalanlar
-        // onunla birlikte açıklanır
-        spinTargetPointerId = _drawnPickedIds.first;
-      case GameMode.teams:
-        // Sırayla dağıtmak takımları dengeler: boyutlar en fazla 1 farklı
-        _drawnTeams = {
-          for (var i = 0; i < shuffled.length; i++) shuffled[i]: i % teamCount,
-        };
-        spinTargetPointerId = null;
-      case GameMode.order:
-        _drawnRankedIds = shuffled;
-        spinTargetPointerId = shuffled.first;
-    }
+    _drawn = Draw.of(
+      participants: participantIds,
+      mode: mode,
+      pickCount: selectedPickCount ?? 1,
+      teamCount: teamCount,
+      random: _random,
+    );
   }
 
   /// Işın bir parmağın üstünden geçtiğinde UI katmanı tarafından çağrılır.
@@ -313,25 +365,27 @@ class GameController extends ChangeNotifier {
 
   /// Adım 3 — Işın hedefe indi; çekilen sonucu açıkla
   void _reveal() {
-    if (lockedPointerIds.isEmpty) {
+    final drawn = _drawn;
+    if (participantIds.isEmpty || drawn == null) {
       resetGame();
       return;
     }
 
     switch (mode) {
       case GameMode.pick:
-        pickedPointerIds = _drawnPickedIds;
-        // Kaybedenler kırmızıya döner; kazananlar kendi renginde parlar
-        if (outcome == PickOutcome.losers) {
-          for (final id in pickedPointerIds) {
+        pickedIds = drawn.picked;
+        // Kaybedenler kırmızıya döner; kazananlar kendi renginde parlar.
+        // Renk parmak dairelerinin işi — çark kendi rengini kendi seçiyor.
+        if (input == InputSource.fingers && outcome == PickOutcome.losers) {
+          for (final id in pickedIds) {
             pointerColors[id] = loserColor;
           }
         }
       case GameMode.teams:
-        teamOfPointer = _drawnTeams;
-        teamOfPointer.forEach((id, team) => pointerColors[id] = teamColors[team]);
+        teamOfId = drawn.teams;
+        if (input == InputSource.fingers) teamOfId.forEach((id, team) => pointerColors[id] = teamColors[team]);
       case GameMode.order:
-        rankedPointerIds = _drawnRankedIds;
+        rankedIds = drawn.ranked;
     }
     phase = GamePhase.revealed;
 
@@ -342,9 +396,10 @@ class GameController extends ChangeNotifier {
 
     _pendingGameCount = _stats.recordGameCompleted(
       mode: mode,
+      input: input,
       outcome: mode.picksSubset ? outcome : null,
-      playerCount: lockedPointerIds.length,
-      pickCount: mode.picksSubset ? pickedPointerIds.length : null,
+      playerCount: participantIds.length,
+      pickCount: mode.picksSubset ? pickedIds.length : null,
     );
 
     // 2 saniye sonra reset butonlarını göster
@@ -376,13 +431,11 @@ class GameController extends ChangeNotifier {
     activePointers.clear();
     pointerColors.clear();
     lockedPointerIds = [];
-    pickedPointerIds = [];
-    teamOfPointer = {};
-    rankedPointerIds = [];
-    _drawnPickedIds = [];
-    _drawnTeams = {};
-    _drawnRankedIds = [];
-    spinTargetPointerId = null;
+    pickedIds = [];
+    teamOfId = {};
+    rankedIds = [];
+    _drawn = null;
+    _nameParticipantIds = [];
     showReset = false;
   }
 

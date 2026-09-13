@@ -2,6 +2,7 @@ import '../controllers/game_controller.dart';
 import '../l10n/app_localizations.dart';
 import '../models/game_mode.dart';
 import '../models/game_phase.dart';
+import '../models/input_source.dart';
 
 /// Oyun durumunu ekranda gösterilecek yerelleştirilmiş metne çevirir.
 ///
@@ -29,8 +30,8 @@ String _waitingText(AppLocalizations l10n, GameController c) {
 /// Sonuç açıklandığında ortada görünen başlık
 String _resultText(AppLocalizations l10n, GameController c) {
   // Katılımcı sayısı seçilen sayıdan azsa gerçek sayı kazanır
-  final picked = c.pickedPointerIds.isNotEmpty
-      ? c.pickedPointerIds.length
+  final picked = c.pickedIds.isNotEmpty
+      ? c.pickedIds.length
       : (c.selectedPickCount ?? 1);
   return switch (c.mode) {
     GameMode.pick => switch (c.outcome) {
@@ -62,6 +63,13 @@ String modeLabelFor(AppLocalizations l10n, GameMode mode) => switch (mode) {
       GameMode.order => l10n.modeOrder,
     };
 
+/// Seçim ekranındaki girdi düğmesinin adı
+String inputLabelFor(AppLocalizations l10n, InputSource input) =>
+    switch (input) {
+      InputSource.fingers => l10n.inputFingers,
+      InputSource.names => l10n.inputNames,
+    };
+
 /// Seç modundaki kazanan/kaybeden düğmesinin adı
 String outcomeLabelFor(AppLocalizations l10n, PickOutcome outcome) =>
     switch (outcome) {
@@ -77,12 +85,12 @@ String pickCountQuestionFor(AppLocalizations l10n, PickOutcome outcome) =>
 /// sıra numarası (1, 2, 3...). Seç modunda etiket yok.
 Map<int, String> resultLabelsFor(GameController c) => switch (c.mode) {
       GameMode.teams => {
-          for (final MapEntry(key: id, value: team) in c.teamOfPointer.entries)
+          for (final MapEntry(key: id, value: team) in c.teamOfId.entries)
             id: String.fromCharCode(0x41 + team),
         },
       GameMode.order => {
-          for (var i = 0; i < c.rankedPointerIds.length; i++)
-            c.rankedPointerIds[i]: '${i + 1}',
+          for (var i = 0; i < c.rankedIds.length; i++)
+            c.rankedIds[i]: '${i + 1}',
         },
       GameMode.pick => const {},
     };

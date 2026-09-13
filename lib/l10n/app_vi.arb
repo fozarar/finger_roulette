@@ -21,5 +21,13 @@
   "gameInfoLosers": "{players} người chơi · {losers, plural, =1{1 người thua} other{{losers} người thua}}",
   "gameInfoTeams": "{players} người chơi · {teams} đội",
   "gameInfoOrder": "{players} người chơi · thứ tự lượt chơi",
-  "modePick": "Chọn"
+  "modePick": "Chọn",
+  "inputFingers": "Ngón tay",
+  "inputNames": "Tên",
+  "addName": "Thêm tên",
+  "nameHint": "Tên",
+  "spin": "Quay",
+  "spinAgain": "Quay lần nữa",
+  "needTwoNames": "Thêm ít nhất 2 tên",
+  "continueLabel": "Tiếp tục"
 }

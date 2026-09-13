@@ -1,95 +1,127 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../controllers/game_controller.dart';
 import '../l10n/app_localizations.dart';
+import '../models/game_mode.dart';
+import '../models/input_source.dart';
 import '../widgets/mode_selector.dart';
+import '../widgets/name_list_editor.dart';
 import '../widgets/option_button.dart';
-import '../widgets/outcome_toggle.dart';
+import '../widgets/segmented_pill.dart';
 import 'game_text.dart';
 
-/// Oyun başlamadan önce mod, oyuncu ve kazanan sayısının seçildiği ekran.
+/// Oyun başlamadan önce girdinin, modun ve sayıların seçildiği ekran.
 ///
-/// Seç modunda kazanan/kaybeden düğmesi ve oyuncu seçildikten sonra kaç kişi
-/// seçileceği sorusu görünür; takım ve sıra modları ikisini de sormaz.
-/// Seçimler tamamlanınca [GameController] otomatik olarak [GamePhase.waiting]
-/// fazına geçer ve [HomeScreen] oyun ekranını gösterir.
+/// İki eksen var ve birbirinden bağımsız: katılımcılar nereden geliyor
+/// (parmak / isim) ve ne çekiliyor (seç / takım / sıra). Seçimler tamamlanınca
+/// [GameController] [GamePhase.waiting] fazına geçer; [HomeScreen] parmak
+/// akışında oyun ekranını, isim akışında çarkı gösterir.
 class SelectionScreen extends StatelessWidget {
   final GameController controller;
 
   const SelectionScreen({super.key, required this.controller});
 
+  /// İsim listesinde kaç kazanan seçilebileceğinin üst sınırı. Liste 20 kişiye
+  /// kadar çıkabiliyor ama 19 düğmelik bir satırın kimseye faydası yok.
+  static const int _maxPickOptions = 5;
+
+  static const Map<InputSource, IconData> _inputIcons = {
+    InputSource.fingers: Icons.touch_app_outlined,
+    InputSource.names: Icons.format_list_bulleted_rounded,
+  };
+
+  static const Map<PickOutcome, IconData> _outcomeIcons = {
+    PickOutcome.winners: Icons.emoji_events_outlined,
+    PickOutcome.losers: Icons.sentiment_very_dissatisfied_outlined,
+  };
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final mode = controller.mode;
-    // Kazanan/kaybeden yalnızca seç modunda sorulur
-    final showOutcome = mode.picksSubset;
-    // İkinci soru ayrıca oyuncu sayısının seçilmiş olmasını bekler
-    final showPickQuestion = showOutcome && controller.pendingPlayerCount != null;
-    final maxPicks = (controller.pendingPlayerCount ?? 2) - 1;
+    final isNames = controller.input == InputSource.names;
+    final enoughNames = controller.names.length >= 2;
+
+    // İkinci soru: parmakta oyuncu seçilince, isimde liste dolunca açılır
+    final showPickQuestion = mode.picksSubset &&
+        (isNames ? enoughNames : controller.pendingPlayerCount != null);
+    final maxPicks = isNames
+        ? min(controller.names.length - 1, _maxPickOptions)
+        : (controller.pendingPlayerCount ?? 2) - 1;
 
     return Scaffold(
       backgroundColor: const Color(0xFF111111),
       body: SafeArea(
-        // Küçük ekranda ya da büyük yazı boyutunda taşmasın diye kaydırılabilir
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(vertical: 24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // ── Başlık ──────────────────────────────────────────────────
-                const Text(
-                  'FINGER',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 52,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 10,
-                  ),
+        // Klavye açıldığında ya da liste uzadığında taşmasın
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // ── Başlık ──────────────────────────────────────────────────
+              const Text(
+                'FINGER',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 44,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 9,
                 ),
-                const Text(
-                  'CHOOSER',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 26,
-                    fontWeight: FontWeight.w200,
-                    letterSpacing: 12,
-                  ),
+              ),
+              const Text(
+                'CHOOSER',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w200,
+                  letterSpacing: 11,
                 ),
-                const SizedBox(height: 44),
+              ),
+              const SizedBox(height: 26),
 
-                // ── Oyun modu ───────────────────────────────────────────────
-                ModeSelector(selected: mode, onSelected: controller.selectMode),
+              // ── Katılımcılar nereden geliyor ────────────────────────────
+              SegmentedPill<InputSource>(
+                values: InputSource.values,
+                selected: controller.input,
+                iconFor: (value) => _inputIcons[value]!,
+                labelFor: (value) => inputLabelFor(l10n, value),
+                onSelected: controller.selectInput,
+              ),
+              const SizedBox(height: 22),
+
+              // ── Ne çekiliyor ────────────────────────────────────────────
+              ModeSelector(selected: mode, onSelected: controller.selectMode),
+              const SizedBox(height: 18),
+
+              // ── Seçilenler ne oluyor (yalnızca seç modunda) ─────────────
+              AnimatedOpacity(
+                opacity: mode.picksSubset ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeOut,
+                child: IgnorePointer(
+                  ignoring: !mode.picksSubset,
+                  child: SegmentedPill<PickOutcome>(
+                    values: PickOutcome.values,
+                    selected: controller.outcome,
+                    iconFor: (value) => _outcomeIcons[value]!,
+                    labelFor: (value) => outcomeLabelFor(l10n, value),
+                    onSelected: controller.selectOutcome,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 30),
+
+              // ── Katılımcılar ────────────────────────────────────────────
+              if (isNames)
+                NameListEditor(
+                  names: controller.names,
+                  onChanged: controller.setNames,
+                )
+              else ...[
+                _question(l10n.howManyPlayers),
                 const SizedBox(height: 22),
-
-                // ── Kazanan mı kaybeden mi (yalnızca seç modunda) ───────────
-                // Görünmezken de yerini korur; böylece mod değişince düzen
-                // zıplamaz.
-                AnimatedOpacity(
-                  opacity: showOutcome ? 1.0 : 0.0,
-                  duration: const Duration(milliseconds: 250),
-                  curve: Curves.easeOut,
-                  child: IgnorePointer(
-                    ignoring: !showOutcome,
-                    child: OutcomeToggle(
-                      selected: controller.outcome,
-                      onSelected: controller.selectOutcome,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 40),
-
-                // ── Oyuncu sayısı seçimi ────────────────────────────────────
-                Text(
-                  l10n.howManyPlayers,
-                  style: const TextStyle(
-                    color: Color(0xAAFFFFFF),
-                    fontSize: 16,
-                    letterSpacing: 1.5,
-                  ),
-                ),
-                const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: mode.playerCounts
@@ -102,56 +134,71 @@ class SelectionScreen extends StatelessWidget {
                       )
                       .toList(),
                 ),
+              ],
 
-                // ── Kaç kişi seçilecek (oyuncu sayısından sonra) ────────────
-                AnimatedOpacity(
-                  opacity: showPickQuestion ? 1.0 : 0.0,
-                  duration: const Duration(milliseconds: 350),
-                  curve: Curves.easeOut,
-                  child: AnimatedSlide(
-                    offset: showPickQuestion
-                        ? Offset.zero
-                        : const Offset(0, 0.25),
-                    duration: const Duration(milliseconds: 350),
-                    curve: Curves.easeOut,
-                    child: IgnorePointer(
-                      ignoring: !showPickQuestion,
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 44),
-                          Text(
-                            pickCountQuestionFor(l10n, controller.outcome),
-                            style: const TextStyle(
-                              color: Color(0xAAFFFFFF),
-                              fontSize: 16,
-                              letterSpacing: 1.5,
-                            ),
-                          ),
-                          const SizedBox(height: 24),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: List.generate(maxPicks, (i) => i + 1)
-                                .map(
-                                  (n) => OptionButton(
-                                    label: '$n',
-                                    // Seçim anında oyun ekranına geçtiği için
-                                    // seçili görsel durumu gerekmez
-                                    isSelected: false,
-                                    onTap: () => controller.selectPickCount(n),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ],
-                      ),
+              // ── Kaç kişi seçilecek ──────────────────────────────────────
+              if (showPickQuestion) ...[
+                const SizedBox(height: 34),
+                _question(pickCountQuestionFor(l10n, controller.outcome)),
+                const SizedBox(height: 22),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(maxPicks, (i) => i + 1)
+                      .map(
+                        (n) => OptionButton(
+                          label: '$n',
+                          // Seçim anında oyun başladığı için seçili hali gerekmez
+                          isSelected: false,
+                          onTap: () => controller.selectPickCount(n),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ],
+
+              // ── Takım ve sırada sorulacak bir şey yok; doğrudan devam ───
+              if (isNames && !mode.picksSubset) ...[
+                const SizedBox(height: 34),
+                ElevatedButton(
+                  onPressed: enoughNames ? controller.confirmNames : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    disabledBackgroundColor: Colors.white24,
+                    disabledForegroundColor: Colors.white38,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 46,
+                      vertical: 15,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                  ),
+                  child: Text(
+                    l10n.continueLabel,
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0.8,
                     ),
                   ),
                 ),
               ],
-            ),
+
+              const SizedBox(height: 24),
+            ],
           ),
         ),
       ),
     );
   }
+
+  Widget _question(String text) => Text(
+        text,
+        style: const TextStyle(
+          color: Color(0xAAFFFFFF),
+          fontSize: 16,
+          letterSpacing: 1.5,
+        ),
+      );
 }

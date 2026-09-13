@@ -16,7 +16,7 @@ class FingerPainter extends CustomPainter {
 
   /// Açıklamada öne çıkan pointer'lar: kazananlar, kaybedenler, takım
   /// modunda herkes, sıra modunda birinci. Boşsa sonuç henüz açıklanmadı.
-  final List<int> spotlightPointerIds;
+  final List<int> spotlightIds;
 
   /// Dairelerin ortasına yazılan etiketler (takım harfi ya da sıra numarası)
   final Map<int, String> labels;
@@ -41,7 +41,7 @@ class FingerPainter extends CustomPainter {
     required this.activePointers,
     required this.pointerColors,
     required this.lockedPointerIds,
-    required this.spotlightPointerIds,
+    required this.spotlightIds,
     required this.labels,
     required this.dimOthers,
     required this.beam,
@@ -69,7 +69,7 @@ class FingerPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final hasResult = spotlightPointerIds.isNotEmpty;
+    final hasResult = spotlightIds.isNotEmpty;
 
     // Işın dairelerin altında kalsın — parmakların üstünden geçen bir tarama
     // değil, altlarında dönen bir işaretçi gibi okunuyor
@@ -81,7 +81,7 @@ class FingerPainter extends CustomPainter {
       final position = entry.value;
       final color = pointerColors[pointerId] ?? Colors.white;
 
-      final isSpotlit = spotlightPointerIds.contains(pointerId);
+      final isSpotlit = spotlightIds.contains(pointerId);
 
       // Işının şu an gösterdiği daire mi?
       final isCycleHighlight = !hasResult &&
@@ -293,7 +293,7 @@ class FingerPainter extends CustomPainter {
   bool shouldRepaint(FingerPainter old) =>
       old.activePointers != activePointers ||
       old.pointerColors != pointerColors ||
-      old.spotlightPointerIds != spotlightPointerIds ||
+      old.spotlightIds != spotlightIds ||
       old.labels != labels ||
       old.dimOthers != dimOthers ||
       // Işın her karede yeniden üretilir; kimlik karşılaştırması dönerken

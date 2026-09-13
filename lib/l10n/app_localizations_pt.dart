@@ -119,4 +119,28 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get modePick => 'Escolher';
+
+  @override
+  String get inputFingers => 'Dedos';
+
+  @override
+  String get inputNames => 'Nomes';
+
+  @override
+  String get addName => 'Adicionar nome';
+
+  @override
+  String get nameHint => 'Nome';
+
+  @override
+  String get spin => 'Girar';
+
+  @override
+  String get spinAgain => 'Girar de novo';
+
+  @override
+  String get needTwoNames => 'Adicione pelo menos 2 nomes';
+
+  @override
+  String get continueLabel => 'Continuar';
 }
