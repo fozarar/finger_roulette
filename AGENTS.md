@@ -24,6 +24,12 @@ or review rejects under Guideline 2.3.8.
   `--dart-define=SCREENSHOT_LOCALE=tr` for another language). A simulator only
   delivers two real touches, so this is the only way to see 3+ player screens;
   App Store screenshots come from here too.
+- `cd ios && fastlane screenshots` — replaces the App Store screenshots with
+  whatever sits in `ios/fastlane/screenshots/<locale>/`. The PNGs are gitignored;
+  regenerate them with the `flutter drive` line above. They come out at the
+  simulator's own size (1170×2532 on an iPhone 14), which App Store Connect does
+  not accept — scale to 1242×2688 first, same aspect ratio so nothing is cropped:
+  `sips -z 2688 1242 *.png`. Needs the API key variables from the Fastfile note.
 
 ## Project Notes
 

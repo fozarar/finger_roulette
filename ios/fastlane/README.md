@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 App Store metinlerini yükler. Build'e ve ekran görüntülerine dokunmaz, incelemeye göndermez, puanları sıfırlamaz.
 
+### ios screenshots
+
+```sh
+[bundle exec] fastlane ios screenshots
+```
+
+Ekran görüntülerini yükler. Metinlere ve build'e dokunmaz, incelemeye göndermez, puanları sıfırlamaz.
+
 ### ios beta
 
 ```sh
