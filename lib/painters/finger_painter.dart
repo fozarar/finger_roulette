@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 import '../models/spin_beam.dart';
@@ -25,7 +23,10 @@ class FingerPainter extends CustomPainter {
   /// false — herkesin numarası okunabilir kalmalı.
   final bool dimOthers;
 
-  /// Sonuç açıklanmadan önce dönen rulet ışını; dönmüyorsa null
+  /// Dönüş sırasında hangi dairenin vurgulanacağını ve tik sesinin ne zaman
+  /// çalacağını belirleyen geometri. Işığın kendisi çizilmiyor: ekranda dönen
+  /// bir koni huzursuz duruyordu, dairelerin sırayla yanması gerilimi zaten
+  /// taşıyor. Dönmüyorsa null.
   final SpinBeam? beam;
 
   /// True iken pointer listesi kilitlenmiş demektir (choosing veya revealed)
@@ -53,28 +54,11 @@ class FingerPainter extends CustomPainter {
   /// Temel yarıçap — 90px çap
   static const double _baseRadius = 45.0;
 
-  /// Işın konisinin yarı açısı (radyan) — uçtaki genişliği belirler
-  static const double _beamSpread = 0.055;
-
-  /// Işının merkeze yaklaşmadan kestiği yarıçap. Ortada boşluk kalması hem
-  /// dönen bir tekerlek kolu hissi verir hem de "Seçiliyor..." yazısının
-  /// üstüne parlak bir nokta binmesini engeller.
-  static const double _beamInnerGap = 30.0;
-
-  /// Işının gerisinde bırakılan sönük kopya sayısı; dönüş yönünü hissettirir
-  static const int _beamTrailCount = 3;
-
-  /// İki iz kopyası arasındaki açı farkı
-  static const double _beamTrailStep = 0.085;
-
   @override
   void paint(Canvas canvas, Size size) {
     final hasResult = spotlightIds.isNotEmpty;
 
-    // Işın dairelerin altında kalsın — parmakların üstünden geçen bir tarama
-    // değil, altlarında dönen bir işaretçi gibi okunuyor
     final beam = this.beam;
-    if (beam != null && !hasResult) _paintBeam(canvas, beam);
 
     for (final entry in activePointers.entries) {
       final pointerId = entry.key;
@@ -149,91 +133,6 @@ class FingerPainter extends CustomPainter {
         _paintLabel(canvas, label, position, currentRadius, opacity);
       }
     }
-  }
-
-  /// Parmakların ağırlık merkezi etrafında dönen rulet ışını.
-  ///
-  /// Koni uca doğru genişleyip sönen bir projektör gibi çizilir; ortasındaki
-  /// ince parlak çizgi hangi noktayı gösterdiğini netleştirir. Arkasındaki
-  /// sönük kopyalar hareket izi verir — asıl işi 60fps'te tek karede bile
-  /// dönüş yönünün okunmasını sağlamak.
-  void _paintBeam(Canvas canvas, SpinBeam beam) {
-    canvas.save();
-    canvas.translate(beam.center.dx, beam.center.dy);
-
-    // İz önce çizilir ki asıl ışın üstünde kalsın; uzaktaki kopya en sönük
-    for (var i = _beamTrailCount; i >= 1; i--) {
-      _paintBeamCone(
-        canvas,
-        beam.angle - i * _beamTrailStep,
-        beam.reach,
-        0.10 / i,
-      );
-    }
-    _paintBeamCone(canvas, beam.angle, beam.reach, 0.32);
-
-    // Koninin ortasındaki keskin çizgi — ışının tam olarak neyi gösterdiği
-    canvas.save();
-    canvas.rotate(beam.angle);
-    canvas.drawLine(
-      const Offset(_beamInnerGap, 0),
-      Offset(beam.reach, 0),
-      Paint()
-        ..strokeWidth = 2.5
-        ..strokeCap = StrokeCap.round
-        ..shader = const LinearGradient(
-          colors: [Color(0xE6FFFFFF), Color(0x66FFFFFF), Color(0x00FFFFFF)],
-          stops: [0.0, 0.6, 1.0],
-        ).createShader(
-          Rect.fromLTWH(_beamInnerGap, -1.5, beam.reach - _beamInnerGap, 3),
-        ),
-    );
-    canvas.restore();
-
-    canvas.restore();
-  }
-
-  /// [angle] yönüne uzanan, ucuna doğru genişleyip sönen koni.
-  /// Canvas'ın merkeze taşınmış olması beklenir.
-  void _paintBeamCone(
-    Canvas canvas,
-    double angle,
-    double reach,
-    double strength,
-  ) {
-    canvas.save();
-    canvas.rotate(angle);
-
-    final innerSpread = _beamInnerGap * tan(_beamSpread);
-    final outerSpread = reach * tan(_beamSpread);
-    final path = Path()
-      ..moveTo(_beamInnerGap, -innerSpread)
-      ..lineTo(reach, -outerSpread)
-      ..lineTo(reach, outerSpread)
-      ..lineTo(_beamInnerGap, innerSpread)
-      ..close();
-
-    canvas.drawPath(
-      path,
-      Paint()
-        ..shader = LinearGradient(
-          colors: [
-            Colors.white.withAlpha((255 * strength).round()),
-            Colors.white.withAlpha((255 * strength * 0.5).round()),
-            Colors.white.withAlpha(0),
-          ],
-          stops: const [0.0, 0.55, 1.0],
-        ).createShader(
-          Rect.fromLTWH(
-            _beamInnerGap,
-            -outerSpread,
-            reach - _beamInnerGap,
-            outerSpread * 2,
-          ),
-        ),
-    );
-
-    canvas.restore();
   }
 
   /// Merkezden dışarı sönen yumuşak ışık.

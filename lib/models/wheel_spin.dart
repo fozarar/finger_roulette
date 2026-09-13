@@ -30,28 +30,27 @@ class WheelSpin {
   /// [count] dilimli çarkta bir dilimin açısı
   static double segment(int count) => 2 * pi / count;
 
-  /// Hedefin ibrenin altına gelmesi için dönülmesi gereken toplam açı.
+  /// Dönülecek toplam açı.
   ///
-  /// Dilim [targetIndex] merkezinin ibreye oturduğu yer: tam turlardan geriye
-  /// o dilimin merkez açısı düşülür. Dönüş her zaman pozitif kalır.
-  static double sweepTo({required int targetIndex, required int count}) =>
-      turns * 2 * pi - (targetIndex + 0.5) * segment(count);
+  /// Hedef verilmişse tam turlardan o dilimin merkez açısı düşülür ve çark
+  /// ibrenin altında hedefle durur. Takım modunda öne çıkan tek bir kişi
+  /// olmadığı için hedef yoktur; o zaman tam tur atıp başladığı yere döner —
+  /// dönüşün kendisi gerilimi taşır, durduğu yerin bir anlamı yoktur.
+  static double sweepTo({required int? targetIndex, required int count}) =>
+      targetIndex == null
+          ? turns * 2 * pi
+          : turns * 2 * pi - (targetIndex + 0.5) * segment(count);
 
   /// Verilen an için çarkı hesaplar. [t] 0 → 1 arası ham animasyon değeri.
-  ///
-  /// [targetIndex] null ise (henüz çekilmemişse) çark durur.
   static WheelSpin of({
     required int count,
     required int? targetIndex,
     required double t,
   }) {
     if (count <= 0) return const WheelSpin(angle: 0, indexUnderPointer: 0);
-    if (targetIndex == null) {
-      return WheelSpin(angle: 0, indexUnderPointer: indexAt(0, count));
-    }
 
-    final angle = sweepTo(targetIndex: targetIndex, count: count) *
-        spinFraction(t);
+    final angle =
+        sweepTo(targetIndex: targetIndex, count: count) * spinFraction(t);
     return WheelSpin(angle: angle, indexUnderPointer: indexAt(angle, count));
   }
 

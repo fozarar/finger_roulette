@@ -48,31 +48,37 @@ class WheelScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Column(
-              children: [
-                const SizedBox(height: 40),
-                Text(
-                  gameInfoLabelFor(l10n, controller),
-                  style: const TextStyle(
-                    color: Color(0x55FFFFFF),
-                    fontSize: 13,
-                    letterSpacing: 2,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 12,
+            // Genişliği zorlamak şart: Stack sol üstten hizalıyor ve serbest
+            // bırakılan sütun en geniş çocuğu kadar daralıp sola yapışıyor.
+            // Çark varken fark edilmiyordu, çünkü çark zaten tam genişlikti;
+            // sıra ve takım sonuçlarında liste sola kayıyordu.
+            SizedBox.expand(
+              child: Column(
+                children: [
+                  const SizedBox(height: 40),
+                  Text(
+                    gameInfoLabelFor(l10n, controller),
+                    style: const TextStyle(
+                      color: Color(0x55FFFFFF),
+                      fontSize: 13,
+                      letterSpacing: 2,
+                      fontWeight: FontWeight.w500,
                     ),
-                    child: showWheel ? _wheelView() : _resultList(),
                   ),
-                ),
-                _status(l10n),
-                const SizedBox(height: 20),
-                SizedBox(height: _buttonAreaHeight, child: _buttons(l10n)),
-              ],
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 12,
+                      ),
+                      child: showWheel ? _wheelView() : _resultList(),
+                    ),
+                  ),
+                  _status(l10n),
+                  const SizedBox(height: 20),
+                  SizedBox(height: _buttonAreaHeight, child: _buttons(l10n)),
+                ],
+              ),
             ),
 
             // ── Açıklama anındaki flash ────────────────────────────────────
@@ -85,7 +91,13 @@ class WheelScreen extends StatelessWidget {
               ),
             ),
 
-            if (revealed) _confetti(),
+            // Konfeti dekoratif: dokunuşu yutarsa altındaki butonlar ölür.
+            // CustomPaint'in varsayılanı dokunuşu üstlenmek olduğu için bunu
+            // açıkça kapatmak gerekiyor.
+            // Konfeti yalnızca çark ekranda kalırken: takım ve sıra sonucunda
+            // parçacıklar listenin üstüne biniyor ve isimleri okutmuyor.
+            if (revealed && controller.mode == GameMode.pick)
+              IgnorePointer(child: _confetti()),
 
             Align(
               alignment: Alignment.topLeft,
@@ -179,39 +191,44 @@ class WheelScreen extends StatelessWidget {
         ],
       );
 
-  Widget _order() => Column(
-        children: [
-          for (var rank = 0; rank < controller.rankedIds.length; rank++)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    width: 40,
-                    child: Text(
-                      '${rank + 1}',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        color: rank == 0 ? Colors.white : Colors.white54,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w800,
+  /// Satırlar tek tek ortalanırsa numaralar birbirini tutmuyor; blok olarak
+  /// ortalanıp içeride sola hizalanınca 1, 2, 3 alt alta iniyor.
+  Widget _order() => IntrinsicWidth(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (var rank = 0; rank < controller.rankedIds.length; rank++)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: 40,
+                      child: Text(
+                        '${rank + 1}',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          color: rank == 0 ? Colors.white : Colors.white54,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Text(
-                    controller.names[controller.rankedIds[rank]],
-                    style: TextStyle(
-                      color: rank == 0 ? Colors.white : Colors.white70,
-                      fontSize: 20,
-                      fontWeight: rank == 0 ? FontWeight.w700 : FontWeight.w400,
+                    const SizedBox(width: 16),
+                    Text(
+                      controller.names[controller.rankedIds[rank]],
+                      style: TextStyle(
+                        color: rank == 0 ? Colors.white : Colors.white70,
+                        fontSize: 20,
+                        fontWeight: rank == 0 ? FontWeight.w700 : FontWeight.w400,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-        ],
+          ],
+        ),
       );
 
   // ── Durum yazısı ───────────────────────────────────────────────────────────
@@ -265,7 +282,7 @@ class WheelScreen extends StatelessWidget {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _primaryButton(l10n.spinAgain, controller.resetGame),
+          _primaryButton(l10n.spinAgain, controller.spinAgain),
           const SizedBox(height: 6),
           TextButton(
             onPressed: controller.changeSettings,

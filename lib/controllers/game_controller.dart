@@ -416,6 +416,15 @@ class GameController extends ChangeNotifier {
     });
   }
 
+  /// Aynı listeyle yeni bir tur ve hemen çevir.
+  ///
+  /// "Tekrar çevir" tek dokunuş olmalı: önce sonucu temizleyip sonra
+  /// kullanıcıdan ikinci bir dokunuş beklemek, butonun sözünü tutmaması olur.
+  void spinAgain() {
+    resetGame();
+    startNameRound();
+  }
+
   /// Oyunu sıfırla — seçili mod, oyuncu ve kazanan sayısını koru
   void resetGame() {
     _clearRound();

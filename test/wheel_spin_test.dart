@@ -66,9 +66,13 @@ void main() {
     });
   });
 
-  test('hedef yokken çark durur', () {
-    final idle = WheelSpin.of(count: 6, targetIndex: null, t: 0.7);
-    expect(idle.angle, 0.0);
-    expect(idle.indexUnderPointer, 0);
+  test('hedefsiz modda (takım) çark yine döner, başladığı yerde durur', () {
+    // Takımda öne çıkan kimse yok; dönmezse ekran iki saniye donuk kalıyor
+    final mid = WheelSpin.of(count: 6, targetIndex: null, t: 0.4);
+    expect(mid.angle, greaterThan(0));
+
+    final end = WheelSpin.of(count: 6, targetIndex: null, t: 1.0);
+    expect(end.angle, closeTo(WheelSpin.turns * 2 * pi, 1e-9));
+    expect(end.indexUnderPointer, 0);
   });
 }

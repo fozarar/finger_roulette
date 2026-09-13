@@ -31,6 +31,17 @@ class WheelPainter extends CustomPainter {
   /// Göbeğin yarıçapı — çark yarıçapına oran
   static const double _hubRatio = 0.17;
 
+  /// Yerleşimi hesaplanmış isim etiketleri.
+  ///
+  /// Dönüş sırasında saniyede 60 kare çiziliyor ve isimler değişmiyor; her
+  /// karede 20 ismi yeniden yerleştirmek dönüşü takılatıyordu. Anahtar isim,
+  /// punto ve opaklığı birlikte taşır — açıklamada sönen dilimler için
+  /// opaklık kısa süre değişiyor.
+  static final Map<String, TextPainter> _labelCache = {};
+
+  /// Önbellek sınırsız büyümesin; liste değiştikçe eski girdiler birikir
+  static const int _labelCacheLimit = 240;
+
   @override
   void paint(Canvas canvas, Size size) {
     if (names.isEmpty) return;
@@ -136,19 +147,29 @@ class WheelPainter extends CustomPainter {
 
     // Yazı yüksekliği dilimin yay genişliğini aşmasın
     final fontSize = (seg * radius * 0.34).clamp(10.0, 22.0);
-    final painter = TextPainter(
-      text: TextSpan(
-        text: names[index],
-        style: TextStyle(
-          color: Colors.black.withValues(alpha: 0.86 * dim),
-          fontSize: fontSize,
-          fontWeight: FontWeight.w700,
+    // Opaklık açıklama animasyonunda kısa süre değişiyor; ara değerleri
+    // yuvarlayarak önbelleği birkaç varyantla sınırlıyoruz
+    final alpha = (0.86 * dim * 20).round() / 20;
+    final key = '${names[index]}|${fontSize.round()}|${available.round()}|$alpha';
+    final painter = _labelCache.putIfAbsent(
+      key,
+      () => TextPainter(
+        text: TextSpan(
+          text: names[index],
+          style: TextStyle(
+            color: Colors.black.withValues(alpha: alpha),
+            fontSize: fontSize,
+            fontWeight: FontWeight.w700,
+          ),
         ),
-      ),
-      textDirection: TextDirection.ltr,
-      maxLines: 1,
-      ellipsis: '…',
-    )..layout(maxWidth: available);
+        textDirection: TextDirection.ltr,
+        maxLines: 1,
+        ellipsis: '…',
+      )..layout(maxWidth: available),
+    );
+    if (_labelCache.length > _labelCacheLimit) {
+      _labelCache.remove(_labelCache.keys.first);
+    }
 
     final normalized = (midAngle + pi) % (2 * pi) - pi;
     final flip = cos(normalized) < 0;
@@ -163,7 +184,6 @@ class WheelPainter extends CustomPainter {
       painter.paint(canvas, Offset(hub + 14, -painter.height / 2));
     }
     canvas.restore();
-    painter.dispose();
   }
 
   /// Saat 12'de duran, çarkın içine bakan ibre

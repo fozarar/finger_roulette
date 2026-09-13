@@ -151,16 +151,18 @@ class GameScreen extends StatelessWidget {
 
                   // ── Konfeti parçacıkları — öne çıkan dairelerden ──────────
                   if (spotlight.isNotEmpty)
-                    ParticleOverlay(
-                      key: const ValueKey('particles'),
-                      origins: [
-                        for (final id in spotlight)
-                          controller.activePointers[id] ?? Offset.zero,
-                      ],
-                      colors: [
-                        for (final id in spotlight)
-                          controller.pointerColors[id] ?? Colors.white,
-                      ],
+                    IgnorePointer(
+                      child: ParticleOverlay(
+                        key: const ValueKey('particles'),
+                        origins: [
+                          for (final id in spotlight)
+                            controller.activePointers[id] ?? Offset.zero,
+                        ],
+                        colors: [
+                          for (final id in spotlight)
+                            controller.pointerColors[id] ?? Colors.white,
+                        ],
+                      ),
                     ),
 
                   // ── Reset butonları ───────────────────────────────────────

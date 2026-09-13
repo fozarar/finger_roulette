@@ -170,5 +170,18 @@ void main() {
     await shot(tester, '8_wheel_revealed');
     await tester.pump(const Duration(milliseconds: 1800));
     await shot(tester, '9_wheel_buttons');
+
+    // Sıra modu aynı listeyle: çark durunca ekranı listeye bırakıyor. Hizalama
+    // bir kez tam burada bozulmuştu — seç modunda çark tam genişlik olduğu için
+    // görünmüyordu, liste görünümünde sütun sola yapışıyordu.
+    await tapAndPump(find.byType(TextButton));
+    await tapAndPump(find.byIcon(Icons.format_list_numbered_rounded));
+    await tapAndPump(find.byType(ElevatedButton));
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pump(const Duration(milliseconds: 2400));
+    await shot(tester, '10_order_names_revealed');
+    // Kazanma sesi bitsin: audioplayers'ın kare geri çağrısı test sonrasına
+    // taşarsa çerçeve "animasyon hâlâ çalışıyor" diye testi düşürüyor
+    await tester.pump(const Duration(seconds: 2));
   });
 }
