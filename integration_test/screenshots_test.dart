@@ -141,14 +141,8 @@ void main() {
 
     // Girdiyi isim listesine çevir ve kadroyu yaz
     await tapAndPump(find.byIcon(Icons.format_list_bulleted_rounded));
-    for (final name in const [
-      'Ayşe',
-      'Mehmet',
-      'Zeynep',
-      'Can',
-      'Elif',
-      'Burak',
-    ]) {
+    // Her dilde doğal duran kısa isimler: görseller tek setten üretiliyor
+    for (final name in const ['Alex', 'Sam', 'Mia', 'Leo', 'Zoe', 'Max']) {
       await tester.enterText(find.byType(TextField), name);
       await tester.testTextInput.receiveAction(TextInputAction.done);
       await tester.pump(const Duration(milliseconds: 250));
