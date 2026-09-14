@@ -24,6 +24,10 @@ or review rejects under Guideline 2.3.8.
   `--dart-define=SCREENSHOT_LOCALE=tr` for another language). A simulator only
   delivers two real touches, so this is the only way to see 3+ player screens;
   App Store screenshots come from here too.
+- Switching between a device build and a simulator build needs `flutter clean`
+  in between. They share `build/`, and the leftover device slice of a plugin
+  framework (`objective_c`) makes the simulator app die at launch with
+  "incompatible platform", which reads like a code failure but is not.
 - `cd ios && fastlane screenshots` — replaces the App Store screenshots with
   whatever sits in `ios/fastlane/screenshots/<locale>/`. The PNGs are gitignored;
   regenerate them with the `flutter drive` line above. They come out at the

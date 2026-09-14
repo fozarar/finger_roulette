@@ -6,9 +6,11 @@ import '../models/wheel_spin.dart';
 
 /// İsim listesini dilimlere bölüp çizen çark.
 ///
-/// Çark döner, ibre saat 12'de sabit durur. Renkler isim sayısına göre renk
-/// çemberine eşit dağıtılır; komşu dilimler ayrıca açık/koyu değişerek
-/// birbirinden ayrılır, böylece 20 isimde bile sınırlar okunur kalır.
+/// Çark döner, ibre saat 12'de sabit durur. Dilimler ortası boş bir halka
+/// olarak çizilir ve aralarında ince karanlık boşluklar kalır; dolu bir pasta
+/// koyu arka planda ağır duruyordu. İsimlerin hepsi aynı yarıçapta yazılır —
+/// yarıçapı yazının uzunluğuna bırakmak kısa isimleri göbeğe, uzunları kenara
+/// yaslayıp çarkı dağınık gösteriyordu.
 class WheelPainter extends CustomPainter {
   final List<String> names;
 
@@ -18,158 +20,129 @@ class WheelPainter extends CustomPainter {
   /// Açıklandıysa kazanan dilimler; henüz açıklanmadıysa boş
   final List<int> winners;
 
-  /// Kazanan diliminin öne çıkma animasyonu (0 → 1)
+  /// Kazanan dilimlerin öne çıkma animasyonu (0 → 1)
   final double reveal;
+
+  /// İsimlerin görünürlüğü (0 → 1). Dönerken sıfıra iner: okunamayan yazılar
+  /// dönüşü bulanık gösteriyor, renkler tek başına daha temiz dönüyor.
+  final double labelOpacity;
 
   const WheelPainter({
     required this.names,
     required this.angle,
     required this.winners,
     required this.reveal,
+    required this.labelOpacity,
   });
 
-  /// Göbeğin yarıçapı — çark yarıçapına oran
-  static const double _hubRatio = 0.17;
+  /// Dilimlerin başladığı iç yarıçap (dış yarıçapa oran)
+  static const double _innerRatio = 0.34;
 
-  /// Yerleşimi hesaplanmış isim etiketleri.
-  ///
-  /// Dönüş sırasında saniyede 60 kare çiziliyor ve isimler değişmiyor; her
-  /// karede 20 ismi yeniden yerleştirmek dönüşü takılatıyordu. Anahtar isim,
-  /// punto ve opaklığı birlikte taşır — açıklamada sönen dilimler için
-  /// opaklık kısa süre değişiyor.
-  static final Map<String, TextPainter> _labelCache = {};
+  /// İki dilim arasındaki karanlık aralık (radyan)
+  static const double _sliceGap = 0.016;
 
-  /// Önbellek sınırsız büyümesin; liste değiştikçe eski girdiler birikir
-  static const int _labelCacheLimit = 240;
+  /// Çarkın kenarı ile ibre arasında bırakılan pay
+  static const double _rimMargin = 18.0;
 
   @override
   void paint(Canvas canvas, Size size) {
     if (names.isEmpty) return;
 
     final center = size.center(Offset.zero);
-    final radius = min(size.width, size.height) / 2 - 14;
-    if (radius <= 0) return;
+    final outer = min(size.width, size.height) / 2 - _rimMargin;
+    if (outer <= 0) return;
 
+    final inner = outer * _innerRatio;
     final seg = WheelSpin.segment(names.length);
-    final hub = radius * _hubRatio;
+    // Çok isimde dilim inceliyor; aralık dilimi yutmasın
+    final gap = min(_sliceGap, seg * 0.16);
 
+    // ── Dilimler ──────────────────────────────────────────────────────────
     for (var i = 0; i < names.length; i++) {
       final start = WheelSpin.startAngle + i * seg + angle;
-      final isWinner = winners.contains(i);
-      // Kazanan açıklanınca diğerleri geri çekilir; kazanan olduğu gibi kalır
-      final dim = winners.isEmpty || isWinner ? 1.0 : 1.0 - 0.62 * reveal;
-
-      final paint = Paint()
-        ..style = PaintingStyle.fill
-        ..color = colorFor(i, names.length).withValues(alpha: dim);
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
-        start,
-        seg,
-        true,
-        paint,
-      );
-
-      _paintLabel(canvas, center, radius, hub, start + seg / 2, seg, i, dim);
-    }
-
-    // ── Kazanan dilimlerin çevresi ────────────────────────────────────────
-    for (final winner in winners) {
-      if (reveal <= 0) break;
-      final start = WheelSpin.startAngle + winner * seg + angle;
-      final path = Path()
-        ..moveTo(center.dx, center.dy)
-        ..arcTo(
-          Rect.fromCircle(center: center, radius: radius),
-          start,
-          seg,
-          false,
-        )
-        ..close();
       canvas.drawPath(
-        path,
+        _slicePath(center, inner, outer, start + gap / 2, seg - gap),
         Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 3.0 * reveal
-          ..color = Colors.white.withValues(alpha: reveal),
+          ..color = colorFor(i, names.length).withValues(alpha: _dimFor(i)),
       );
     }
 
-    // ── Dış çember ────────────────────────────────────────────────────────
-    canvas.drawCircle(
-      center,
-      radius,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 3
-        ..color = Colors.white.withValues(alpha: 0.85),
-    );
+    // ── Kazanan dilimin çevresi ───────────────────────────────────────────
+    if (reveal > 0) {
+      for (final winner in winners) {
+        final start = WheelSpin.startAngle + winner * seg + angle;
+        canvas.drawPath(
+          _slicePath(center, inner, outer, start + gap / 2, seg - gap),
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2.5 * reveal
+            ..color = Colors.white.withValues(alpha: 0.9 * reveal),
+        );
+      }
+    }
 
-    // ── Göbek: dönüşün ekseni ─────────────────────────────────────────────
-    canvas.drawCircle(center, hub, Paint()..color = const Color(0xFF111111));
-    canvas.drawCircle(
-      center,
-      hub,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2
-        ..color = Colors.white.withValues(alpha: 0.85),
-    );
+    // ── İsimler ───────────────────────────────────────────────────────────
+    if (labelOpacity > 0.01) {
+      for (var i = 0; i < names.length; i++) {
+        final mid = WheelSpin.startAngle + (i + 0.5) * seg + angle;
+        _paintLabel(canvas, center, inner, outer, seg, mid, i);
+      }
+    }
 
-    _paintPointer(canvas, center, radius);
+    _paintPointer(canvas, center, outer);
   }
 
-  /// Renk çemberini isim sayısına eşit böler. Komşu dilimlerin açıklığı
-  /// dönüşümlü değişir; yan yana iki yakın ton birbirine karışmasın diye.
+  /// Açıklamadan sonra kazanan dışındaki dilimler geri çekilir
+  double _dimFor(int index) =>
+      winners.isEmpty || winners.contains(index) ? 1.0 : 1.0 - 0.66 * reveal;
+
+  /// İç ve dış yay arasındaki halka dilimi
+  Path _slicePath(
+    Offset center,
+    double inner,
+    double outer,
+    double start,
+    double sweep,
+  ) =>
+      Path()
+        ..arcTo(Rect.fromCircle(center: center, radius: outer), start, sweep,
+            true)
+        ..arcTo(Rect.fromCircle(center: center, radius: inner), start + sweep,
+            -sweep, false)
+        ..close();
+
+  /// Renk çemberini isim sayısına eşit böler. Parmak dairelerindeki pastel ton
+  /// buranın da ölçüsü; daha doygunu koyu arka planda neon gibi duruyor.
+  /// Komşu dilimlerin açıklığı dönüşümlü değişerek sınırı belirginleştirir.
   static Color colorFor(int index, int count) {
     final hue = (360.0 / count) * index;
-    // Parmak dairelerindeki pastel ton (doygunluk .65, açıklık .80) buranın da
-    // ölçüsü: daha doygunu koyu arka planda neon gibi duruyor ve uygulamanın
-    // geri kalanıyla aynı dili konuşmuyor.
     final lightness = index.isEven ? 0.78 : 0.70;
     return HSLColor.fromAHSL(1.0, hue % 360, 0.50, lightness).toColor();
   }
 
-  /// İsmi dilimin ortasına, yarıçap boyunca yazar. Sol yarıya düşen yazılar
-  /// baş aşağı durmasın diye ters çevrilip dıştan içe hizalanır.
+  /// İsmi dilimin ortasına, halkanın orta yarıçapına yazar. Sol yarıya düşen
+  /// yazılar baş aşağı durmasın diye ters çevrilir.
   void _paintLabel(
     Canvas canvas,
     Offset center,
-    double radius,
-    double hub,
-    double midAngle,
+    double inner,
+    double outer,
     double seg,
+    double midAngle,
     int index,
-    double dim,
   ) {
-    final available = radius - hub - 22;
-    if (available <= 12) return;
+    final band = outer - inner;
+    if (band <= 16) return;
 
-    // Yazı yüksekliği dilimin yay genişliğini aşmasın
-    final fontSize = (seg * radius * 0.34).clamp(10.0, 22.0);
-    // Opaklık açıklama animasyonunda kısa süre değişiyor; ara değerleri
-    // yuvarlayarak önbelleği birkaç varyantla sınırlıyoruz
-    final alpha = (0.86 * dim * 20).round() / 20;
-    final key = '${names[index]}|${fontSize.round()}|${available.round()}|$alpha';
-    final painter = _labelCache.putIfAbsent(
-      key,
-      () => TextPainter(
-        text: TextSpan(
-          text: names[index],
-          style: TextStyle(
-            color: Colors.black.withValues(alpha: alpha),
-            fontSize: fontSize,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        textDirection: TextDirection.ltr,
-        maxLines: 1,
-        ellipsis: '…',
-      )..layout(maxWidth: available),
+    final labelRadius = (inner + outer) / 2;
+    // Yazı yüksekliği dilimin o yarıçaptaki yay genişliğini aşmasın
+    final fontSize = (seg * labelRadius * 0.42).clamp(10.0, 21.0);
+    final painter = _labelPainter(
+      names[index],
+      fontSize,
+      band - 14,
+      0.88 * _dimFor(index) * labelOpacity,
     );
-    if (_labelCache.length > _labelCacheLimit) {
-      _labelCache.remove(_labelCache.keys.first);
-    }
 
     final normalized = (midAngle + pi) % (2 * pi) - pi;
     final flip = cos(normalized) < 0;
@@ -177,29 +150,64 @@ class WheelPainter extends CustomPainter {
     canvas.save();
     canvas.translate(center.dx, center.dy);
     canvas.rotate(normalized);
-    if (flip) {
-      canvas.rotate(pi);
-      painter.paint(canvas, Offset(-radius + 14, -painter.height / 2));
-    } else {
-      painter.paint(canvas, Offset(hub + 14, -painter.height / 2));
-    }
+    if (flip) canvas.rotate(pi);
+    final x = flip ? -labelRadius : labelRadius;
+    painter.paint(canvas, Offset(x - painter.width / 2, -painter.height / 2));
     canvas.restore();
+  }
+
+  /// Yerleşimi hesaplanmış etiketler.
+  ///
+  /// Dönüş 60fps çiziliyor ve isimler değişmiyor; her karede hepsini yeniden
+  /// yerleştirmek dönüşü takılatıyordu. Opaklık açıklamada kısa süre değiştiği
+  /// için ara değerler yuvarlanarak birkaç varyantla sınırlanıyor.
+  static final Map<String, TextPainter> _labelCache = {};
+  static const int _labelCacheLimit = 240;
+
+  TextPainter _labelPainter(
+    String name,
+    double fontSize,
+    double maxWidth,
+    double alpha,
+  ) {
+    final rounded = (alpha * 20).round() / 20;
+    final key = '$name|${fontSize.round()}|${maxWidth.round()}|$rounded';
+    final painter = _labelCache.putIfAbsent(
+      key,
+      () => TextPainter(
+        text: TextSpan(
+          text: name,
+          style: TextStyle(
+            color: Colors.black.withValues(alpha: rounded),
+            fontSize: fontSize,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        textDirection: TextDirection.ltr,
+        maxLines: 1,
+        ellipsis: '…',
+      )..layout(maxWidth: maxWidth),
+    );
+    if (_labelCache.length > _labelCacheLimit) {
+      _labelCache.remove(_labelCache.keys.first);
+    }
+    return painter;
   }
 
   /// Saat 12'de duran, çarkın içine bakan ibre
   void _paintPointer(Canvas canvas, Offset center, double radius) {
-    final tip = Offset(center.dx, center.dy - radius + 10);
+    final tip = Offset(center.dx, center.dy - radius + 4);
     final path = Path()
       ..moveTo(tip.dx, tip.dy)
-      ..lineTo(tip.dx - 15, tip.dy - 26)
-      ..lineTo(tip.dx + 15, tip.dy - 26)
+      ..lineTo(tip.dx - 13, tip.dy - 21)
+      ..lineTo(tip.dx + 13, tip.dy - 21)
       ..close();
 
     canvas.drawPath(
       path,
       Paint()
-        ..color = Colors.black.withValues(alpha: 0.45)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
+        ..color = Colors.black.withValues(alpha: 0.5)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 5),
     );
     canvas.drawPath(path, Paint()..color = Colors.white);
   }
@@ -209,5 +217,6 @@ class WheelPainter extends CustomPainter {
       old.angle != angle ||
       old.names != names ||
       old.winners != winners ||
-      old.reveal != reveal;
+      old.reveal != reveal ||
+      old.labelOpacity != labelOpacity;
 }

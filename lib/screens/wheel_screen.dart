@@ -120,24 +120,34 @@ class WheelScreen extends StatelessWidget {
   // ── Çark ───────────────────────────────────────────────────────────────────
 
   Widget _wheelView() {
-    final winners = controller.mode == GameMode.pick ? controller.pickedIds : const <int>[];
+    final winners =
+        controller.mode == GameMode.pick ? controller.pickedIds : const <int>[];
+    final spinning = controller.phase == GamePhase.locked;
+
     return Center(
       child: AspectRatio(
         aspectRatio: 1,
         child: TweenAnimationBuilder<double>(
-          tween: Tween(begin: 0.0, end: winners.isEmpty ? 0.0 : 1.0),
-          duration: const Duration(milliseconds: 420),
+          // Dönerken isimler okunmuyor zaten; silinince dönüş temiz görünüyor
+          tween: Tween(begin: 1.0, end: spinning ? 0.0 : 1.0),
+          duration: Duration(milliseconds: spinning ? 200 : 380),
           curve: Curves.easeOut,
-          builder: (context, reveal, _) => ValueListenableBuilder<WheelSpin>(
-            valueListenable: wheel,
-            builder: (context, spin, _) => CustomPaint(
-              painter: WheelPainter(
-                names: controller.names,
-                angle: spin.angle,
-                winners: winners,
-                reveal: reveal,
+          builder: (context, labelOpacity, _) => TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0.0, end: winners.isEmpty ? 0.0 : 1.0),
+            duration: const Duration(milliseconds: 420),
+            curve: Curves.easeOut,
+            builder: (context, reveal, _) => ValueListenableBuilder<WheelSpin>(
+              valueListenable: wheel,
+              builder: (context, spin, _) => CustomPaint(
+                painter: WheelPainter(
+                  names: controller.names,
+                  angle: spin.angle,
+                  winners: winners,
+                  reveal: reveal,
+                  labelOpacity: labelOpacity,
+                ),
+                child: const SizedBox.expand(),
               ),
-              child: const SizedBox.expand(),
             ),
           ),
         ),
