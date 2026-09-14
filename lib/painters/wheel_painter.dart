@@ -27,12 +27,17 @@ class WheelPainter extends CustomPainter {
   /// dönüşü bulanık gösteriyor, renkler tek başına daha temiz dönüyor.
   final double labelOpacity;
 
+  /// Yazılacak isimlerin indeksleri. Çark dururken hepsi, dönüş bitince
+  /// yalnızca ibrenin gösterdiği — göz doğrudan ona gitsin.
+  final List<int> labelIndices;
+
   const WheelPainter({
     required this.names,
     required this.angle,
     required this.winners,
     required this.reveal,
     required this.labelOpacity,
+    required this.labelIndices,
   });
 
   /// Dilimlerin başladığı iç yarıçap (dış yarıçapa oran)
@@ -83,7 +88,8 @@ class WheelPainter extends CustomPainter {
 
     // ── İsimler ───────────────────────────────────────────────────────────
     if (labelOpacity > 0.01) {
-      for (var i = 0; i < names.length; i++) {
+      for (final i in labelIndices) {
+        if (i < 0 || i >= names.length) continue;
         final mid = WheelSpin.startAngle + (i + 0.5) * seg + angle;
         _paintLabel(canvas, center, inner, outer, seg, mid, i);
       }
@@ -218,5 +224,6 @@ class WheelPainter extends CustomPainter {
       old.names != names ||
       old.winners != winners ||
       old.reveal != reveal ||
-      old.labelOpacity != labelOpacity;
+      old.labelOpacity != labelOpacity ||
+      old.labelIndices != labelIndices;
 }

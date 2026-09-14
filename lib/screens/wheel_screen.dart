@@ -41,7 +41,10 @@ class WheelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final revealed = controller.phase == GamePhase.revealed;
-    final showWheel = !revealed || controller.mode == GameMode.pick;
+    // Dönüş biter bitmez çark ekranda kalıp seçilen ismi gösteriyor; takım ve
+    // sıra listesi butonlarla birlikte, o an geçtikten sonra geliyor.
+    final showWheel =
+        !revealed || controller.mode == GameMode.pick || !controller.showReset;
 
     return Scaffold(
       backgroundColor: const Color(0xFF111111),
@@ -123,6 +126,11 @@ class WheelScreen extends StatelessWidget {
     final winners =
         controller.mode == GameMode.pick ? controller.pickedIds : const <int>[];
     final spinning = controller.phase == GamePhase.locked;
+    final target = controller.spinTargetId;
+    // Dururken herkes, açıklamada yalnızca ibrenin gösterdiği isim
+    final labelIndices = controller.phase == GamePhase.revealed
+        ? (target == null ? const <int>[] : [target])
+        : List.generate(controller.names.length, (i) => i);
 
     return Center(
       child: AspectRatio(
@@ -145,6 +153,7 @@ class WheelScreen extends StatelessWidget {
                   winners: winners,
                   reveal: reveal,
                   labelOpacity: labelOpacity,
+                  labelIndices: labelIndices,
                 ),
                 child: const SizedBox.expand(),
               ),
@@ -275,12 +284,20 @@ class WheelScreen extends StatelessWidget {
 
   /// Açıklamada ne yazacağı: seç modunda kazananın adı — asıl merak edilen
   /// şey o. Takım ve sırada liste zaten altta, başlık yeter.
-  String _revealText(AppLocalizations l10n) => switch (controller.mode) {
-        GameMode.pick =>
-          controller.pickedIds.map((id) => controller.names[id]).join(' · '),
-        GameMode.teams => l10n.teamsBanner,
-        GameMode.order => l10n.orderBanner,
-      };
+  String _revealText(AppLocalizations l10n) {
+    // Dönüş bittiği an merak edilen tek şey ibrenin nerede durduğu; başlık
+    // moda göre değişmeden önce o ismi söylüyor
+    final target = controller.spinTargetId;
+    if (!controller.showReset && target != null) {
+      return controller.names[target];
+    }
+    return switch (controller.mode) {
+      GameMode.pick =>
+        controller.pickedIds.map((id) => controller.names[id]).join(' · '),
+      GameMode.teams => l10n.teamsBanner,
+      GameMode.order => l10n.orderBanner,
+    };
+  }
 
   // ── Butonlar ───────────────────────────────────────────────────────────────
 

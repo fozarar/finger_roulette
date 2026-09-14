@@ -178,8 +178,12 @@ void main() {
     await tapAndPump(find.byIcon(Icons.format_list_numbered_rounded));
     await tapAndPump(find.byType(ElevatedButton));
     await tester.tap(find.byType(ElevatedButton));
+    // Dönüş bitince çark seçilen ismi gösteriyor; liste butonlarla birlikte
+    // iki saniye sonra geliyor, kare ondan sonra alınmalı
     await tester.pump(const Duration(milliseconds: 2400));
-    await shot(tester, '10_order_names_revealed');
+    await shot(tester, '10_order_names_selected');
+    await tester.pump(const Duration(milliseconds: 2200));
+    await shot(tester, '11_order_names_list');
     // Kazanma sesi bitsin: audioplayers'ın kare geri çağrısı test sonrasına
     // taşarsa çerçeve "animasyon hâlâ çalışıyor" diye testi düşürüyor
     await tester.pump(const Duration(seconds: 2));
