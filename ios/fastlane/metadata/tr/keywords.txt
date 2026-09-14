@@ -1,1 +1,1 @@
-karar,seçici,şans,çark,çevir,rulet,ebe,takım,sıra,ilk,kaybeden,hesap,arkadaş,parti,oyun,çekiliş
+karar,seçici,şans,çark,çevir,rulet,ebe,takım,sıra,ilk,kaybeden,hesap,arkadaş,parti,oyun,çekiliş,isim

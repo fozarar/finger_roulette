@@ -1,4 +1,3 @@
-• Üç mod: Seç (kazanan ya da kaybeden), Takım ve Sıra
-• Açıklamadan önce parmakların üzerinde bir ışın dönüp sonucun üzerinde duruyor
-• Artık 16 dilde
-• Geri sayım sırasında titreşim eklendi — gerilimi parmağınızda hissedin
+• İsim listesiyle çark — parmak gerekmez, tek başına da çalışır
+• Liste hatırlanır; aynı kadro bir dokunuş uzağında
+• 20 isme kadar: kazananı seç, takımlara böl ya da sırayı çek

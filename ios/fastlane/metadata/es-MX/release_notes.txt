@@ -1,4 +1,3 @@
-• Tres modos: Elegir ganador o perdedor, dividir en Equipos y sortear el Orden
-• Un haz gira sobre los dedos y se detiene en el resultado
-• Ahora disponible en 16 idiomas
-• Vibración durante la cuenta regresiva: siente cómo sube la tensión
+• Gira una ruleta de nombres: sin dedos, funciona incluso a solas
+• La lista se guarda, así el mismo grupo está a un toque
+• Hasta 20 nombres: elige ganador, arma equipos o sortea el orden

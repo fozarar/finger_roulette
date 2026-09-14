@@ -1,4 +1,3 @@
-• Three modes: Pick a winner or a loser, split into Teams, or draw the turn Order
-• A beam now spins over the fingers and lands on the result
-• Now available in 16 languages
-• Added haptic feedback during the countdown — you can feel the tension build
+• Spin a wheel of names — no fingers needed, works on your own
+• Your list is remembered, so the same group is one tap away
+• Up to 20 names: pick a winner, split teams, or draw the turn order

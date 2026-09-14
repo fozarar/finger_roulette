@@ -1,4 +1,3 @@
-• Ba chế độ: Chọn người thắng hoặc người thua, Chia đội và bốc Thứ tự
-• Tia sáng quay trên các ngón tay rồi dừng lại ở kết quả
-• Đã có 16 ngôn ngữ
-• Thêm rung trong lúc đếm ngược — cảm nhận được sự hồi hộp
+• Quay vòng quay tên — không cần ngón tay, một mình vẫn chơi được
+• Danh sách được lưu: cùng nhóm chỉ cách một chạm
+• Tối đa 20 tên: chọn người thắng, chia đội hoặc bốc thứ tự

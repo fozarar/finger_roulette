@@ -1,4 +1,3 @@
-• Tiga mode: Pilih pemenang atau yang kalah, bagi Tim, dan undi Urutan
-• Sorotan cahaya berputar di atas jari lalu berhenti di hasilnya
-• Kini tersedia dalam 16 bahasa
-• Getaran saat hitung mundur — ketegangannya terasa
+• Putar roda nama — tanpa jari, bisa dipakai sendirian
+• Daftar tersimpan: grup yang sama tinggal satu ketukan
+• Hingga 20 nama: pilih pemenang, bagi tim, atau undi urutan
