@@ -1,3 +1,4 @@
+• Küçük düzeltmeler ve iyileştirmeler
 • İsim listesiyle çark — parmak gerekmez, tek başına da çalışır
 • Liste hatırlanır; aynı kadro bir dokunuş uzağında
 • 20 isme kadar: kazananı seç, takımlara böl ya da sırayı çek

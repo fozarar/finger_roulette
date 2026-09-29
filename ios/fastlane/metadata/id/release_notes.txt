@@ -1,3 +1,4 @@
+• Perbaikan kecil dan peningkatan
 • Putar roda nama — tanpa jari, bisa dipakai sendirian
 • Daftar tersimpan: grup yang sama tinggal satu ketukan
 • Hingga 20 nama: pilih pemenang, bagi tim, atau undi urutan

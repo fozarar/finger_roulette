@@ -1,3 +1,4 @@
+• Sửa lỗi nhỏ và cải tiến
 • Quay vòng quay tên — không cần ngón tay, một mình vẫn chơi được
 • Danh sách được lưu: cùng nhóm chỉ cách một chạm
 • Tối đa 20 tên: chọn người thắng, chia đội hoặc bốc thứ tự

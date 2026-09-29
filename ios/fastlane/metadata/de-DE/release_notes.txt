@@ -1,3 +1,4 @@
+• Kleine Fehlerbehebungen und Verbesserungen
 • Dreh ein Rad mit Namen — ohne Finger, auch allein
 • Die Liste bleibt gespeichert: dieselbe Gruppe mit einem Tipp
 • Bis zu 20 Namen: Gewinner ziehen, Teams bilden, Reihenfolge losen
