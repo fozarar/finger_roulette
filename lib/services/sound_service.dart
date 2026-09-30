@@ -15,6 +15,23 @@ class SoundService {
   List<AudioPlayer>? _tickPool;
   AudioPlayer? _winPlayer;
   int _poolIndex = 0;
+  Future<void>? _contextReady;
+
+  /// Efektler arka planda çalan müziğe karışır ve iOS'ta sessiz anahtarına
+  /// uyar. Paketin varsayılanı iOS'ta `playback` kategorisi ve Android'de
+  /// ses odağı almak — ilk tik sesi kullanıcının müziğini durduruyordu.
+  static final AudioContext _context = AudioContext(
+    iOS: AudioContextIOS(category: AVAudioSessionCategory.ambient),
+    android: const AudioContextAndroid(
+      contentType: AndroidContentType.sonification,
+      usageType: AndroidUsageType.game,
+      audioFocus: AndroidAudioFocus.none,
+    ),
+  );
+
+  /// Ses oturumunu ilk çalmadan önce bir kez ayarlar
+  Future<void> _ensureContext() =>
+      _contextReady ??= AudioPlayer.global.setAudioContext(_context);
 
   List<AudioPlayer> get _ticks => _tickPool ??=
       List.generate(_poolSize, (_) => AudioPlayer()..setVolume(0.6));
@@ -23,6 +40,7 @@ class SoundService {
 
   /// Seçim döngüsündeki her highlight geçişinde çalınır
   Future<void> playTick() async {
+    await _ensureContext();
     final player = _ticks[_poolIndex % _poolSize];
     _poolIndex++;
     await player.play(AssetSource('sounds/tick.wav'));
@@ -30,6 +48,7 @@ class SoundService {
 
   /// Kazanan açıklandığında çalınır
   Future<void> playWin() async {
+    await _ensureContext();
     await _win.play(AssetSource('sounds/win.wav'));
   }
 
