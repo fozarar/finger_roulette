@@ -1,4 +1,4 @@
-• Small fixes and improvements
+• Sound effects no longer stop your music and stay quiet in silent mode
 • Spin a wheel of names — no fingers needed, works on your own
 • Your list is remembered, so the same group is one tap away
 • Up to 20 names: pick a winner, split teams, or draw the turn order

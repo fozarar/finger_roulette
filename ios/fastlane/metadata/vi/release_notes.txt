@@ -1,4 +1,4 @@
-• Sửa lỗi nhỏ và cải tiến
+• Hiệu ứng âm thanh không còn dừng nhạc của bạn và im lặng ở chế độ im lặng
 • Quay vòng quay tên — không cần ngón tay, một mình vẫn chơi được
 • Danh sách được lưu: cùng nhóm chỉ cách một chạm
 • Tối đa 20 tên: chọn người thắng, chia đội hoặc bốc thứ tự

@@ -1,4 +1,4 @@
-• Perbaikan kecil dan peningkatan
+• Efek suara tidak lagi menghentikan musikmu dan diam saat mode senyap
 • Putar roda nama — tanpa jari, bisa dipakai sendirian
 • Daftar tersimpan: grup yang sama tinggal satu ketukan
 • Hingga 20 nama: pilih pemenang, bagi tim, atau undi urutan

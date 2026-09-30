@@ -1,4 +1,4 @@
-• Pequenas correções e melhorias
+• Os sons não interrompem mais sua música e respeitam o modo silencioso
 • Gire uma roda de nomes — sem dedos, funciona até sozinho
 • A lista fica salva: o mesmo grupo a um toque de distância
 • Até 20 nomes: escolha o vencedor, forme times ou sorteie a ordem
