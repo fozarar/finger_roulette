@@ -1,4 +1,3 @@
+• Nuevo: comparte el resultado como imagen, lista para tu historia
 • Los sonidos ya no detienen tu música y respetan el modo silencio
-• Gira una ruleta de nombres: sin dedos, funciona incluso a solas
-• La lista se guarda, así el mismo grupo está a un toque
-• Hasta 20 nombres: elige ganador, arma equipos o sortea el orden
+• Pequeñas correcciones y mejoras

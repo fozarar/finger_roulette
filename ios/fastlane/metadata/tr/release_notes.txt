@@ -1,4 +1,3 @@
+• Yeni: sonucu görsel olarak paylaş — hikâyene hazır
 • Oyun sesleri artık müziğini durdurmuyor, sessiz modda da susuyor
-• İsim listesiyle çark — parmak gerekmez, tek başına da çalışır
-• Liste hatırlanır; aynı kadro bir dokunuş uzağında
-• 20 isme kadar: kazananı seç, takımlara böl ya da sırayı çek
+• Küçük düzeltmeler ve iyileştirmeler

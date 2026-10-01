@@ -1,4 +1,3 @@
+• Neu: Teile das Ergebnis als Bild — bereit für deine Story
 • Soundeffekte stoppen deine Musik nicht mehr und bleiben im Lautlos-Modus still
-• Dreh ein Rad mit Namen — ohne Finger, auch allein
-• Die Liste bleibt gespeichert: dieselbe Gruppe mit einem Tipp
-• Bis zu 20 Namen: Gewinner ziehen, Teams bilden, Reihenfolge losen
+• Kleine Fehlerbehebungen und Verbesserungen
