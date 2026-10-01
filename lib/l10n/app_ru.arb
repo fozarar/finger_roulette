@@ -29,5 +29,7 @@
   "spin": "Крутить",
   "spinAgain": "Крутить ещё",
   "needTwoNames": "Добавьте хотя бы 2 имени",
-  "continueLabel": "Дальше"
+  "continueLabel": "Дальше",
+  "share": "Поделиться",
+  "shareMessage": "Решено с помощью Finger Chooser"
 }

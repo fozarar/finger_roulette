@@ -143,4 +143,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get continueLabel => 'Lanjut';
+
+  @override
+  String get share => 'Bagikan';
+
+  @override
+  String get shareMessage => 'Diputuskan dengan Finger Chooser';
 }

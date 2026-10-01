@@ -29,5 +29,7 @@
   "spin": "หมุน",
   "spinAgain": "หมุนอีกครั้ง",
   "needTwoNames": "เพิ่มอย่างน้อย 2 ชื่อ",
-  "continueLabel": "ต่อไป"
+  "continueLabel": "ต่อไป",
+  "share": "แชร์",
+  "shareMessage": "ตัดสินด้วย Finger Chooser"
 }

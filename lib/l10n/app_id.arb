@@ -29,5 +29,7 @@
   "spin": "Putar",
   "spinAgain": "Putar lagi",
   "needTwoNames": "Tambahkan minimal 2 nama",
-  "continueLabel": "Lanjut"
+  "continueLabel": "Lanjut",
+  "share": "Bagikan",
+  "shareMessage": "Diputuskan dengan Finger Chooser"
 }

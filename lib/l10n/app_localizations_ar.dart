@@ -156,4 +156,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get continueLabel => 'متابعة';
+
+  @override
+  String get share => 'مشاركة';
+
+  @override
+  String get shareMessage => 'تم القرار باستخدام Finger Chooser';
 }

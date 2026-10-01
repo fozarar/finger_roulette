@@ -143,4 +143,10 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get continueLabel => 'Teruskan';
+
+  @override
+  String get share => 'Kongsi';
+
+  @override
+  String get shareMessage => 'Diputuskan dengan Finger Chooser';
 }

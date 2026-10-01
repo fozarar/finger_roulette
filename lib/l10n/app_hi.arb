@@ -29,5 +29,7 @@
   "spin": "घुमाएँ",
   "spinAgain": "फिर घुमाएँ",
   "needTwoNames": "कम से कम 2 नाम जोड़ें",
-  "continueLabel": "आगे बढ़ें"
+  "continueLabel": "आगे बढ़ें",
+  "share": "शेयर करें",
+  "shareMessage": "Finger Chooser से तय किया"
 }

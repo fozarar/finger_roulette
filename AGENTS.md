@@ -69,6 +69,12 @@ or review rejects under Guideline 2.3.8.
 - Services (`SoundService`, `StatsService`, `ReviewService`) are injected into
   `GameController` so tests can substitute fakes. `StatsService` and
   `ReviewService` are created and initialised in `main()` before `runApp`.
+- Sharing is a UI concern, so it stays out of the controller: `ShareButton`
+  captures the `RepaintBoundary` that `HomeScreen`'s `captureKey` marks (the
+  result without its buttons) and `ShareService` draws it onto a 1080×1920
+  story card with the app icon and name. The capture is drawn as a rounded
+  panel on purpose — a winner's glow is clipped at the screen edge, and without
+  a frame that cut shows up as a hard line in the middle of the card.
 - User-facing strings are never built in the controller — `lib/screens/game_text.dart`
   maps game state to localized text at the UI layer.
 
@@ -83,6 +89,8 @@ or review rejects under Guideline 2.3.8.
 - Adding a locale: create `app_<code>.arb`, and add the code to
   `CFBundleLocalizations` in `ios/Runner/Info.plist` — without that entry iOS
   reports only the development language and the translation never shows.
+  Also translate the photo permission text in `ios/Runner/InfoPlist.xcstrings`;
+  iOS only offers "Save Image" in the share sheet because that key exists.
 - `test/localization_test.dart` fails if any locale is missing a key or leaves
   an unresolved ICU placeholder.
 

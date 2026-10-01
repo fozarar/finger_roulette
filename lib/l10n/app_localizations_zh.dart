@@ -143,4 +143,10 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get continueLabel => '继续';
+
+  @override
+  String get share => '分享';
+
+  @override
+  String get shareMessage => '用 Finger Chooser 做的决定';
 }

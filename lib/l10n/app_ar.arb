@@ -29,5 +29,7 @@
   "spin": "أدر",
   "spinAgain": "أدر مرة أخرى",
   "needTwoNames": "أضف اسمين على الأقل",
-  "continueLabel": "متابعة"
+  "continueLabel": "متابعة",
+  "share": "مشاركة",
+  "shareMessage": "تم القرار باستخدام Finger Chooser"
 }

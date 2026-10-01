@@ -143,4 +143,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get continueLabel => '계속';
+
+  @override
+  String get share => '공유';
+
+  @override
+  String get shareMessage => 'Finger Chooser로 결정했어요';
 }

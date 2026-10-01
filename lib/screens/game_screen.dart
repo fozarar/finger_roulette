@@ -7,6 +7,7 @@ import '../models/game_phase.dart';
 import '../models/spin_beam.dart';
 import '../painters/finger_painter.dart';
 import '../widgets/particle_overlay.dart';
+import '../widgets/share_button.dart';
 import 'game_text.dart';
 
 /// Oyunun oynandığı ekran.
@@ -25,6 +26,9 @@ class GameScreen extends StatelessWidget {
   final Animation<double> winnerGlowAnimation;
   final Animation<double> flashAnimation;
 
+  /// Paylaşılacak görselin sınırı: daireler ve yazılar, butonlar hariç
+  final GlobalKey captureKey;
+
   const GameScreen({
     super.key,
     required this.controller,
@@ -32,6 +36,7 @@ class GameScreen extends StatelessWidget {
     required this.winnerScaleAnimation,
     required this.winnerGlowAnimation,
     required this.flashAnimation,
+    required this.captureKey,
   });
 
   @override
@@ -57,83 +62,97 @@ class GameScreen extends StatelessWidget {
             child: SizedBox.expand(
               child: Stack(
                 children: [
-                  // ── Parmak daireleri ──────────────────────────────────────
-                  AnimatedBuilder(
-                    animation: Listenable.merge([
-                      winnerScaleAnimation,
-                      winnerGlowAnimation,
-                      beam,
-                    ]),
-                    builder: (context, _) => CustomPaint(
-                      painter: FingerPainter(
-                        activePointers: Map.of(controller.activePointers),
-                        pointerColors: Map.of(controller.pointerColors),
-                        lockedPointerIds:
-                            List.of(controller.lockedPointerIds),
-                        spotlightIds: spotlight,
-                        labels: labels,
-                        dimOthers: controller.mode.picksSubset,
-                        beam: beam.value,
-                        isLocked: isLocked,
-                        winnerScale: winnerScaleAnimation.value,
-                        winnerGlow: winnerGlowAnimation.value,
-                      ),
-                      child: const SizedBox.expand(),
-                    ),
-                  ),
-
-                  // ── Oyun bilgisi (üst orta) ───────────────────────────────
-                  Positioned(
-                    top: 52,
-                    left: 0,
-                    right: 0,
-                    child: IgnorePointer(
-                      child: Center(
-                        child: Text(
-                          gameInfoLabelFor(l10n, controller),
-                          style: const TextStyle(
-                            color: Color(0x55FFFFFF),
-                            fontSize: 13,
-                            letterSpacing: 2,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  // ── Ortada durum yazısı ───────────────────────────────────
-                  Center(
-                    child: IgnorePointer(
-                      child: AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 280),
-                        transitionBuilder: (child, animation) =>
-                            FadeTransition(
-                          opacity: animation,
-                          child: ScaleTransition(
-                            scale: Tween<double>(begin: 0.85, end: 1.0)
-                                .animate(animation),
-                            child: child,
-                          ),
-                        ),
-                        child: Text(
-                          statusText,
-                          key: ValueKey(statusText),
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Color(0xBBFFFFFF),
-                            fontSize: 26,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 1.5,
-                            shadows: [
-                              Shadow(
-                                blurRadius: 10,
-                                color: Colors.black54,
-                                offset: Offset(0, 2),
+                  // Paylaşılan görsel yalnızca bu kısımdan oluşur. Scaffold'un
+                  // rengi sınırın dışında kaldığı için arka plan burada da
+                  // boyanıyor, yoksa yakalanan görsel şeffaf olur.
+                  RepaintBoundary(
+                    key: captureKey,
+                    child: ColoredBox(
+                      color: const Color(0xFF111111),
+                      child: Stack(
+                        children: [
+                          // ── Parmak daireleri ───────────────────────────────
+                          AnimatedBuilder(
+                            animation: Listenable.merge([
+                              winnerScaleAnimation,
+                              winnerGlowAnimation,
+                              beam,
+                            ]),
+                            builder: (context, _) => CustomPaint(
+                              painter: FingerPainter(
+                                activePointers:
+                                    Map.of(controller.activePointers),
+                                pointerColors: Map.of(controller.pointerColors),
+                                lockedPointerIds:
+                                    List.of(controller.lockedPointerIds),
+                                spotlightIds: spotlight,
+                                labels: labels,
+                                dimOthers: controller.mode.picksSubset,
+                                beam: beam.value,
+                                isLocked: isLocked,
+                                winnerScale: winnerScaleAnimation.value,
+                                winnerGlow: winnerGlowAnimation.value,
                               ),
-                            ],
+                              child: const SizedBox.expand(),
+                            ),
                           ),
-                        ),
+
+                          // ── Oyun bilgisi (üst orta) ────────────────────────
+                          Positioned(
+                            top: 52,
+                            left: 0,
+                            right: 0,
+                            child: IgnorePointer(
+                              child: Center(
+                                child: Text(
+                                  gameInfoLabelFor(l10n, controller),
+                                  style: const TextStyle(
+                                    color: Color(0x55FFFFFF),
+                                    fontSize: 13,
+                                    letterSpacing: 2,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          // ── Ortada durum yazısı ────────────────────────────
+                          Center(
+                            child: IgnorePointer(
+                              child: AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 280),
+                                transitionBuilder: (child, animation) =>
+                                    FadeTransition(
+                                  opacity: animation,
+                                  child: ScaleTransition(
+                                    scale: Tween<double>(begin: 0.85, end: 1.0)
+                                        .animate(animation),
+                                    child: child,
+                                  ),
+                                ),
+                                child: Text(
+                                  statusText,
+                                  key: ValueKey(statusText),
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    color: Color(0xBBFFFFFF),
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 1.5,
+                                    shadows: [
+                                      Shadow(
+                                        blurRadius: 10,
+                                        color: Colors.black54,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -237,6 +256,18 @@ class GameScreen extends StatelessWidget {
               ),
             ),
           ),
+
+          // ── Paylaş butonu — sağ üst, yalnızca sonuç ekranda kalırken ────
+          if (controller.showReset)
+            SafeArea(
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8, right: 4),
+                  child: ShareButton(captureKey: captureKey),
+                ),
+              ),
+            ),
         ],
       ),
     );

@@ -175,4 +175,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get continueLabel => 'Дальше';
+
+  @override
+  String get share => 'Поделиться';
+
+  @override
+  String get shareMessage => 'Решено с помощью Finger Chooser';
 }

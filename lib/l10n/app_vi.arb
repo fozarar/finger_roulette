@@ -29,5 +29,7 @@
   "spin": "Quay",
   "spinAgain": "Quay lần nữa",
   "needTwoNames": "Thêm ít nhất 2 tên",
-  "continueLabel": "Tiếp tục"
+  "continueLabel": "Tiếp tục",
+  "share": "Chia sẻ",
+  "shareMessage": "Quyết định bằng Finger Chooser"
 }

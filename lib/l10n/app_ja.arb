@@ -29,5 +29,7 @@
   "spin": "回す",
   "spinAgain": "もう一度回す",
   "needTwoNames": "名前を2つ以上追加してください",
-  "continueLabel": "次へ"
+  "continueLabel": "次へ",
+  "share": "共有",
+  "shareMessage": "Finger Chooserで決めました"
 }

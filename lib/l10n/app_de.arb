@@ -29,5 +29,7 @@
   "spin": "Drehen",
   "spinAgain": "Nochmal drehen",
   "needTwoNames": "Mindestens 2 Namen hinzufügen",
-  "continueLabel": "Weiter"
+  "continueLabel": "Weiter",
+  "share": "Teilen",
+  "shareMessage": "Entschieden mit Finger Chooser"
 }

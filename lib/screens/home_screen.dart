@@ -76,6 +76,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   /// Bir önceki bildirimde ışın dönüyor muydu
   bool _wasSpinning = false;
 
+  /// Sonuç paylaşılırken yakalanan alanın anahtarı. Ekranlar her bildirimde
+  /// yeniden kurulduğu için anahtar burada, kalıcı state'te yaşıyor.
+  final GlobalKey _captureKey = GlobalKey();
+
   // ── Lifecycle ──────────────────────────────────────────────────────────────
 
   @override
@@ -241,6 +245,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             controller: _controller,
             wheel: _wheel,
             flashAnimation: _flashAnimation,
+            captureKey: _captureKey,
           );
         }
         return GameScreen(
@@ -249,6 +254,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           winnerScaleAnimation: _winnerScaleAnimation,
           winnerGlowAnimation: _winnerGlowAnimation,
           flashAnimation: _flashAnimation,
+          captureKey: _captureKey,
         );
       },
     );

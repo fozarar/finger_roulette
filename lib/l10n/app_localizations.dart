@@ -305,6 +305,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Continue'**
   String get continueLabel;
+
+  /// Tooltip of the button that shares the result as an image
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// Text sent along with the shared result image, followed by the App Store link. Keep the app name Finger Chooser untranslated
+  ///
+  /// In en, this message translates to:
+  /// **'Decided with Finger Chooser'**
+  String get shareMessage;
 }
 
 class _AppLocalizationsDelegate

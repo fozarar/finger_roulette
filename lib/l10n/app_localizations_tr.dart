@@ -143,4 +143,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get continueLabel => 'Devam';
+
+  @override
+  String get share => 'Paylaş';
+
+  @override
+  String get shareMessage => 'Finger Chooser ile karar verdik';
 }

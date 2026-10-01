@@ -168,5 +168,13 @@
   "continueLabel": "Continue",
   "@continueLabel": {
     "description": "Button that leaves the setup screen for the wheel, once the name list is ready"
+  },
+  "share": "Share",
+  "@share": {
+    "description": "Tooltip of the button that shares the result as an image"
+  },
+  "shareMessage": "Decided with Finger Chooser",
+  "@shareMessage": {
+    "description": "Text sent along with the shared result image, followed by the App Store link. Keep the app name Finger Chooser untranslated"
   }
 }

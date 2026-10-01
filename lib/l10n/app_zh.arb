@@ -29,5 +29,7 @@
   "spin": "转动",
   "spinAgain": "再转一次",
   "needTwoNames": "至少添加 2 个名字",
-  "continueLabel": "继续"
+  "continueLabel": "继续",
+  "share": "分享",
+  "shareMessage": "用 Finger Chooser 做的决定"
 }

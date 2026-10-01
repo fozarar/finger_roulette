@@ -143,4 +143,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get continueLabel => 'Continuar';
+
+  @override
+  String get share => 'Compartir';
+
+  @override
+  String get shareMessage => 'Decidido con Finger Chooser';
 }

@@ -143,4 +143,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get continueLabel => 'ต่อไป';
+
+  @override
+  String get share => 'แชร์';
+
+  @override
+  String get shareMessage => 'ตัดสินด้วย Finger Chooser';
 }

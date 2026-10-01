@@ -29,5 +29,7 @@
   "spin": "돌리기",
   "spinAgain": "다시 돌리기",
   "needTwoNames": "이름을 2개 이상 추가하세요",
-  "continueLabel": "계속"
+  "continueLabel": "계속",
+  "share": "공유",
+  "shareMessage": "Finger Chooser로 결정했어요"
 }

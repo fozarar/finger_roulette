@@ -29,5 +29,7 @@
   "spin": "Çevir",
   "spinAgain": "Tekrar çevir",
   "needTwoNames": "En az 2 isim ekle",
-  "continueLabel": "Devam"
+  "continueLabel": "Devam",
+  "share": "Paylaş",
+  "shareMessage": "Finger Chooser ile karar verdik"
 }

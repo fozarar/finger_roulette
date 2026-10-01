@@ -143,4 +143,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get continueLabel => 'आगे बढ़ें';
+
+  @override
+  String get share => 'शेयर करें';
+
+  @override
+  String get shareMessage => 'Finger Chooser से तय किया';
 }

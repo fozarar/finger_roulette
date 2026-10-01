@@ -8,6 +8,7 @@ import '../models/game_phase.dart';
 import '../models/wheel_spin.dart';
 import '../painters/wheel_painter.dart';
 import '../widgets/particle_overlay.dart';
+import '../widgets/share_button.dart';
 import 'game_text.dart';
 
 /// İsim listesiyle oynanan ekran.
@@ -26,11 +27,15 @@ class WheelScreen extends StatelessWidget {
   /// Sonuç açıklandığında ekranı kısaca aydınlatan flash
   final Animation<double> flashAnimation;
 
+  /// Paylaşılacak görselin sınırı: çark ya da liste ve yazılar, butonlar hariç
+  final GlobalKey captureKey;
+
   const WheelScreen({
     super.key,
     required this.controller,
     required this.wheel,
     required this.flashAnimation,
+    required this.captureKey,
   });
 
   /// Buton alanının sabit yüksekliği — faz değişince düzen zıplamasın.
@@ -58,26 +63,42 @@ class WheelScreen extends StatelessWidget {
             SizedBox.expand(
               child: Column(
                 children: [
-                  const SizedBox(height: 40),
-                  Text(
-                    gameInfoLabelFor(l10n, controller),
-                    style: const TextStyle(
-                      color: Color(0x55FFFFFF),
-                      fontSize: 13,
-                      letterSpacing: 2,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  // Paylaşılan görsel yalnızca bu kısımdan oluşur. Scaffold'un
+                  // rengi sınırın dışında kaldığı için arka plan burada da
+                  // boyanıyor, yoksa yakalanan görsel şeffaf olur.
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 12,
+                    child: RepaintBoundary(
+                      key: captureKey,
+                      child: ColoredBox(
+                        color: const Color(0xFF111111),
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 40),
+                            Text(
+                              gameInfoLabelFor(l10n, controller),
+                              style: const TextStyle(
+                                color: Color(0x55FFFFFF),
+                                fontSize: 13,
+                                letterSpacing: 2,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 12,
+                                ),
+                                child:
+                                    showWheel ? _wheelView() : _resultList(),
+                              ),
+                            ),
+                            _status(l10n),
+                          ],
+                        ),
                       ),
-                      child: showWheel ? _wheelView() : _resultList(),
                     ),
                   ),
-                  _status(l10n),
                   const SizedBox(height: 20),
                   SizedBox(height: _buttonAreaHeight, child: _buttons(l10n)),
                 ],
@@ -114,6 +135,16 @@ class WheelScreen extends StatelessWidget {
                 ),
               ),
             ),
+
+            // Paylaş butonu kapatma butonunun eşi; sonuç ekranda kalırken
+            if (revealed && controller.showReset)
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8, right: 4),
+                  child: ShareButton(captureKey: captureKey),
+                ),
+              ),
           ],
         ),
       ),

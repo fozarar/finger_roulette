@@ -16,6 +16,7 @@ dependencies:
   audioplayers: ^6.4.0
   in_app_review: ^2.0.10
   shared_preferences: ^2.3.3
+  share_plus: ^13.3.0
 
 dev_dependencies:
   flutter_test:
@@ -32,6 +33,7 @@ flutter:
   assets:
     - assets/sounds/tick.wav
     - assets/sounds/win.wav
+    - assets/images/share_icon.png
 
 flutter_native_splash:
   color: "#111111"

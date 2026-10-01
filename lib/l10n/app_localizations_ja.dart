@@ -143,4 +143,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get continueLabel => '次へ';
+
+  @override
+  String get share => '共有';
+
+  @override
+  String get shareMessage => 'Finger Chooserで決めました';
 }

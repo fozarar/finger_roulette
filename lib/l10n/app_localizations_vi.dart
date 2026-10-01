@@ -143,4 +143,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get continueLabel => 'Tiếp tục';
+
+  @override
+  String get share => 'Chia sẻ';
+
+  @override
+  String get shareMessage => 'Quyết định bằng Finger Chooser';
 }
