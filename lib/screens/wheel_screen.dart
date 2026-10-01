@@ -357,9 +357,14 @@ class WheelScreen extends StatelessWidget {
       );
     }
 
-    return _primaryButton(
-      l10n.spin,
-      controller.names.length >= 2 ? controller.startNameRound : null,
+    // Hizalama olmadan buton alanın sabit yüksekliğine geriliyordu. Üste
+    // hizalı: açıklamadan sonraki "tekrar çevir" butonuyla aynı yerde dursun.
+    return Align(
+      alignment: Alignment.topCenter,
+      child: _primaryButton(
+        l10n.spin,
+        controller.names.length >= 2 ? controller.startNameRound : null,
+      ),
     );
   }
 
