@@ -28,6 +28,10 @@ or review rejects under Guideline 2.3.8.
   in between. They share `build/`, and the leftover device slice of a plugin
   framework (`objective_c`) makes the simulator app die at launch with
   "incompatible platform", which reads like a code failure but is not.
+- The screenshot run needs the Mac awake for its whole length (about a minute
+  per locale). If the Mac sleeps mid-run the simulator freezes and the test
+  dies with "pumpAndSettle timed out", which also reads like a code failure.
+  `caffeinate` does not prevent it on battery with the lid closed.
 - `cd ios && fastlane screenshots` — replaces the App Store screenshots with
   whatever sits in `ios/fastlane/screenshots/<locale>/`. The PNGs are gitignored;
   regenerate them with the `flutter drive` line above. They come out at the
