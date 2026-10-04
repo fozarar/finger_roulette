@@ -4,6 +4,10 @@ import 'package:flutter/rendering.dart';
 import '../l10n/app_localizations.dart';
 import '../services/share_service.dart';
 
+/// Paylaşım menüsü kapanınca çağrılır: [status] `success` ya da `dismissed`,
+/// [method] iOS'un bildirdiği hedef (boşsa null)
+typedef ShareCallback = void Function(String status, String? method);
+
 /// Sonuç ekranının sağ üstündeki paylaş butonu — kapatma butonunun eşi.
 ///
 /// [captureKey] ekranın paylaşılacak kısmını saran [RepaintBoundary]'nin
@@ -11,9 +15,14 @@ import '../services/share_service.dart';
 class ShareButton extends StatefulWidget {
   final GlobalKey captureKey;
   final ShareService service;
+  final ShareCallback? onShared;
 
-  ShareButton({super.key, required this.captureKey, ShareService? service})
-      : service = service ?? ShareService();
+  ShareButton({
+    super.key,
+    required this.captureKey,
+    this.onShared,
+    ShareService? service,
+  }) : service = service ?? ShareService();
 
   @override
   State<ShareButton> createState() => _ShareButtonState();
@@ -33,10 +42,14 @@ class _ShareButtonState extends State<ShareButton> {
 
     setState(() => _busy = true);
     try {
-      await widget.service.shareResult(
+      final result = await widget.service.shareResult(
         boundary: boundary,
         message: message,
         origin: origin,
+      );
+      widget.onShared?.call(
+        result.status.name,
+        result.raw.isEmpty ? null : result.raw,
       );
     } catch (e) {
       // Paylaşım menüsü açılamadıysa oyun etkilenmesin

@@ -264,7 +264,10 @@ class GameScreen extends StatelessWidget {
                 alignment: Alignment.topRight,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8, right: 4),
-                  child: ShareButton(captureKey: captureKey),
+                  child: ShareButton(
+                    captureKey: captureKey,
+                    onShared: controller.recordShare,
+                  ),
                 ),
               ),
             ),

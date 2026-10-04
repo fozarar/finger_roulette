@@ -76,6 +76,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   /// Bir önceki bildirimde ışın dönüyor muydu
   bool _wasSpinning = false;
 
+  /// En son bildirilen ekran; yalnızca değişince yeniden bildirilir
+  String? _reportedScreen;
+
   /// Sonuç paylaşılırken yakalanan alanın anahtarı. Ekranlar her bildirimde
   /// yeniden kurulduğu için anahtar burada, kalıcı state'te yaşıyor.
   final GlobalKey _captureKey = GlobalKey();
@@ -126,6 +129,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
     // Controller değiştiğinde animasyon durumunu güncelle
     _controller.addListener(_onControllerChanged);
+    _reportScreen();
   }
 
   @override
@@ -149,6 +153,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   /// Controller her bildirim gönderdiğinde çağrılır.
   /// Sonuç açıklanınca animasyonları başlatır; oyun sıfırlanınca durdurur.
   void _onControllerChanged() {
+    _reportScreen();
     final isRevealed = _controller.phase == GamePhase.revealed;
     final isSpinning = _controller.phase == GamePhase.locked;
 
@@ -186,6 +191,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     }
 
     _wasRevealed = isRevealed;
+  }
+
+  /// Görünen ekranı analitiğe bildirir. Üç ekran da tek bir route içinde
+  /// değiştiği için bunu Navigator yerine controller'ın durumu belirliyor.
+  void _reportScreen() {
+    final screen = _controller.phase == GamePhase.setup
+        ? 'select'
+        : (_controller.input == InputSource.names ? 'wheel' : 'fingers');
+    if (screen == _reportedScreen) return;
+    _reportedScreen = screen;
+    widget.stats.logScreen(screen);
   }
 
   // ── Işın geometrisi ────────────────────────────────────────────────────────

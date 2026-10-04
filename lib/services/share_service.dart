@@ -27,7 +27,8 @@ class ShareService {
 
   /// [boundary]'yi kartın içine sığacak çözünürlükte yakalar ve paylaşır.
   /// [origin] paylaşım menüsünün çıktığı nokta; iPad'de zorunlu.
-  Future<void> shareResult({
+  /// Menü kapanınca kullanıcının ne yaptığını döndürür.
+  Future<ShareResult> shareResult({
     required RenderRepaintBoundary boundary,
     required String message,
     Rect? origin,
@@ -38,7 +39,7 @@ class ShareService {
     final png = await composeCard(content: content, icon: await _loadIcon());
     content.dispose();
 
-    await SharePlus.instance.share(
+    return SharePlus.instance.share(
       ShareParams(
         files: [XFile.fromData(png, mimeType: 'image/png')],
         fileNameOverrides: const ['finger-chooser.png'],

@@ -416,6 +416,14 @@ class GameController extends ChangeNotifier {
     });
   }
 
+  /// Paylaşım menüsü kapandığında UI katmanı tarafından çağrılır
+  void recordShare(String status, String? method) => _stats.recordShare(
+        mode: mode,
+        input: input,
+        status: status,
+        method: method,
+      );
+
   /// Aynı listeyle yeni bir tur ve hemen çevir.
   ///
   /// "Tekrar çevir" tek dokunuş olmalı: önce sonucu temizleyip sonra

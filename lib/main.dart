@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'app/app.dart';
+import 'services/firebase_sink.dart';
 import 'services/names_service.dart';
 import 'services/review_service.dart';
 import 'services/stats_service.dart';
@@ -15,9 +16,10 @@ Future<void> main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
   // Kalıcı depolamayı ilk frame'den önce hazırla; böylece oyun akışı
-  // sırasında async bekleme olmaz. İkisi de hata durumunda sessizce
-  // devre dışı kalır — oyun her hâlükârda oynanabilir.
-  final stats = StatsService();
+  // sırasında async bekleme olmaz. Hepsi hata durumunda sessizce devre
+  // dışı kalır — oyun her hâlükârda oynanabilir. Analitik de böyle:
+  // Firebase başlamazsa olaylar yutulur.
+  final stats = StatsService(sink: await connectFirebaseAnalytics());
   final review = ReviewService();
   final nameStore = NamesService();
   await stats.init();

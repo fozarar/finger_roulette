@@ -9,13 +9,20 @@ import '../models/input_source.dart';
 /// İki işi var:
 ///  1. [gamesPlayed] sayacını saklar — [ReviewService] puan isteme anını
 ///     buna göre belirler.
-///  2. [logEvent] ile tek bir analitik dikiş noktası sunar. Şu an sadece
-///     debug modda log basar; Firebase Analytics eklendiğinde yalnızca bu
-///     metodun gövdesi değişir, çağrı yerlerine dokunulmaz.
+///  2. [logEvent] ile tek bir analitik dikiş noktası sunar. Olaylar
+///     [AnalyticsSink]'e gider; onu `main()` Firebase Analytics'e bağlar.
+///     Bu sınıf Firebase'i tanımaz, böylece testler platform kanalına
+///     dokunmadan çalışır.
 ///
 /// [init] uygulama açılışında bir kez çağrılmalıdır; sonrasında tüm okumalar
 /// senkrondur, böylece oyun akışı `await` beklemez.
 class StatsService {
+  /// [sink] verilmezse olaylar hiçbir yere gitmez: testlerde ve ekran
+  /// görüntüsü üretiminde istenen de bu.
+  StatsService({AnalyticsSink? sink}) : _sink = sink;
+
+  final AnalyticsSink? _sink;
+
   static const String _kGamesPlayed = 'stats_games_played';
   static const String _kLaunchCount = 'stats_launch_count';
   static const String _kFirstLaunchMs = 'stats_first_launch_ms';
@@ -71,13 +78,40 @@ class StatsService {
     return next;
   }
 
-  /// Analitik dikiş noktası.
-  ///
-  /// Firebase Analytics bağlanacağı zaman tek yapılacak, bu gövdeyi
-  /// `FirebaseAnalytics.instance.logEvent(...)` ile değiştirmek.
+  /// Hangi ekranın açıldığını bildirir. Uygulama tek sayfa üzerinde
+  /// çalıştığı için Firebase ekran değişimini kendi göremez; ekran başına
+  /// geçirilen süreyi bu olaydan hesaplar.
+  void logScreen(String screenName) =>
+      logEvent('screen_view', {'screen_name': screenName});
+
+  /// Paylaşım menüsü kapanınca çağrılır. [status] kullanıcının paylaşıp
+  /// paylaşmadığı, [method] iOS'un bildirdiği hedef (ör. fotoğraflara kayıt).
+  void recordShare({
+    required GameMode mode,
+    required InputSource input,
+    required String status,
+    String? method,
+  }) {
+    logEvent('share', {
+      'content_type': 'result_card',
+      'mode': mode.name,
+      'input': input.name,
+      'status': status,
+      'method': ?method,
+    });
+  }
+
+  /// Analitik dikiş noktası: tüm olaylar buradan geçer
   void logEvent(String name, [Map<String, Object?> params = const {}]) {
     if (kDebugMode) {
       debugPrint('[analytics] $name $params');
     }
+    _sink?.call(name, {
+      for (final MapEntry(:key, :value) in params.entries) key: ?value,
+    });
   }
 }
+
+/// Olayları gerçek analitik servisine taşıyan fonksiyon. Değerler yalnızca
+/// metin ya da sayı olmalı — Firebase başka tür kabul etmiyor.
+typedef AnalyticsSink = void Function(String name, Map<String, Object> params);
