@@ -1,2 +1,4 @@
-• Nuevo: comparte el resultado como imagen, lista para tu historia
-• Pequeñas correcciones y mejoras
+• Divide una lista de nombres en 3 o 4 equipos
+• Guarda varias listas de nombres y cambia entre ellas
+• Nuevos Ajustes: apaga los efectos de sonido
+• Las estadísticas de uso anónimas ayudan a mejorar la app; puedes desactivarlas en Ajustes

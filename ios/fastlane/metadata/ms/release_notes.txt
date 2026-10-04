@@ -1,2 +1,4 @@
-• Baharu: kongsi keputusan sebagai imej — sedia untuk story anda
-• Pembaikan kecil dan penambahbaikan
+• Bahagikan senarai nama kepada 3 atau 4 pasukan
+• Simpan beberapa senarai nama dan tukar antara senarai
+• Tetapan baharu: matikan kesan bunyi
+• Statistik penggunaan tanpa nama membantu menambah baik aplikasi — boleh dimatikan dalam Tetapan

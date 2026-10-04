@@ -1,2 +1,4 @@
-• Nouveau : partagez le résultat en image, prête pour votre story
-• Petites corrections et améliorations
+• Répartissez une liste de noms en 3 ou 4 équipes
+• Gardez plusieurs listes de noms et passez de l’une à l’autre
+• Nouveaux Réglages : coupez les effets sonores
+• Des statistiques d’utilisation anonymes aident à améliorer l’app — désactivables dans Réglages

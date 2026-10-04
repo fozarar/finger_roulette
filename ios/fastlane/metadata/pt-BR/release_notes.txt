@@ -1,2 +1,4 @@
-• Novo: compartilhe o resultado como imagem — pronta para o seu story
-• Pequenas correções e melhorias
+• Divida uma lista de nomes em 3 ou 4 times
+• Guarde várias listas de nomes e alterne entre elas
+• Novos Ajustes: desligue os efeitos sonoros
+• Estatísticas de uso anônimas ajudam a melhorar o app — desative em Ajustes

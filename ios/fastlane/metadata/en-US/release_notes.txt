@@ -1,2 +1,4 @@
-• New: share the result as an image — ready for your story
-• Small fixes and improvements
+• Split a name list into 3 or 4 teams
+• Keep several name lists and switch between them
+• New Settings: turn sound effects off
+• Anonymous usage statistics help improve the app — switch them off in Settings

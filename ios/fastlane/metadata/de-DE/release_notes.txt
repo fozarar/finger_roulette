@@ -1,2 +1,4 @@
-• Neu: Teile das Ergebnis als Bild — bereit für deine Story
-• Kleine Fehlerbehebungen und Verbesserungen
+• Teile eine Namensliste in 3 oder 4 Teams
+• Mehrere Namenslisten speichern und zwischen ihnen wechseln
+• Neue Einstellungen: Soundeffekte ausschalten
+• Anonyme Nutzungsstatistiken helfen, die App zu verbessern – in den Einstellungen abschaltbar

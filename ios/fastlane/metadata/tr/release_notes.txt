@@ -1,2 +1,4 @@
-• Yeni: sonucu görsel olarak paylaş — hikâyene hazır
-• Küçük düzeltmeler ve iyileştirmeler
+• İsim listesini 3 ya da 4 takıma böl
+• Birden fazla isim listesi tut, aralarında geç
+• Yeni Ayarlar: ses efektlerini kapat
+• Anonim kullanım istatistikleri uygulamayı geliştirmeye yardımcı olur; Ayarlar'dan kapatabilirsin

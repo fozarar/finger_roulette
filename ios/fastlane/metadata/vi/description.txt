@@ -3,13 +3,13 @@ Ai trả hóa đơn? Ai đi trước? Ai rửa bát?
 Đừng cãi nữa. Đặt ngón tay lên màn hình, hoặc nhập tên rồi quay vòng quay.
 
 CÁCH DÙNG
-1. Chọn thứ bạn cần: người thắng, người thua, hai đội hoặc thứ tự.
+1. Chọn thứ bạn cần: người thắng, người thua, các đội hoặc thứ tự.
 2. Bằng ngón tay: mỗi người đặt một ngón lên màn hình, tối đa 5 người.
-3. Bằng tên: nhập tối đa 20 tên rồi quay vòng quay.
+3. Bằng tên: nhập tối đa 20 tên rồi quay vòng quay, hoặc chia thành tối đa 4 đội.
 
 HOÀN HẢO ĐỂ
 • Quyết định ai trả hóa đơn
-• Chia một nhóm đông thành hai đội cân bằng
+• Chia một nhóm đông thành các đội cân bằng
 • Chọn ai đi trước trong board game
 • Bốc ra tài xế, người xung phong hoặc người thua
 • Kết thúc mọi tranh cãi giữa bạn bè
@@ -18,7 +18,7 @@ HOÀN HẢO ĐỂ
 
 VÌ SAO BẠN SẼ THÍCH
 • Hoàn toàn công bằng — ai cũng có cơ hội như nhau
-• Danh sách tên được lưu: cùng nhóm chỉ cách một chạm
+• Lưu nhiều danh sách tên: nhóm nào cũng chỉ cách một chạm
 • Chia sẻ kết quả dưới dạng ảnh, sẵn sàng cho story của bạn
 • Dùng ngay: không cài đặt, không tài khoản, không cần mạng
 • Âm thanh và rung làm tăng hồi hộp trước khi công bố

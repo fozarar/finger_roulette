@@ -1,2 +1,4 @@
-• Baru: bagikan hasil sebagai gambar — siap untuk story-mu
-• Perbaikan kecil dan peningkatan
+• Bagi daftar nama menjadi 3 atau 4 tim
+• Simpan beberapa daftar nama dan beralih di antaranya
+• Pengaturan baru: matikan efek suara
+• Statistik penggunaan anonim membantu meningkatkan aplikasi — bisa dimatikan di Pengaturan

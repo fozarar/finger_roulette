@@ -1,2 +1,4 @@
-• Mới: chia sẻ kết quả dưới dạng ảnh — sẵn sàng cho story của bạn
-• Sửa lỗi nhỏ và cải tiến
+• Chia danh sách tên thành 3 hoặc 4 đội
+• Lưu nhiều danh sách tên và chuyển qua lại
+• Cài đặt mới: tắt hiệu ứng âm thanh
+• Thống kê sử dụng ẩn danh giúp cải thiện ứng dụng — có thể tắt trong Cài đặt
