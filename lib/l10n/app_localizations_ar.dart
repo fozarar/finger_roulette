@@ -175,4 +175,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get howManyTeams => 'كم عدد الفرق؟';
+
+  @override
+  String get soundEffects => 'المؤثرات الصوتية';
+
+  @override
+  String get soundEffectsHint =>
+      'صوت النقرات وصوت النتيجة. الاهتزاز يبقى مفعّلًا.';
 }

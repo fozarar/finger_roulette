@@ -35,5 +35,7 @@
   "settings": "設定",
   "usageStats": "匿名の利用統計",
   "usageStatsHint": "アプリの改善に役立ちます。名前や結果は送信されません。",
-  "howManyTeams": "何チームに分ける？"
+  "howManyTeams": "何チームに分ける？",
+  "soundEffects": "効果音",
+  "soundEffectsHint": "カチカチ音と結果の音です。バイブレーションはオンのままです。"
 }

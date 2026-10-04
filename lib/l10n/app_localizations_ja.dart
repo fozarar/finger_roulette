@@ -161,4 +161,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get howManyTeams => '何チームに分ける？';
+
+  @override
+  String get soundEffects => '効果音';
+
+  @override
+  String get soundEffectsHint => 'カチカチ音と結果の音です。バイブレーションはオンのままです。';
 }

@@ -6,6 +6,7 @@ import '../controllers/game_controller.dart';
 import '../l10n/app_localizations.dart';
 import '../models/game_mode.dart';
 import '../models/input_source.dart';
+import '../services/sound_service.dart';
 import '../services/stats_service.dart';
 import '../widgets/mode_selector.dart';
 import '../widgets/name_list_editor.dart';
@@ -23,13 +24,15 @@ import 'game_text.dart';
 class SelectionScreen extends StatelessWidget {
   final GameController controller;
 
-  /// Ayarlar sayfası kullanım istatistikleri tercihini buradan okur ve yazar
+  /// Ayarlar sayfası tercihleri bu iki servisten okur ve onlara yazar
   final StatsService stats;
+  final SoundService sound;
 
   const SelectionScreen({
     super.key,
     required this.controller,
     required this.stats,
+    required this.sound,
   });
 
   /// İsim listesinde kaç kazanan seçilebileceğinin üst sınırı. Liste 20 kişiye
@@ -243,7 +246,11 @@ class SelectionScreen extends StatelessWidget {
                   color: Colors.white70,
                   iconSize: 20,
                   tooltip: l10n.settings,
-                  onPressed: () => SettingsSheet.show(context, stats),
+                  onPressed: () => SettingsSheet.show(
+                    context,
+                    stats: stats,
+                    sound: sound,
+                  ),
                 ),
               ),
             ),

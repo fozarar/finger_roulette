@@ -162,4 +162,11 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get howManyTeams => 'Berapa tim?';
+
+  @override
+  String get soundEffects => 'Efek suara';
+
+  @override
+  String get soundEffectsHint =>
+      'Bunyi tik dan suara hasil. Getaran tetap aktif.';
 }

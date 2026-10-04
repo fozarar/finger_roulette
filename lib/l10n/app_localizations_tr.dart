@@ -162,4 +162,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get howManyTeams => 'Kaç takım?';
+
+  @override
+  String get soundEffects => 'Ses efektleri';
+
+  @override
+  String get soundEffectsHint =>
+      'Tik sesleri ve sonuç sesi. Titreşim açık kalır.';
 }

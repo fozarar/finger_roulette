@@ -6,6 +6,7 @@ import 'app/app.dart';
 import 'services/firebase_sink.dart';
 import 'services/names_service.dart';
 import 'services/review_service.dart';
+import 'services/sound_service.dart';
 import 'services/stats_service.dart';
 
 Future<void> main() async {
@@ -22,11 +23,20 @@ Future<void> main() async {
   final stats = StatsService(sink: await connectFirebaseAnalytics());
   final review = ReviewService();
   final nameStore = NamesService();
+  final sound = SoundService();
   await stats.init();
   await review.init();
   await nameStore.init();
+  await sound.init();
 
-  runApp(FingerRouletteApp(stats: stats, review: review, nameStore: nameStore));
+  runApp(
+    FingerRouletteApp(
+      stats: stats,
+      review: review,
+      nameStore: nameStore,
+      sound: sound,
+    ),
+  );
   // İlk frame çizildikten sonra splash'i kaldır — erken kaldırınca siyah ekran çıkar
   WidgetsBinding.instance.addPostFrameCallback((_) {
     FlutterNativeSplash.remove();

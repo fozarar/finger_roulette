@@ -162,4 +162,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get howManyTeams => '¿Cuántos equipos?';
+
+  @override
+  String get soundEffects => 'Efectos de sonido';
+
+  @override
+  String get soundEffectsHint =>
+      'Los tics y el sonido del resultado. La vibración sigue activa.';
 }

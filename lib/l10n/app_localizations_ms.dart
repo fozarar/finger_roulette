@@ -162,4 +162,11 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get howManyTeams => 'Berapa pasukan?';
+
+  @override
+  String get soundEffects => 'Kesan bunyi';
+
+  @override
+  String get soundEffectsHint =>
+      'Bunyi tik dan bunyi keputusan. Getaran kekal aktif.';
 }

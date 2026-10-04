@@ -194,4 +194,11 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get howManyTeams => 'Сколько команд?';
+
+  @override
+  String get soundEffects => 'Звуковые эффекты';
+
+  @override
+  String get soundEffectsHint =>
+      'Щелчки и звук результата. Вибрация остаётся включённой.';
 }

@@ -35,5 +35,7 @@
   "settings": "Ayarlar",
   "usageStats": "Anonim kullanım istatistikleri",
   "usageStatsHint": "Uygulamayı geliştirmeye yardımcı olur. İsimler ve sonuçlar asla gönderilmez.",
-  "howManyTeams": "Kaç takım?"
+  "howManyTeams": "Kaç takım?",
+  "soundEffects": "Ses efektleri",
+  "soundEffectsHint": "Tik sesleri ve sonuç sesi. Titreşim açık kalır."
 }

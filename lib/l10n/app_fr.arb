@@ -35,5 +35,7 @@
   "settings": "Réglages",
   "usageStats": "Statistiques d’utilisation anonymes",
   "usageStatsHint": "Aident à améliorer l’app. Les noms et les résultats ne sont jamais envoyés.",
-  "howManyTeams": "Combien d’équipes ?"
+  "howManyTeams": "Combien d’équipes ?",
+  "soundEffects": "Effets sonores",
+  "soundEffectsHint": "Les tics et le son du résultat. La vibration reste active."
 }

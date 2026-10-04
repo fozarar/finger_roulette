@@ -1,6 +1,7 @@
 import 'package:finger_roulette/app/app.dart';
 import 'package:finger_roulette/services/names_service.dart';
 import 'package:finger_roulette/services/review_service.dart';
+import 'package:finger_roulette/services/sound_service.dart';
 import 'package:finger_roulette/services/stats_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -88,10 +89,18 @@ void main() {
         stats: StatsService(),
         review: ReviewService(),
         nameStore: NamesService(),
+        // init() çağrılmadı: ses tercihi saklanmaz, varsayılan açık
+        sound: SoundService(),
       ),
     );
     await settle(tester);
     await shot(tester, '0_select');
+
+    // Ayarlar sayfası: açılıp kapanıyor, seçim ekranı olduğu gibi kalıyor
+    await choose(tester, find.byIcon(Icons.settings_outlined));
+    await shot(tester, '0_settings');
+    await tester.tapAt(const Offset(195, 120));
+    await settle(tester);
 
     // Seç modu, kazanan: 5 oyuncu, 2 kazanan
     await choose(tester, find.text('5'));
@@ -128,6 +137,8 @@ void main() {
         stats: StatsService(),
         review: ReviewService(),
         nameStore: NamesService(),
+        // init() çağrılmadı: ses tercihi saklanmaz, varsayılan açık
+        sound: SoundService(),
       ),
     );
     await settle(tester);

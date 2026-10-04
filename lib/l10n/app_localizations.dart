@@ -341,6 +341,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'How many teams?'**
   String get howManyTeams;
+
+  /// Label of the switch that turns the game's sounds on or off
+  ///
+  /// In en, this message translates to:
+  /// **'Sound effects'**
+  String get soundEffects;
+
+  /// Explains the sound switch: which sounds it covers, and that haptic feedback is not affected
+  ///
+  /// In en, this message translates to:
+  /// **'Ticks and the reveal sound. Vibration stays on.'**
+  String get soundEffectsHint;
 }
 
 class _AppLocalizationsDelegate

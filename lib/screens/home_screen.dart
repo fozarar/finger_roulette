@@ -7,6 +7,7 @@ import '../models/spin_beam.dart';
 import '../models/wheel_spin.dart';
 import '../services/names_service.dart';
 import '../services/review_service.dart';
+import '../services/sound_service.dart';
 import '../services/stats_service.dart';
 import 'game_screen.dart';
 import 'selection_screen.dart';
@@ -23,12 +24,14 @@ class HomeScreen extends StatefulWidget {
   final StatsService stats;
   final ReviewService review;
   final NamesService nameStore;
+  final SoundService sound;
 
   const HomeScreen({
     super.key,
     required this.stats,
     required this.review,
     required this.nameStore,
+    required this.sound,
   });
 
   @override
@@ -123,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     )..addListener(_updateSpin);
 
     _controller = GameController(
+      sound: widget.sound,
       stats: widget.stats,
       review: widget.review,
       nameStore: widget.nameStore,
@@ -257,6 +261,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           return SelectionScreen(
             controller: _controller,
             stats: widget.stats,
+            sound: widget.sound,
           );
         }
         if (_controller.input == InputSource.names) {

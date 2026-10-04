@@ -161,4 +161,10 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get howManyTeams => '分成几队？';
+
+  @override
+  String get soundEffects => '音效';
+
+  @override
+  String get soundEffectsHint => '滴答声和结果提示音。振动保持开启。';
 }

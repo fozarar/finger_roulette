@@ -162,4 +162,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get howManyTeams => 'कितनी टीमें?';
+
+  @override
+  String get soundEffects => 'साउंड इफ़ेक्ट';
+
+  @override
+  String get soundEffectsHint =>
+      'टिक और नतीजे की आवाज़। वाइब्रेशन चालू रहता है।';
 }

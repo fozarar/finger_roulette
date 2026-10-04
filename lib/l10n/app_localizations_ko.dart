@@ -161,4 +161,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get howManyTeams => '몇 팀으로 나눌까요?';
+
+  @override
+  String get soundEffects => '효과음';
+
+  @override
+  String get soundEffectsHint => '틱 소리와 결과 소리예요. 진동은 계속 켜져 있어요.';
 }

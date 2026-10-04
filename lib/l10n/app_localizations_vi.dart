@@ -162,4 +162,11 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get howManyTeams => 'Bao nhiêu đội?';
+
+  @override
+  String get soundEffects => 'Hiệu ứng âm thanh';
+
+  @override
+  String get soundEffectsHint =>
+      'Tiếng tích và âm thanh công bố kết quả. Rung vẫn bật.';
 }

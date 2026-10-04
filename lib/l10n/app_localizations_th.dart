@@ -161,4 +161,11 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get howManyTeams => 'แบ่งกี่ทีม?';
+
+  @override
+  String get soundEffects => 'เสียงเอฟเฟกต์';
+
+  @override
+  String get soundEffectsHint =>
+      'เสียงติ๊กและเสียงตอนประกาศผล การสั่นยังทำงานอยู่';
 }

@@ -35,5 +35,7 @@
   "settings": "设置",
   "usageStats": "匿名使用统计",
   "usageStatsHint": "帮助改进应用。名字和结果绝不会被发送。",
-  "howManyTeams": "分成几队？"
+  "howManyTeams": "分成几队？",
+  "soundEffects": "音效",
+  "soundEffectsHint": "滴答声和结果提示音。振动保持开启。"
 }

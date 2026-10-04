@@ -35,5 +35,7 @@
   "settings": "Tetapan",
   "usageStats": "Statistik penggunaan tanpa nama",
   "usageStatsHint": "Membantu menambah baik aplikasi. Nama dan keputusan tidak pernah dihantar.",
-  "howManyTeams": "Berapa pasukan?"
+  "howManyTeams": "Berapa pasukan?",
+  "soundEffects": "Kesan bunyi",
+  "soundEffectsHint": "Bunyi tik dan bunyi keputusan. Getaran kekal aktif."
 }

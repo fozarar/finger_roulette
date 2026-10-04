@@ -91,8 +91,12 @@ or review rejects under Guideline 2.3.8.
   the rest — an easeOut across the whole spin made the first frames a blur and
   the tick sounds a machine gun.
 - Services (`SoundService`, `StatsService`, `ReviewService`) are injected into
-  `GameController` so tests can substitute fakes. `StatsService` and
-  `ReviewService` are created and initialised in `main()` before `runApp`.
+  `GameController` so tests can substitute fakes. They are created and
+  initialised in `main()` before `runApp`.
+- The two user settings live in the services that act on them — sound in
+  `SoundService`, usage statistics in `StatsService` — and `SettingsSheet`
+  only shows their switches. Muting covers sound only; haptics are fired by the
+  controller and stay on.
 - Sharing is a UI concern, so it stays out of the controller: `ShareButton`
   captures the `RepaintBoundary` that `HomeScreen`'s `captureKey` marks (the
   result without its buttons) and `ShareService` draws it onto a 1080×1920

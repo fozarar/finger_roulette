@@ -35,5 +35,7 @@
   "settings": "Cài đặt",
   "usageStats": "Thống kê sử dụng ẩn danh",
   "usageStatsHint": "Giúp cải thiện ứng dụng. Tên và kết quả không bao giờ được gửi đi.",
-  "howManyTeams": "Bao nhiêu đội?"
+  "howManyTeams": "Bao nhiêu đội?",
+  "soundEffects": "Hiệu ứng âm thanh",
+  "soundEffectsHint": "Tiếng tích và âm thanh công bố kết quả. Rung vẫn bật."
 }

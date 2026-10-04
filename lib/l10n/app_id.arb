@@ -35,5 +35,7 @@
   "settings": "Pengaturan",
   "usageStats": "Statistik penggunaan anonim",
   "usageStatsHint": "Membantu meningkatkan aplikasi. Nama dan hasil tidak pernah dikirim.",
-  "howManyTeams": "Berapa tim?"
+  "howManyTeams": "Berapa tim?",
+  "soundEffects": "Efek suara",
+  "soundEffectsHint": "Bunyi tik dan suara hasil. Getaran tetap aktif."
 }
