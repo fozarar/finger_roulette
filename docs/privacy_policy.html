@@ -121,8 +121,9 @@
       <h2>Overview</h2>
       <p>
         Finger Chooser is a local multiplayer party game. It runs entirely
-        on your device and does not require an internet connection, an account,
-        or any permissions.
+        on your device and does not require an internet connection or an
+        account. The only permission it can ask for is optional — see
+        Permissions below.
       </p>
     </section>
 
@@ -155,6 +156,17 @@
     </section>
 
     <section>
+      <h2>Sharing a Result</h2>
+      <p>
+        After a round you can share the result as an image. The image is made
+        on your device and handed to the standard iOS share sheet; it goes
+        only to the app or person you pick there, and we never receive it.
+        If you played with a name list, the names on the result are part of
+        the image. Nothing is shared unless you tap the share button.
+      </p>
+    </section>
+
+    <section>
       <h2>Ratings</h2>
       <p>
         After you have played a few games, the app may ask iOS to display
@@ -166,11 +178,19 @@
 
     <section>
       <h2>Permissions</h2>
-      <p>The app requests no device permissions. It does not access:</p>
+      <p>
+        The app can ask for one permission, and only if you choose
+        &ldquo;Save Image&rdquo; in the share sheet: permission to add the
+        result image to your photo library. This is add-only &mdash; the app
+        cannot see, read, or change the photos you already have. If you
+        decline, everything else keeps working.
+      </p>
+      <p>It does not access:</p>
       <ul>
         <li>Camera or microphone</li>
         <li>Location</li>
-        <li>Contacts or photos</li>
+        <li>Contacts</li>
+        <li>Your existing photos</li>
         <li>Network or internet &mdash; the game works fully offline</li>
         <li>Any other sensitive data</li>
       </ul>
@@ -209,7 +229,7 @@
       </p>
     </section>
 
-    <p class="updated">Last updated: September 14, 2026</p>
+    <p class="updated">Last updated: October 4, 2026</p>
 
   </div>
 </body>
