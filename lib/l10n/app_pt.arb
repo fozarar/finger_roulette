@@ -37,5 +37,10 @@
   "usageStatsHint": "Ajudam a melhorar o app. Nomes e resultados nunca são enviados.",
   "howManyTeams": "Quantos times?",
   "soundEffects": "Efeitos sonoros",
-  "soundEffectsHint": "Os tiques e o som do resultado. A vibração continua ativa."
+  "soundEffectsHint": "Os tiques e o som do resultado. A vibração continua ativa.",
+  "listDefaultName": "Lista {number}",
+  "newList": "Nova lista",
+  "listNameHint": "Nome da lista",
+  "deleteList": "Excluir lista",
+  "deleteListConfirm": "Toque de novo para excluir"
 }

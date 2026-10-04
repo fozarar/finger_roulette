@@ -212,6 +212,24 @@ void main() {
     await tester.tap(find.byType(ElevatedButton));
     await tester.pump(const Duration(milliseconds: 4600));
     await shot(tester, '14_teams_names_four');
+
+    // İkinci bir liste: sekmeler, sonra adını değiştirme sayfası
+    await tapAndPump(find.byType(TextButton));
+    await tapAndPump(find.byIcon(Icons.add_rounded).first);
+    for (final name in const ['Kai', 'Noa', 'Ida']) {
+      await tester.enterText(find.byType(TextField), name);
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pump(const Duration(milliseconds: 400));
+    await tapAndPump(find.byIcon(Icons.edit_outlined));
+    await tester.enterText(find.byType(TextField).last, 'Friday');
+    await tester.pump(const Duration(milliseconds: 400));
+    await shot(tester, '15_list_rename');
+    await tester.tapAt(const Offset(195, 120));
+    await tester.pump(const Duration(milliseconds: 500));
+    await shot(tester, '16_lists_select');
     // Kazanma sesi bitsin: audioplayers'ın kare geri çağrısı test sonrasına
     // taşarsa çerçeve "animasyon hâlâ çalışıyor" diye testi düşürüyor
     await tester.pump(const Duration(seconds: 2));

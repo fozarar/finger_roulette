@@ -37,5 +37,10 @@
   "usageStatsHint": "Membantu menambah baik aplikasi. Nama dan keputusan tidak pernah dihantar.",
   "howManyTeams": "Berapa pasukan?",
   "soundEffects": "Kesan bunyi",
-  "soundEffectsHint": "Bunyi tik dan bunyi keputusan. Getaran kekal aktif."
+  "soundEffectsHint": "Bunyi tik dan bunyi keputusan. Getaran kekal aktif.",
+  "listDefaultName": "Senarai {number}",
+  "newList": "Senarai baharu",
+  "listNameHint": "Nama senarai",
+  "deleteList": "Padam senarai",
+  "deleteListConfirm": "Ketik sekali lagi untuk padam"
 }

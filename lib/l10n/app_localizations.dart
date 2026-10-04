@@ -353,6 +353,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ticks and the reveal sound. Vibration stays on.'**
   String get soundEffectsHint;
+
+  /// Name shown for a name list the user has not named, numbered by its position
+  ///
+  /// In en, this message translates to:
+  /// **'List {number}'**
+  String listDefaultName(int number);
+
+  /// Tooltip of the button that adds another name list
+  ///
+  /// In en, this message translates to:
+  /// **'New list'**
+  String get newList;
+
+  /// Placeholder of the field where a name list is renamed
+  ///
+  /// In en, this message translates to:
+  /// **'List name'**
+  String get listNameHint;
+
+  /// Button that deletes the open name list
+  ///
+  /// In en, this message translates to:
+  /// **'Delete list'**
+  String get deleteList;
+
+  /// Replaces the delete button's label after the first tap, asking for a second tap to confirm
+  ///
+  /// In en, this message translates to:
+  /// **'Tap again to delete'**
+  String get deleteListConfirm;
 }
 
 class _AppLocalizationsDelegate

@@ -169,4 +169,21 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get soundEffectsHint =>
       'Tik sesleri ve sonuç sesi. Titreşim açık kalır.';
+
+  @override
+  String listDefaultName(int number) {
+    return 'Liste $number';
+  }
+
+  @override
+  String get newList => 'Yeni liste';
+
+  @override
+  String get listNameHint => 'Liste adı';
+
+  @override
+  String get deleteList => 'Listeyi sil';
+
+  @override
+  String get deleteListConfirm => 'Silmek için tekrar dokun';
 }

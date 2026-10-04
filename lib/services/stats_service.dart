@@ -79,7 +79,8 @@ class StatsService {
 
   /// Bir oyunun sonucu açıklanınca çağrılır; sayacı artırıp yeni değeri döner.
   /// [outcome] ve [pickCount] yalnızca seç modunda, [teamCount] yalnızca
-  /// takım modunda anlamlı.
+  /// takım modunda, [listCount] (kullanıcının kaç listesi olduğu) yalnızca
+  /// isim girişinde anlamlı.
   Future<int> recordGameCompleted({
     required GameMode mode,
     required InputSource input,
@@ -87,6 +88,7 @@ class StatsService {
     PickOutcome? outcome,
     int? pickCount,
     int? teamCount,
+    int? listCount,
   }) async {
     final next = gamesPlayed + 1;
     await _prefs?.setInt(_kGamesPlayed, next);
@@ -97,6 +99,7 @@ class StatsService {
       'players': playerCount,
       'picks': ?pickCount,
       'teams': ?teamCount,
+      'lists': ?listCount,
       'total_games': next,
     });
     return next;

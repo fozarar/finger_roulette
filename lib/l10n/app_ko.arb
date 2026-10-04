@@ -37,5 +37,10 @@
   "usageStatsHint": "앱 개선에 도움이 됩니다. 이름과 결과는 전송되지 않습니다.",
   "howManyTeams": "몇 팀으로 나눌까요?",
   "soundEffects": "효과음",
-  "soundEffectsHint": "틱 소리와 결과 소리예요. 진동은 계속 켜져 있어요."
+  "soundEffectsHint": "틱 소리와 결과 소리예요. 진동은 계속 켜져 있어요.",
+  "listDefaultName": "목록 {number}",
+  "newList": "새 목록",
+  "listNameHint": "목록 이름",
+  "deleteList": "목록 삭제",
+  "deleteListConfirm": "삭제하려면 다시 탭하세요"
 }

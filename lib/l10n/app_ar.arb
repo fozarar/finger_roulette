@@ -37,5 +37,10 @@
   "usageStatsHint": "تساعد على تحسين التطبيق. لا تُرسَل الأسماء أو النتائج أبدًا.",
   "howManyTeams": "كم عدد الفرق؟",
   "soundEffects": "المؤثرات الصوتية",
-  "soundEffectsHint": "صوت النقرات وصوت النتيجة. الاهتزاز يبقى مفعّلًا."
+  "soundEffectsHint": "صوت النقرات وصوت النتيجة. الاهتزاز يبقى مفعّلًا.",
+  "listDefaultName": "القائمة {number}",
+  "newList": "قائمة جديدة",
+  "listNameHint": "اسم القائمة",
+  "deleteList": "حذف القائمة",
+  "deleteListConfirm": "اضغط مرة أخرى للحذف"
 }

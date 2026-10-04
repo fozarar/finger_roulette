@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import '../models/draw.dart';
 import '../models/game_mode.dart';
 import '../models/input_source.dart';
+import '../models/name_list.dart';
 import '../models/game_phase.dart';
 import '../services/names_service.dart';
 import '../services/review_service.dart';
@@ -54,8 +55,15 @@ class GameController extends ChangeNotifier {
   /// Katılımcılar parmaklardan mı isim listesinden mi geliyor
   InputSource input = InputSource.fingers;
 
-  /// Kullanıcının yazdığı isimler; [NamesService] ile cihazda saklanır
-  List<String> names = [];
+  /// Kullanıcının isim listeleri; [NamesService] ile cihazda saklanır.
+  /// En az bir liste her zaman vardır.
+  List<NameList> lists = const [NameList()];
+
+  /// Açık olan listenin [lists] içindeki sırası
+  int activeListIndex = 0;
+
+  /// Açık listedeki isimler: çark ve çekiliş yalnızca bunu görür
+  List<String> get names => lists[activeListIndex].names;
 
   /// Oyuncu sayısı seçildi, kaç kişi seçileceği henüz belirlenmedi
   int? pendingPlayerCount;
@@ -145,8 +153,10 @@ class GameController extends ChangeNotifier {
         _stats = stats ?? StatsService(),
         _review = review ?? ReviewService(),
         _nameStore = nameStore ?? NamesService() {
-    // Saklanan liste açılışta hazır olsun; okuma senkron, akış beklemez
-    names = _nameStore.load();
+    // Saklanan listeler açılışta hazır olsun; okuma senkron, akış beklemez
+    final book = _nameStore.load();
+    lists = book.lists;
+    activeListIndex = book.active;
   }
 
   /// İsim listesiyle kurulabilecek en fazla takım: her takıma en az iki kişi
@@ -199,14 +209,56 @@ class GameController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// İsim listesini günceller ve cihaza yazar
-  void setNames(List<String> newNames) {
-    names = List.of(newNames.take(NamesService.maxNames));
-    // Liste kısaldıysa seçili kazanan sayısı geçersiz kalmış olabilir
+  /// Açık listenin isimlerini günceller ve cihaza yazar
+  void setNames(List<String> newNames) => _updateLists([
+        for (final (index, list) in lists.indexed)
+          index == activeListIndex
+              ? list.copyWith(
+                  names: List.of(newNames.take(NamesService.maxNames)),
+                )
+              : list,
+      ]);
+
+  /// Başka bir listeye geçer
+  void selectList(int index) {
+    if (index == activeListIndex || index < 0 || index >= lists.length) return;
+    _updateLists(lists, active: index);
+  }
+
+  /// Boş bir liste ekler ve ona geçer; üst sınırda hiçbir şey yapmaz
+  void addList() {
+    if (lists.length >= NamesService.maxLists) return;
+    _updateLists([...lists, const NameList()], active: lists.length);
+  }
+
+  /// Açık listenin adını değiştirir; boş ad sıra numaralı varsayılana döner
+  void renameActiveList(String title) => _updateLists([
+        for (final (index, list) in lists.indexed)
+          index == activeListIndex ? list.copyWith(title: title.trim()) : list,
+      ]);
+
+  /// Açık listeyi siler ve bir öncekine geçer. Son liste silinemez; onun
+  /// yerine içi boşaltılır, çünkü ekranın her zaman bir listeye ihtiyacı var.
+  void deleteActiveList() {
+    if (lists.length == 1) {
+      _updateLists(const [NameList()]);
+      return;
+    }
+    _updateLists(
+      [...lists]..removeAt(activeListIndex),
+      active: max(0, activeListIndex - 1),
+    );
+  }
+
+  void _updateLists(List<NameList> newLists, {int? active}) {
+    lists = newLists;
+    activeListIndex = active ?? activeListIndex;
+    // Açık liste değişti ya da kısaldıysa seçili kazanan sayısı geçersiz
+    // kalmış olabilir
     if (selectedPickCount != null && selectedPickCount! >= names.length) {
       selectedPickCount = null;
     }
-    _nameStore.save(names);
+    _nameStore.save(NameBook(lists: lists, active: activeListIndex));
     notifyListeners();
   }
 
@@ -427,6 +479,7 @@ class GameController extends ChangeNotifier {
       playerCount: participantIds.length,
       pickCount: mode.picksSubset ? pickedIds.length : null,
       teamCount: mode == GameMode.teams ? teamCount : null,
+      listCount: input == InputSource.names ? lists.length : null,
     );
 
     // 2 saniye sonra reset butonlarını göster

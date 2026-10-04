@@ -37,5 +37,10 @@
   "usageStatsHint": "ऐप को बेहतर बनाने में मदद करते हैं। नाम और नतीजे कभी नहीं भेजे जाते।",
   "howManyTeams": "कितनी टीमें?",
   "soundEffects": "साउंड इफ़ेक्ट",
-  "soundEffectsHint": "टिक और नतीजे की आवाज़। वाइब्रेशन चालू रहता है।"
+  "soundEffectsHint": "टिक और नतीजे की आवाज़। वाइब्रेशन चालू रहता है।",
+  "listDefaultName": "सूची {number}",
+  "newList": "नई सूची",
+  "listNameHint": "सूची का नाम",
+  "deleteList": "सूची हटाएँ",
+  "deleteListConfirm": "हटाने के लिए फिर से टैप करें"
 }

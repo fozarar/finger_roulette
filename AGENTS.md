@@ -79,6 +79,12 @@ or review rejects under Guideline 2.3.8.
   names, as long as every team gets at least two people. The selection screen
   asks only when more than two teams are possible; otherwise it shows the plain
   continue button.
+- Name lists: the controller keeps `lists` and `activeListIndex`, and `names`
+  is just the open list — the wheel and the draw never see the others. There
+  is always at least one list; deleting the last one empties it instead.
+  `NamesService` stores them as JSON and still reads the single list of 1.2 and
+  earlier, once, so an update does not lose anyone's names. An unnamed list is
+  shown as "List 2" by position; that label is localized, so it is never stored.
 - `FingerPainter` knows nothing about modes: it draws whatever is in
   `spotlightPointerIds` and `labels`. Its glows are radial gradients, not
   `MaskFilter.blur` — five blurred circles at once (team mode) dropped frames.

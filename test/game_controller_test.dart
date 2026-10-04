@@ -5,6 +5,7 @@ import 'package:finger_roulette/controllers/game_controller.dart';
 import 'package:finger_roulette/models/game_mode.dart';
 import 'package:finger_roulette/models/game_phase.dart';
 import 'package:finger_roulette/models/input_source.dart';
+import 'package:finger_roulette/models/name_list.dart';
 import 'package:finger_roulette/services/names_service.dart';
 import 'package:finger_roulette/services/review_service.dart';
 import 'package:finger_roulette/services/sound_service.dart';
@@ -31,6 +32,7 @@ class _FakeStats extends StatsService {
   int? lastPlayers;
   int? lastPicks;
   int? lastTeams;
+  int? lastLists;
 
   @override
   Future<int> recordGameCompleted({
@@ -40,9 +42,11 @@ class _FakeStats extends StatsService {
     PickOutcome? outcome,
     int? pickCount,
     int? teamCount,
+    int? listCount,
   }) async {
     completed++;
     lastTeams = teamCount;
+    lastLists = listCount;
     lastMode = mode;
     lastInput = input;
     lastOutcome = outcome;
@@ -57,15 +61,19 @@ class _FakeStats extends StatsService {
 
 /// Diske gitmeyen isim deposu
 class _FakeNames extends NamesService {
-  _FakeNames([this.stored = const []]);
+  _FakeNames([List<String> names = const []])
+      : book = NameBook(lists: [NameList(names: names)]);
 
-  List<String> stored;
+  NameBook book;
+
+  /// Açık listedeki isimler — testlerin çoğu tek listeyle çalışıyor
+  List<String> get stored => book.lists[book.active].names;
 
   @override
-  List<String> load() => stored;
+  NameBook load() => book;
 
   @override
-  Future<void> save(List<String> names) async => stored = names;
+  Future<void> save(NameBook book) async => this.book = book;
 }
 
 void main() {
@@ -653,6 +661,148 @@ void main() {
         GameController.maxTeamOptions,
       );
       expect(GameController.teamColors.toSet().length, 4);
+    });
+  });
+
+  group('isim listeleri', () {
+    test('açılışta tek liste vardır ve o açıktır', () {
+      final c = build(names: ['Ali', 'Veli']);
+      expect(c.lists, hasLength(1));
+      expect(c.activeListIndex, 0);
+      expect(c.names, ['Ali', 'Veli']);
+      c.dispose();
+    });
+
+    test('yeni liste boş gelir, ona geçilir ve eski liste yerinde kalır', () {
+      final c = build(names: ['Ali', 'Veli']);
+      c.addList();
+
+      expect(c.lists, hasLength(2));
+      expect(c.activeListIndex, 1);
+      expect(c.names, isEmpty);
+      expect(c.lists.first.names, ['Ali', 'Veli']);
+      c.dispose();
+    });
+
+    test('isim eklemek yalnızca açık listeyi değiştirir', () {
+      final c = build(names: ['Ali', 'Veli']);
+      c.addList();
+      c.setNames(['Can', 'Ece', 'Efe']);
+
+      expect(c.lists[0].names, ['Ali', 'Veli']);
+      expect(c.lists[1].names, ['Can', 'Ece', 'Efe']);
+
+      c.selectList(0);
+      expect(c.names, ['Ali', 'Veli']);
+      c.dispose();
+    });
+
+    test('her değişiklik listeleri ve açık olanı saklar', () {
+      final c = build(names: ['Ali', 'Veli']);
+      c.addList();
+      c.setNames(['Can', 'Ece']);
+      c.renameActiveList('  Halı saha ');
+
+      expect(nameStore.book.lists, hasLength(2));
+      expect(nameStore.book.active, 1);
+      expect(nameStore.book.lists[1].title, 'Halı saha');
+      expect(nameStore.book.lists[1].names, ['Can', 'Ece']);
+
+      c.selectList(0);
+      expect(nameStore.book.active, 0);
+      c.dispose();
+    });
+
+    test('silinen listenin yerine bir önceki açılır', () {
+      final c = build(names: ['Ali', 'Veli']);
+      c.addList();
+      c.setNames(['Can', 'Ece']);
+      c.addList();
+      c.selectList(1);
+
+      c.deleteActiveList();
+
+      expect(c.lists, hasLength(2));
+      expect(c.activeListIndex, 0);
+      expect(c.names, ['Ali', 'Veli']);
+      c.dispose();
+    });
+
+    test('son liste silinmez, içi boşalır', () {
+      final c = build(names: ['Ali', 'Veli']);
+      c.renameActiveList('Ofis');
+
+      c.deleteActiveList();
+
+      expect(c.lists, hasLength(1));
+      expect(c.names, isEmpty);
+      expect(c.lists.single.title, isEmpty);
+      c.dispose();
+    });
+
+    test('üst sınırdan sonra yeni liste eklenmez', () {
+      final c = build();
+      for (var i = 0; i < NamesService.maxLists + 3; i++) {
+        c.addList();
+      }
+      expect(c.lists, hasLength(NamesService.maxLists));
+      c.dispose();
+    });
+
+    test('olmayan bir listeye geçilmez', () {
+      final c = build(names: ['Ali', 'Veli']);
+      c.selectList(5);
+      c.selectList(-1);
+      expect(c.activeListIndex, 0);
+      c.dispose();
+    });
+
+    test('kısa bir listeye geçince sığmayan kazanan sayısı sıfırlanır', () {
+      final c = build(names: ['Ali', 'Veli', 'Ayşe', 'Fatma', 'Can']);
+      c.selectInput(InputSource.names);
+      c.selectPickCount(3);
+      c.changeSettings();
+      c.selectedPickCount = 3;
+
+      c.addList();
+      c.setNames(['Ece', 'Efe']);
+
+      expect(c.selectedPickCount, isNull);
+      c.dispose();
+    });
+
+    test('tur açık listenin isimleriyle oynanır ve liste sayısı bildirilir',
+        () {
+      fakeAsync((async) {
+        final c = build(names: ['Ali', 'Veli']);
+        c.addList();
+        c.setNames(['Can', 'Ece', 'Efe']);
+        c.selectInput(InputSource.names);
+        c.selectMode(GameMode.order);
+        c.confirmNames();
+
+        c.startNameRound();
+        async.elapse(GameController.spinDuration);
+
+        expect(c.rankedIds.toSet(), {0, 1, 2});
+        async.elapse(const Duration(seconds: 2));
+        async.flushMicrotasks();
+        expect(stats.lastPlayers, 3);
+        expect(stats.lastLists, 2);
+        c.dispose();
+      });
+    });
+
+    test('parmakla oynanan turda liste sayısı bildirilmez', () {
+      fakeAsync((async) {
+        final c = build(names: ['Ali', 'Veli']);
+        c.selectPlayerCount(2);
+        playRound(async, c, 2);
+        async.elapse(const Duration(seconds: 2));
+        async.flushMicrotasks();
+        expect(stats.lastLists, isNull);
+        c.dispose();
+      });
     });
   });
 }

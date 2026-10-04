@@ -169,4 +169,21 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get soundEffectsHint =>
       'Les tics et le son du résultat. La vibration reste active.';
+
+  @override
+  String listDefaultName(int number) {
+    return 'Liste $number';
+  }
+
+  @override
+  String get newList => 'Nouvelle liste';
+
+  @override
+  String get listNameHint => 'Nom de la liste';
+
+  @override
+  String get deleteList => 'Supprimer la liste';
+
+  @override
+  String get deleteListConfirm => 'Touchez à nouveau pour supprimer';
 }

@@ -10,6 +10,7 @@ import '../services/sound_service.dart';
 import '../services/stats_service.dart';
 import '../widgets/mode_selector.dart';
 import '../widgets/name_list_editor.dart';
+import '../widgets/name_list_tabs.dart';
 import '../widgets/option_button.dart';
 import '../widgets/segmented_pill.dart';
 import '../widgets/settings_sheet.dart';
@@ -71,15 +72,19 @@ class SelectionScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFF111111),
-      body: Stack(
-        children: [
-          SafeArea(
-            // Klavye açıldığında ya da liste uzadığında taşmasın
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Column(
+      body: SafeArea(
+        // Klavye açıldığında ya da liste uzadığında taşmasın
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.only(bottom: 20),
+          // passthrough: sütun ekran genişliğini alsın. Aksi halde Stack
+          // çocuğunu serbest bırakıyor, sütun en geniş çocuğu kadar daralıyor.
+          child: Stack(
+            fit: StackFit.passthrough,
+            children: [
+              Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  const SizedBox(height: 20),
                   // ── Başlık ─────────────────────────────────────────────────
                   const Text(
                     'FINGER',
@@ -137,12 +142,21 @@ class SelectionScreen extends StatelessWidget {
                   const SizedBox(height: 30),
 
                   // ── Katılımcılar ───────────────────────────────────────────
-                  if (isNames)
+                  if (isNames) ...[
+                    NameListTabs(
+                      lists: controller.lists,
+                      activeIndex: controller.activeListIndex,
+                      onSelect: controller.selectList,
+                      onAdd: controller.addList,
+                      onRename: controller.renameActiveList,
+                      onDelete: controller.deleteActiveList,
+                    ),
+                    const SizedBox(height: 14),
                     NameListEditor(
                       names: controller.names,
                       onChanged: controller.setNames,
-                    )
-                  else ...[
+                    ),
+                  ] else ...[
                     _question(l10n.howManyPlayers),
                     const SizedBox(height: 22),
                     Row(
@@ -232,15 +246,13 @@ class SelectionScreen extends StatelessWidget {
                   const SizedBox(height: 24),
                 ],
               ),
-            ),
-          ),
 
-          // Ayarlar: oyun ekranlarındaki kapatma butonuyla aynı ölçü ve ton
-          SafeArea(
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8, right: 4),
+              // Ayarlar: oyun ekranlarındaki kapatma butonuyla aynı ölçü ve
+              // ton. İçerikle birlikte kayıyor — sabit dursaydı klavye açılıp
+              // ekran yukarı kayınca mod kutuları altından geçerdi.
+              Positioned(
+                top: 8,
+                right: 4,
                 child: IconButton(
                   icon: const Icon(Icons.settings_outlined),
                   color: Colors.white70,
@@ -253,9 +265,9 @@ class SelectionScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

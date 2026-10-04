@@ -201,4 +201,21 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get soundEffectsHint =>
       'Щелчки и звук результата. Вибрация остаётся включённой.';
+
+  @override
+  String listDefaultName(int number) {
+    return 'Список $number';
+  }
+
+  @override
+  String get newList => 'Новый список';
+
+  @override
+  String get listNameHint => 'Название списка';
+
+  @override
+  String get deleteList => 'Удалить список';
+
+  @override
+  String get deleteListConfirm => 'Нажмите ещё раз, чтобы удалить';
 }

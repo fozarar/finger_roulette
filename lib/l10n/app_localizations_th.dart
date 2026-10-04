@@ -168,4 +168,21 @@ class AppLocalizationsTh extends AppLocalizations {
   @override
   String get soundEffectsHint =>
       'เสียงติ๊กและเสียงตอนประกาศผล การสั่นยังทำงานอยู่';
+
+  @override
+  String listDefaultName(int number) {
+    return 'รายการ $number';
+  }
+
+  @override
+  String get newList => 'รายการใหม่';
+
+  @override
+  String get listNameHint => 'ชื่อรายการ';
+
+  @override
+  String get deleteList => 'ลบรายการ';
+
+  @override
+  String get deleteListConfirm => 'แตะอีกครั้งเพื่อลบ';
 }

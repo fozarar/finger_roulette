@@ -200,5 +200,30 @@
   "soundEffectsHint": "Ticks and the reveal sound. Vibration stays on.",
   "@soundEffectsHint": {
     "description": "Explains the sound switch: which sounds it covers, and that haptic feedback is not affected"
+  },
+  "listDefaultName": "List {number}",
+  "@listDefaultName": {
+    "description": "Name shown for a name list the user has not named, numbered by its position",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "newList": "New list",
+  "@newList": {
+    "description": "Tooltip of the button that adds another name list"
+  },
+  "listNameHint": "List name",
+  "@listNameHint": {
+    "description": "Placeholder of the field where a name list is renamed"
+  },
+  "deleteList": "Delete list",
+  "@deleteList": {
+    "description": "Button that deletes the open name list"
+  },
+  "deleteListConfirm": "Tap again to delete",
+  "@deleteListConfirm": {
+    "description": "Replaces the delete button's label after the first tap, asking for a second tap to confirm"
   }
 }

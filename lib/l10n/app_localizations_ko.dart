@@ -167,4 +167,21 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get soundEffectsHint => '틱 소리와 결과 소리예요. 진동은 계속 켜져 있어요.';
+
+  @override
+  String listDefaultName(int number) {
+    return '목록 $number';
+  }
+
+  @override
+  String get newList => '새 목록';
+
+  @override
+  String get listNameHint => '목록 이름';
+
+  @override
+  String get deleteList => '목록 삭제';
+
+  @override
+  String get deleteListConfirm => '삭제하려면 다시 탭하세요';
 }

@@ -37,5 +37,10 @@
   "usageStatsHint": "アプリの改善に役立ちます。名前や結果は送信されません。",
   "howManyTeams": "何チームに分ける？",
   "soundEffects": "効果音",
-  "soundEffectsHint": "カチカチ音と結果の音です。バイブレーションはオンのままです。"
+  "soundEffectsHint": "カチカチ音と結果の音です。バイブレーションはオンのままです。",
+  "listDefaultName": "リスト{number}",
+  "newList": "新しいリスト",
+  "listNameHint": "リスト名",
+  "deleteList": "リストを削除",
+  "deleteListConfirm": "もう一度タップして削除"
 }

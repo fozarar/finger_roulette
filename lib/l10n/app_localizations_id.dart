@@ -169,4 +169,21 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get soundEffectsHint =>
       'Bunyi tik dan suara hasil. Getaran tetap aktif.';
+
+  @override
+  String listDefaultName(int number) {
+    return 'Daftar $number';
+  }
+
+  @override
+  String get newList => 'Daftar baru';
+
+  @override
+  String get listNameHint => 'Nama daftar';
+
+  @override
+  String get deleteList => 'Hapus daftar';
+
+  @override
+  String get deleteListConfirm => 'Ketuk lagi untuk menghapus';
 }

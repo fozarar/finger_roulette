@@ -169,4 +169,21 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get soundEffectsHint =>
       'Tiếng tích và âm thanh công bố kết quả. Rung vẫn bật.';
+
+  @override
+  String listDefaultName(int number) {
+    return 'Danh sách $number';
+  }
+
+  @override
+  String get newList => 'Danh sách mới';
+
+  @override
+  String get listNameHint => 'Tên danh sách';
+
+  @override
+  String get deleteList => 'Xóa danh sách';
+
+  @override
+  String get deleteListConfirm => 'Chạm lần nữa để xóa';
 }

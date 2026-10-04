@@ -37,5 +37,10 @@
   "usageStatsHint": "Giúp cải thiện ứng dụng. Tên và kết quả không bao giờ được gửi đi.",
   "howManyTeams": "Bao nhiêu đội?",
   "soundEffects": "Hiệu ứng âm thanh",
-  "soundEffectsHint": "Tiếng tích và âm thanh công bố kết quả. Rung vẫn bật."
+  "soundEffectsHint": "Tiếng tích và âm thanh công bố kết quả. Rung vẫn bật.",
+  "listDefaultName": "Danh sách {number}",
+  "newList": "Danh sách mới",
+  "listNameHint": "Tên danh sách",
+  "deleteList": "Xóa danh sách",
+  "deleteListConfirm": "Chạm lần nữa để xóa"
 }

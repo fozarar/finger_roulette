@@ -169,4 +169,21 @@ class AppLocalizationsMs extends AppLocalizations {
   @override
   String get soundEffectsHint =>
       'Bunyi tik dan bunyi keputusan. Getaran kekal aktif.';
+
+  @override
+  String listDefaultName(int number) {
+    return 'Senarai $number';
+  }
+
+  @override
+  String get newList => 'Senarai baharu';
+
+  @override
+  String get listNameHint => 'Nama senarai';
+
+  @override
+  String get deleteList => 'Padam senarai';
+
+  @override
+  String get deleteListConfirm => 'Ketik sekali lagi untuk padam';
 }

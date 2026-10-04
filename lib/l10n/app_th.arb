@@ -37,5 +37,10 @@
   "usageStatsHint": "ช่วยปรับปรุงแอป ชื่อและผลลัพธ์จะไม่ถูกส่งออกไป",
   "howManyTeams": "แบ่งกี่ทีม?",
   "soundEffects": "เสียงเอฟเฟกต์",
-  "soundEffectsHint": "เสียงติ๊กและเสียงตอนประกาศผล การสั่นยังทำงานอยู่"
+  "soundEffectsHint": "เสียงติ๊กและเสียงตอนประกาศผล การสั่นยังทำงานอยู่",
+  "listDefaultName": "รายการ {number}",
+  "newList": "รายการใหม่",
+  "listNameHint": "ชื่อรายการ",
+  "deleteList": "ลบรายการ",
+  "deleteListConfirm": "แตะอีกครั้งเพื่อลบ"
 }

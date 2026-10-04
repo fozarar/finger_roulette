@@ -167,4 +167,21 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get soundEffectsHint => 'カチカチ音と結果の音です。バイブレーションはオンのままです。';
+
+  @override
+  String listDefaultName(int number) {
+    return 'リスト$number';
+  }
+
+  @override
+  String get newList => '新しいリスト';
+
+  @override
+  String get listNameHint => 'リスト名';
+
+  @override
+  String get deleteList => 'リストを削除';
+
+  @override
+  String get deleteListConfirm => 'もう一度タップして削除';
 }

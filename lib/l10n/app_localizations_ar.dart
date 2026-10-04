@@ -182,4 +182,21 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get soundEffectsHint =>
       'صوت النقرات وصوت النتيجة. الاهتزاز يبقى مفعّلًا.';
+
+  @override
+  String listDefaultName(int number) {
+    return 'القائمة $number';
+  }
+
+  @override
+  String get newList => 'قائمة جديدة';
+
+  @override
+  String get listNameHint => 'اسم القائمة';
+
+  @override
+  String get deleteList => 'حذف القائمة';
+
+  @override
+  String get deleteListConfirm => 'اضغط مرة أخرى للحذف';
 }

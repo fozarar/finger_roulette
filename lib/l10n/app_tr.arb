@@ -37,5 +37,10 @@
   "usageStatsHint": "Uygulamayı geliştirmeye yardımcı olur. İsimler ve sonuçlar asla gönderilmez.",
   "howManyTeams": "Kaç takım?",
   "soundEffects": "Ses efektleri",
-  "soundEffectsHint": "Tik sesleri ve sonuç sesi. Titreşim açık kalır."
+  "soundEffectsHint": "Tik sesleri ve sonuç sesi. Titreşim açık kalır.",
+  "listDefaultName": "Liste {number}",
+  "newList": "Yeni liste",
+  "listNameHint": "Liste adı",
+  "deleteList": "Listeyi sil",
+  "deleteListConfirm": "Silmek için tekrar dokun"
 }

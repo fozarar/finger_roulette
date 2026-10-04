@@ -169,4 +169,21 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get soundEffectsHint =>
       'Ticks and the reveal sound. Vibration stays on.';
+
+  @override
+  String listDefaultName(int number) {
+    return 'List $number';
+  }
+
+  @override
+  String get newList => 'New list';
+
+  @override
+  String get listNameHint => 'List name';
+
+  @override
+  String get deleteList => 'Delete list';
+
+  @override
+  String get deleteListConfirm => 'Tap again to delete';
 }

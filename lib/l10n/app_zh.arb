@@ -37,5 +37,10 @@
   "usageStatsHint": "帮助改进应用。名字和结果绝不会被发送。",
   "howManyTeams": "分成几队？",
   "soundEffects": "音效",
-  "soundEffectsHint": "滴答声和结果提示音。振动保持开启。"
+  "soundEffectsHint": "滴答声和结果提示音。振动保持开启。",
+  "listDefaultName": "名单 {number}",
+  "newList": "新名单",
+  "listNameHint": "名单名称",
+  "deleteList": "删除名单",
+  "deleteListConfirm": "再点一次即可删除"
 }

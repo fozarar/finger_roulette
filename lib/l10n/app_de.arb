@@ -37,5 +37,10 @@
   "usageStatsHint": "Hilft, die App zu verbessern. Namen und Ergebnisse werden nie gesendet.",
   "howManyTeams": "Wie viele Teams?",
   "soundEffects": "Soundeffekte",
-  "soundEffectsHint": "Ticks und der Ton beim Ergebnis. Vibration bleibt an."
+  "soundEffectsHint": "Ticks und der Ton beim Ergebnis. Vibration bleibt an.",
+  "listDefaultName": "Liste {number}",
+  "newList": "Neue Liste",
+  "listNameHint": "Name der Liste",
+  "deleteList": "Liste löschen",
+  "deleteListConfirm": "Zum Löschen erneut tippen"
 }

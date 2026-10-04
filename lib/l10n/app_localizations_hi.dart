@@ -169,4 +169,21 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get soundEffectsHint =>
       'टिक और नतीजे की आवाज़। वाइब्रेशन चालू रहता है।';
+
+  @override
+  String listDefaultName(int number) {
+    return 'सूची $number';
+  }
+
+  @override
+  String get newList => 'नई सूची';
+
+  @override
+  String get listNameHint => 'सूची का नाम';
+
+  @override
+  String get deleteList => 'सूची हटाएँ';
+
+  @override
+  String get deleteListConfirm => 'हटाने के लिए फिर से टैप करें';
 }

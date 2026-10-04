@@ -37,5 +37,10 @@
   "usageStatsHint": "Membantu meningkatkan aplikasi. Nama dan hasil tidak pernah dikirim.",
   "howManyTeams": "Berapa tim?",
   "soundEffects": "Efek suara",
-  "soundEffectsHint": "Bunyi tik dan suara hasil. Getaran tetap aktif."
+  "soundEffectsHint": "Bunyi tik dan suara hasil. Getaran tetap aktif.",
+  "listDefaultName": "Daftar {number}",
+  "newList": "Daftar baru",
+  "listNameHint": "Nama daftar",
+  "deleteList": "Hapus daftar",
+  "deleteListConfirm": "Ketuk lagi untuk menghapus"
 }

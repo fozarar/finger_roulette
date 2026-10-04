@@ -167,4 +167,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get soundEffectsHint => '滴答声和结果提示音。振动保持开启。';
+
+  @override
+  String listDefaultName(int number) {
+    return '名单 $number';
+  }
+
+  @override
+  String get newList => '新名单';
+
+  @override
+  String get listNameHint => '名单名称';
+
+  @override
+  String get deleteList => '删除名单';
+
+  @override
+  String get deleteListConfirm => '再点一次即可删除';
 }
