@@ -191,4 +191,7 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get usageStatsHint =>
       'Помогает улучшать приложение. Имена и результаты никогда не отправляются.';
+
+  @override
+  String get howManyTeams => 'Сколько команд?';
 }

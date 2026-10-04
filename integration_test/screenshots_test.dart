@@ -178,6 +178,29 @@ void main() {
     await shot(tester, '10_order_names_selected');
     await tester.pump(const Duration(milliseconds: 2200));
     await shot(tester, '11_order_names_list');
+
+    // Takım modu aynı listeyle: altı isim üç takıma yetiyor, soru çıkmalı
+    await tapAndPump(find.byType(TextButton));
+    await tapAndPump(find.byIcon(Icons.groups_outlined));
+    await shot(tester, '12_teams_names_select');
+    await tapAndPump(find.text('3'));
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pump(const Duration(milliseconds: 4600));
+    await shot(tester, '13_teams_names_three');
+
+    // Sekiz isimle dört takım: sonuç 2×2 diziliyor
+    await tapAndPump(find.byType(TextButton));
+    for (final name in const ['Ava', 'Eli']) {
+      await tester.enterText(find.byType(TextField), name);
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+    FocusManager.instance.primaryFocus?.unfocus();
+    await tester.pump(const Duration(milliseconds: 400));
+    await tapAndPump(find.text('4'));
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pump(const Duration(milliseconds: 4600));
+    await shot(tester, '14_teams_names_four');
     // Kazanma sesi bitsin: audioplayers'ın kare geri çağrısı test sonrasına
     // taşarsa çerçeve "animasyon hâlâ çalışıyor" diye testi düşürüyor
     await tester.pump(const Duration(seconds: 2));

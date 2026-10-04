@@ -34,5 +34,6 @@
   "shareMessage": "Finger Chooser ile karar verdik",
   "settings": "Ayarlar",
   "usageStats": "Anonim kullanım istatistikleri",
-  "usageStatsHint": "Uygulamayı geliştirmeye yardımcı olur. İsimler ve sonuçlar asla gönderilmez."
+  "usageStatsHint": "Uygulamayı geliştirmeye yardımcı olur. İsimler ve sonuçlar asla gönderilmez.",
+  "howManyTeams": "Kaç takım?"
 }

@@ -34,5 +34,6 @@
   "shareMessage": "Quyết định bằng Finger Chooser",
   "settings": "Cài đặt",
   "usageStats": "Thống kê sử dụng ẩn danh",
-  "usageStatsHint": "Giúp cải thiện ứng dụng. Tên và kết quả không bao giờ được gửi đi."
+  "usageStatsHint": "Giúp cải thiện ứng dụng. Tên và kết quả không bao giờ được gửi đi.",
+  "howManyTeams": "Bao nhiêu đội?"
 }

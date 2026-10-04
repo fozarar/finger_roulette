@@ -159,4 +159,7 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get usageStatsHint =>
       'Ayudan a mejorar la app. Nunca se envían nombres ni resultados.';
+
+  @override
+  String get howManyTeams => '¿Cuántos equipos?';
 }

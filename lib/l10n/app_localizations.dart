@@ -335,6 +335,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Helps improve the app. Names and results are never sent.'**
   String get usageStatsHint;
+
+  /// Question above the team count buttons, shown in teams mode when the name list is long enough for more than two teams
+  ///
+  /// In en, this message translates to:
+  /// **'How many teams?'**
+  String get howManyTeams;
 }
 
 class _AppLocalizationsDelegate

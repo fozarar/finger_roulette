@@ -51,7 +51,7 @@ String gameInfoLabelFor(AppLocalizations l10n, GameController c) {
     GameMode.pick => c.outcome == PickOutcome.winners
         ? l10n.gameInfo(players, picks)
         : l10n.gameInfoLosers(players, picks),
-    GameMode.teams => l10n.gameInfoTeams(players, GameController.teamCount),
+    GameMode.teams => l10n.gameInfoTeams(players, c.teamCount),
     GameMode.order => l10n.gameInfoOrder(players),
   };
 }

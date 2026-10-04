@@ -159,4 +159,7 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get usageStatsHint =>
       'Uygulamayı geliştirmeye yardımcı olur. İsimler ve sonuçlar asla gönderilmez.';
+
+  @override
+  String get howManyTeams => 'Kaç takım?';
 }

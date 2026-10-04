@@ -159,4 +159,7 @@ class AppLocalizationsMs extends AppLocalizations {
   @override
   String get usageStatsHint =>
       'Membantu menambah baik aplikasi. Nama dan keputusan tidak pernah dihantar.';
+
+  @override
+  String get howManyTeams => 'Berapa pasukan?';
 }

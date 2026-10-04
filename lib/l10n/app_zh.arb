@@ -34,5 +34,6 @@
   "shareMessage": "用 Finger Chooser 做的决定",
   "settings": "设置",
   "usageStats": "匿名使用统计",
-  "usageStatsHint": "帮助改进应用。名字和结果绝不会被发送。"
+  "usageStatsHint": "帮助改进应用。名字和结果绝不会被发送。",
+  "howManyTeams": "分成几队？"
 }

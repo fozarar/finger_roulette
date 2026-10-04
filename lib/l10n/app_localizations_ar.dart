@@ -172,4 +172,7 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get usageStatsHint =>
       'تساعد على تحسين التطبيق. لا تُرسَل الأسماء أو النتائج أبدًا.';
+
+  @override
+  String get howManyTeams => 'كم عدد الفرق؟';
 }

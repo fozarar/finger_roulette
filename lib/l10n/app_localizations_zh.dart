@@ -158,4 +158,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get usageStatsHint => '帮助改进应用。名字和结果绝不会被发送。';
+
+  @override
+  String get howManyTeams => '分成几队？';
 }

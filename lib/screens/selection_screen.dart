@@ -56,6 +56,12 @@ class SelectionScreen extends StatelessWidget {
     // İkinci soru: parmakta oyuncu seçilince, isimde liste dolunca açılır
     final showPickQuestion = mode.picksSubset &&
         (isNames ? enoughNames : controller.pendingPlayerCount != null);
+    // Takım sayısı yalnızca liste ikiden fazla takıma yetiyorsa sorulur;
+    // yetmiyorsa soru yerine doğrudan "devam" çıkar
+    final showTeamQuestion = isNames &&
+        mode == GameMode.teams &&
+        enoughNames &&
+        controller.maxTeamCount > 2;
     final maxPicks = isNames
         ? min(controller.names.length - 1, _maxPickOptions)
         : (controller.pendingPlayerCount ?? 2) - 1;
@@ -171,8 +177,28 @@ class SelectionScreen extends StatelessWidget {
                     ),
                   ],
 
-                  // ── Takım ve sırada sorulacak bir şey yok; doğrudan devam ──
-                  if (isNames && !mode.picksSubset) ...[
+                  // ── Kaç takım kurulacak ────────────────────────────────────
+                  if (showTeamQuestion) ...[
+                    const SizedBox(height: 34),
+                    _question(l10n.howManyTeams),
+                    const SizedBox(height: 22),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        for (var n = 2; n <= controller.maxTeamCount; n++)
+                          OptionButton(
+                            label: '$n',
+                            // Seçim anında oyun başladığı için seçili hali
+                            // gerekmez
+                            isSelected: false,
+                            onTap: () => controller.selectTeamCount(n),
+                          ),
+                      ],
+                    ),
+                  ],
+
+                  // ── Sorulacak bir şey kalmadıysa doğrudan devam ────────────
+                  if (isNames && !mode.picksSubset && !showTeamQuestion) ...[
                     const SizedBox(height: 34),
                     ElevatedButton(
                       onPressed: enoughNames ? controller.confirmNames : null,

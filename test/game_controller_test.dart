@@ -30,6 +30,7 @@ class _FakeStats extends StatsService {
   PickOutcome? lastOutcome;
   int? lastPlayers;
   int? lastPicks;
+  int? lastTeams;
 
   @override
   Future<int> recordGameCompleted({
@@ -38,8 +39,10 @@ class _FakeStats extends StatsService {
     required int playerCount,
     PickOutcome? outcome,
     int? pickCount,
+    int? teamCount,
   }) async {
     completed++;
+    lastTeams = teamCount;
     lastMode = mode;
     lastInput = input;
     lastOutcome = outcome;
@@ -365,7 +368,7 @@ void main() {
           expect(c.phase, GamePhase.revealed, reason: '$players oyuncu');
           expect(c.teamOfId.keys.toSet(), c.lockedPointerIds.toSet());
 
-          final sizes = List.filled(GameController.teamCount, 0);
+          final sizes = List.filled(c.teamCount, 0);
           for (final team in c.teamOfId.values) {
             sizes[team]++;
           }
@@ -555,6 +558,101 @@ void main() {
       expect(c.pendingPlayerCount, isNull);
       expect(c.input, InputSource.names);
       c.dispose();
+    });
+  });
+
+  group('takım sayısı', () {
+    List<String> roster(int n) => List.generate(n, (i) => 'Kişi $i');
+
+    GameController teamsWith(int names) {
+      final c = build(names: roster(names));
+      c.selectInput(InputSource.names);
+      c.selectMode(GameMode.teams);
+      return c;
+    }
+
+    test('her takıma en az iki kişi düşecek kadar seçenek sunulur', () {
+      const expected = {2: 2, 3: 2, 5: 2, 6: 3, 7: 3, 8: 4, 20: 4};
+      for (final MapEntry(key: names, value: max) in expected.entries) {
+        final c = teamsWith(names);
+        expect(c.maxTeamCount, max, reason: '$names isim');
+        c.dispose();
+      }
+    });
+
+    test('parmakla her zaman iki takım kurulur', () {
+      final c = build(names: roster(12));
+      c.selectMode(GameMode.teams);
+      c.selectedTeamCount = 4;
+      expect(c.teamCount, 2);
+      c.dispose();
+    });
+
+    test('seçilen sayıda, boyutları en fazla bir farklı takım kurulur', () {
+      for (final (names, teams) in [(6, 3), (8, 4), (10, 3), (20, 4), (11, 4)]) {
+        fakeAsync((async) {
+          final c = teamsWith(names);
+          c.selectTeamCount(teams);
+          expect(c.phase, GamePhase.waiting, reason: 'seçim turu başlatır');
+
+          c.startNameRound();
+          async.elapse(GameController.spinDuration);
+
+          final sizes = List.filled(teams, 0);
+          for (final team in c.teamOfId.values) {
+            sizes[team]++;
+          }
+          expect(c.teamOfId.length, names);
+          expect(
+            sizes.reduce(max) - sizes.reduce(min),
+            lessThanOrEqualTo(1),
+            reason: '$names isim, $teams takım: $sizes',
+          );
+          expect(sizes.every((size) => size > 0), isTrue);
+
+          async.elapse(const Duration(seconds: 2));
+          async.flushMicrotasks();
+          expect(stats.lastTeams, teams);
+          c.dispose();
+        });
+      }
+    });
+
+    test('listeye yetmeyen bir seçim mümkün olana iner', () {
+      final c = teamsWith(8);
+      c.selectTeamCount(9);
+      expect(c.teamCount, 4);
+      c.dispose();
+    });
+
+    test('liste kısalınca takım sayısı da iner, uzayınca geri gelir', () {
+      final c = teamsWith(8);
+      c.selectTeamCount(4);
+      c.changeSettings();
+
+      c.setNames(roster(5));
+      expect(c.teamCount, 2);
+
+      c.setNames(roster(8));
+      expect(c.teamCount, 4, reason: 'seçim unutulmadı, yalnızca sınırlandı');
+      c.dispose();
+    });
+
+    test('takım modu dışında takım sayısı seçilemez', () {
+      final c = build(names: roster(8));
+      c.selectInput(InputSource.names);
+      c.selectTeamCount(3);
+      expect(c.phase, GamePhase.setup);
+      expect(c.selectedTeamCount, 2);
+      c.dispose();
+    });
+
+    test('her takımın kendi rengi var', () {
+      expect(
+        GameController.teamColors.length,
+        GameController.maxTeamOptions,
+      );
+      expect(GameController.teamColors.toSet().length, 4);
     });
   });
 }

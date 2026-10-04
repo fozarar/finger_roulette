@@ -208,37 +208,57 @@ class WheelScreen extends StatelessWidget {
         },
       );
 
-  Widget _teams() => Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  /// Takımlar yan yana sütunlar hâlinde. Dört takım tek satıra sığmıyor —
+  /// sütunlar isim okunmayacak kadar daralıyor — o yüzden 2×2 diziliyor.
+  Widget _teams() {
+    final count = controller.teamCount;
+    final rows = count == 4
+        ? const [
+            [0, 1],
+            [2, 3],
+          ]
+        : [List.generate(count, (team) => team)];
+
+    return Column(
+      children: [
+        for (final (index, row) in rows.indexed) ...[
+          if (index > 0) const SizedBox(height: 28),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              for (final team in row) Expanded(child: _teamColumn(team)),
+            ],
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _teamColumn(int team) => Column(
         children: [
-          for (var team = 0; team < GameController.teamCount; team++)
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    String.fromCharCode(0x41 + team),
-                    style: TextStyle(
-                      color: GameController.teamColors[team],
-                      fontSize: 32,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  for (final id in controller.teamOfId.entries
-                      .where((e) => e.value == team)
-                      .map((e) => e.key))
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Text(
-                        controller.names[id],
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                ],
+          Text(
+            String.fromCharCode(0x41 + team),
+            style: TextStyle(
+              color: GameController.teamColors[team],
+              fontSize: 32,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          const SizedBox(height: 10),
+          for (final id in controller.teamOfId.entries
+              .where((e) => e.value == team)
+              .map((e) => e.key))
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+              // Üç sütunda uzun bir isim sığmayabiliyor; kesmek yerine
+              // küçültülüyor ki kimin hangi takımda olduğu okunabilsin
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  controller.names[id],
+                  maxLines: 1,
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
+                ),
               ),
             ),
         ],

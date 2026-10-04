@@ -158,4 +158,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get usageStatsHint => '앱 개선에 도움이 됩니다. 이름과 결과는 전송되지 않습니다.';
+
+  @override
+  String get howManyTeams => '몇 팀으로 나눌까요?';
 }

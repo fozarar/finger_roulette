@@ -159,4 +159,7 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get usageStatsHint =>
       'Membantu meningkatkan aplikasi. Nama dan hasil tidak pernah dikirim.';
+
+  @override
+  String get howManyTeams => 'Berapa tim?';
 }

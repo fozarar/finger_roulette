@@ -34,5 +34,6 @@
   "shareMessage": "Diputuskan dengan Finger Chooser",
   "settings": "Pengaturan",
   "usageStats": "Statistik penggunaan anonim",
-  "usageStatsHint": "Membantu meningkatkan aplikasi. Nama dan hasil tidak pernah dikirim."
+  "usageStatsHint": "Membantu meningkatkan aplikasi. Nama dan hasil tidak pernah dikirim.",
+  "howManyTeams": "Berapa tim?"
 }

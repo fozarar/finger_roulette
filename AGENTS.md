@@ -74,6 +74,11 @@ or review rejects under Guideline 2.3.8.
   why they share one mode tile. Every mode shares the finger mechanic, so the
   controller fills exactly one of `pickedPointerIds`, `teamOfPointer` or
   `rankedPointerIds` and exposes `spotlightPointerIds` for the UI.
+- Team count is only a choice with a name list: `teamCount` is 2 with fingers
+  (five fingers would leave a third team with one person) and up to 4 with
+  names, as long as every team gets at least two people. The selection screen
+  asks only when more than two teams are possible; otherwise it shows the plain
+  continue button.
 - `FingerPainter` knows nothing about modes: it draws whatever is in
   `spotlightPointerIds` and `labels`. Its glows are radial gradients, not
   `MaskFilter.blur` — five blurred circles at once (team mode) dropped frames.

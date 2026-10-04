@@ -34,5 +34,6 @@
   "shareMessage": "Decidido com o Finger Chooser",
   "settings": "Ajustes",
   "usageStats": "Estatísticas de uso anônimas",
-  "usageStatsHint": "Ajudam a melhorar o app. Nomes e resultados nunca são enviados."
+  "usageStatsHint": "Ajudam a melhorar o app. Nomes e resultados nunca são enviados.",
+  "howManyTeams": "Quantos times?"
 }

@@ -158,4 +158,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get usageStatsHint => 'ช่วยปรับปรุงแอป ชื่อและผลลัพธ์จะไม่ถูกส่งออกไป';
+
+  @override
+  String get howManyTeams => 'แบ่งกี่ทีม?';
 }

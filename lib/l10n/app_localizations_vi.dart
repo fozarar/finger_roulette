@@ -159,4 +159,7 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get usageStatsHint =>
       'Giúp cải thiện ứng dụng. Tên và kết quả không bao giờ được gửi đi.';
+
+  @override
+  String get howManyTeams => 'Bao nhiêu đội?';
 }

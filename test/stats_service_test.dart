@@ -63,6 +63,17 @@ void main() {
     expect(sent.single.$2.keys, isNot(contains('picks')));
   });
 
+  test('takım modunda takım sayısı da gönderilir', () async {
+    await stats.recordGameCompleted(
+      mode: GameMode.teams,
+      input: InputSource.names,
+      playerCount: 9,
+      teamCount: 3,
+    );
+
+    expect(sent.single.$2['teams'], 3);
+  });
+
   test('ekran değişimi screen_view olarak gönderilir', () {
     stats.logScreen('wheel');
 

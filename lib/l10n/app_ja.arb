@@ -34,5 +34,6 @@
   "shareMessage": "Finger Chooserで決めました",
   "settings": "設定",
   "usageStats": "匿名の利用統計",
-  "usageStatsHint": "アプリの改善に役立ちます。名前や結果は送信されません。"
+  "usageStatsHint": "アプリの改善に役立ちます。名前や結果は送信されません。",
+  "howManyTeams": "何チームに分ける？"
 }

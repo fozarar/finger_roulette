@@ -21,19 +21,22 @@ import '../services/stats_service.dart';
 class GameController extends ChangeNotifier {
   // ── Sonuç renkleri ────────────────────────────────────────────────────────
 
-  /// Takım renkleri: sırayla A ve B takımı. Mavi/turuncu çifti renk
-  /// körlüğünde de ayırt edilir; daireler ayrıca takım harfini gösterir.
+  /// Takım renkleri: sırayla A, B, C ve D takımı. Mavi/turuncu çifti renk
+  /// körlüğünde de ayırt edilir; üçüncü ve dördüncü için yeşil yerine sarı ve
+  /// mor seçildi, çünkü yeşil turuncuyla karışıyor. Sonuç ayrıca takım
+  /// harfini gösterir.
   static const List<Color> teamColors = [
     Color(0xFF4FC3F7),
     Color(0xFFFF8A65),
+    Color(0xFFFFD54F),
+    Color(0xFFBA68C8),
   ];
 
   /// Kaybeden seçildiğinde dairenin aldığı renk
   static const Color loserColor = Color(0xFFFF5252);
 
-  /// Takım modunda kurulan takım sayısı. En fazla 5 parmakla üçüncü bir
-  /// takım tek kişilik kalacağından şimdilik seçtirilmiyor.
-  static const int teamCount = 2;
+  /// Seçilebilecek en büyük takım sayısı; [teamColors] kadar renk var
+  static const int maxTeamOptions = 4;
 
   /// Parmaklar kilitlendikten sonra sonucun açıklanmasına kadar geçen süre.
   /// Rulet ışını da tam bu sürede döner — [HomeScreen] animasyonun süresini
@@ -62,6 +65,10 @@ class GameController extends ChangeNotifier {
 
   /// Onaylanan kazanan ya da kaybeden sayısı; takım ve sıra modlarında null
   int? selectedPickCount;
+
+  /// İsim listesinde istenen takım sayısı; ayarlar değişse de korunur.
+  /// Geçerli değer için [teamCount]'a bakılır.
+  int selectedTeamCount = 2;
 
   // ── Oyun durumu ───────────────────────────────────────────────────────────
 
@@ -142,6 +149,18 @@ class GameController extends ChangeNotifier {
     names = _nameStore.load();
   }
 
+  /// İsim listesiyle kurulabilecek en fazla takım: her takıma en az iki kişi
+  /// düşmeli. İki takım her zaman mümkün — üç kişilik listede bile.
+  int get maxTeamCount =>
+      (names.length ~/ 2).clamp(2, maxTeamOptions).toInt();
+
+  /// Bu turda kurulacak takım sayısı. Parmakla en fazla 5 kişi oynanabildiği
+  /// için orada hep iki takım var: üçüncü takım tek kişilik kalırdı.
+  /// Liste kısaldıysa seçim sessizce mümkün olana iner.
+  int get teamCount => input == InputSource.names
+      ? min(selectedTeamCount, maxTeamCount)
+      : 2;
+
   /// Turdaki katılımcılar: parmak akışında kilitlenen pointer'lar, isim
   /// akışında liste indeksleri. Çekiliş yalnızca bunu görür.
   List<int> get participantIds => switch (input) {
@@ -221,6 +240,13 @@ class GameController extends ChangeNotifier {
 
   /// Kaç kişinin seçileceğini belirler ve oyun ekranına geçer
   void selectPickCount(int count) => _confirmSelection(pickCount: count);
+
+  /// İsim listesinde takım sayısını belirler ve çark ekranına geçer
+  void selectTeamCount(int count) {
+    if (input != InputSource.names || mode != GameMode.teams) return;
+    selectedTeamCount = count.clamp(2, maxTeamCount).toInt();
+    confirmNames();
+  }
 
   /// İsim listesi hazır; çark ekranına geçer. Kaç kişi seçileceği sorulan
   /// modlarda bu soruyu [selectPickCount] zaten cevaplıyor.
@@ -400,6 +426,7 @@ class GameController extends ChangeNotifier {
       outcome: mode.picksSubset ? outcome : null,
       playerCount: participantIds.length,
       pickCount: mode.picksSubset ? pickedIds.length : null,
+      teamCount: mode == GameMode.teams ? teamCount : null,
     );
 
     // 2 saniye sonra reset butonlarını göster
