@@ -44,6 +44,15 @@ or review rejects under Guideline 2.3.8.
   reads it while Xcode resolves packages and then links the Analytics build
   without advertising-ID support; without it the app ships IDFA code that the
   privacy policy says it does not have.
+- `ios/Runner/GoogleService-Info.plist` is gitignored (the repo is public) but
+  the Xcode project references it, so a fresh clone does not build until it is
+  fetched — the command is in `.gitignore`. Without the file Firebase fails to
+  start and the app runs with analytics silently off.
+- To watch events reach Firebase on a simulator: build with
+  `--dart-define=ANALYTICS=true`, install, then
+  `xcrun simctl launch <udid> com.furkanozarar.fingerroulette -FIRAnalyticsDebugEnabled -FIRDebugEnabled`
+  and read `simctl spawn <udid> log stream --level debug`. Debug-level lines
+  are not kept, so `log show` afterwards finds nothing.
 
 ## Project Notes
 

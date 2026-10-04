@@ -50,3 +50,7 @@ ios/fastlane/report.xml
 ios/fastlane/Preview.html
 ios/fastlane/screenshots/**/*.png
 ios/fastlane/test_output
+
+# Firebase proje ayarı; depo herkese açık olduğu için dışarıda. Geri almak için:
+# firebase apps:sdkconfig IOS 1:44429553842:ios:e8a72ddb531f8904fb99ab --project finger-chooser-1985d --out ios/Runner/GoogleService-Info.plist
+ios/Runner/GoogleService-Info.plist
