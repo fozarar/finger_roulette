@@ -38,6 +38,9 @@ or review rejects under Guideline 2.3.8.
   simulator's own size (1170×2532 on an iPhone 14), which App Store Connect does
   not accept — scale to 1242×2688 first, same aspect ratio so nothing is cropped:
   `sips -z 2688 1242 *.png`. Needs the API key variables from the Fastfile note.
+  The store set is seven of the test's frames, renamed with a two-digit order
+  prefix: `0_select`, `1_winners_revealed`, `3_teams_revealed`, `6_wheel_idle`,
+  `8_wheel_revealed`, `4_order_revealed`, `14_teams_names_four`.
 
 - Build iOS with `FIREBASE_ANALYTICS_WITHOUT_ADID=1` in the environment
   (`FIREBASE_ANALYTICS_WITHOUT_ADID=1 flutter build ipa`). The Firebase package
