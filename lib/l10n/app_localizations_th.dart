@@ -149,4 +149,13 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get shareMessage => 'ตัดสินด้วย Finger Chooser';
+
+  @override
+  String get settings => 'การตั้งค่า';
+
+  @override
+  String get usageStats => 'สถิติการใช้งานแบบไม่ระบุตัวตน';
+
+  @override
+  String get usageStatsHint => 'ช่วยปรับปรุงแอป ชื่อและผลลัพธ์จะไม่ถูกส่งออกไป';
 }

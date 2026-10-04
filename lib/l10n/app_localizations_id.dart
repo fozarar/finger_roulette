@@ -149,4 +149,14 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get shareMessage => 'Diputuskan dengan Finger Chooser';
+
+  @override
+  String get settings => 'Pengaturan';
+
+  @override
+  String get usageStats => 'Statistik penggunaan anonim';
+
+  @override
+  String get usageStatsHint =>
+      'Membantu meningkatkan aplikasi. Nama dan hasil tidak pernah dikirim.';
 }

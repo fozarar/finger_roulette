@@ -31,5 +31,8 @@
   "needTwoNames": "Добавьте хотя бы 2 имени",
   "continueLabel": "Дальше",
   "share": "Поделиться",
-  "shareMessage": "Решено с помощью Finger Chooser"
+  "shareMessage": "Решено с помощью Finger Chooser",
+  "settings": "Настройки",
+  "usageStats": "Анонимная статистика использования",
+  "usageStatsHint": "Помогает улучшать приложение. Имена и результаты никогда не отправляются."
 }

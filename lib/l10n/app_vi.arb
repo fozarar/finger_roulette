@@ -31,5 +31,8 @@
   "needTwoNames": "Thêm ít nhất 2 tên",
   "continueLabel": "Tiếp tục",
   "share": "Chia sẻ",
-  "shareMessage": "Quyết định bằng Finger Chooser"
+  "shareMessage": "Quyết định bằng Finger Chooser",
+  "settings": "Cài đặt",
+  "usageStats": "Thống kê sử dụng ẩn danh",
+  "usageStatsHint": "Giúp cải thiện ứng dụng. Tên và kết quả không bao giờ được gửi đi."
 }

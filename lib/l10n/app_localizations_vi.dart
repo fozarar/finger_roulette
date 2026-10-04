@@ -149,4 +149,14 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get shareMessage => 'Quyết định bằng Finger Chooser';
+
+  @override
+  String get settings => 'Cài đặt';
+
+  @override
+  String get usageStats => 'Thống kê sử dụng ẩn danh';
+
+  @override
+  String get usageStatsHint =>
+      'Giúp cải thiện ứng dụng. Tên và kết quả không bao giờ được gửi đi.';
 }

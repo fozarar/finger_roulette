@@ -22,16 +22,33 @@ Future<AnalyticsSink?> connectFirebaseAnalytics() async {
   try {
     // Timeout: başlatma takılırsa splash'te sonsuza dek asılı kalmayalım
     await Firebase.initializeApp().timeout(const Duration(seconds: 3));
-    final analytics = FirebaseAnalytics.instance;
-    return (name, params) {
-      unawaited(
-        analytics.logEvent(name: name, parameters: params).catchError(
-          (Object e) => debugPrint('Analytics: $name gönderilemedi ($e)'),
-        ),
-      );
-    };
+    return _FirebaseSink(FirebaseAnalytics.instance);
   } catch (e) {
     debugPrint('Analytics: Firebase başlatılamadı, olay gönderilmeyecek ($e)');
     return null;
+  }
+}
+
+class _FirebaseSink implements AnalyticsSink {
+  _FirebaseSink(this._analytics);
+
+  final FirebaseAnalytics _analytics;
+
+  @override
+  void log(String name, Map<String, Object> params) {
+    unawaited(
+      _analytics.logEvent(name: name, parameters: params).catchError(
+        (Object e) => debugPrint('Analytics: $name gönderilemedi ($e)'),
+      ),
+    );
+  }
+
+  @override
+  Future<void> setEnabled(bool enabled) async {
+    try {
+      await _analytics.setAnalyticsCollectionEnabled(enabled);
+    } catch (e) {
+      debugPrint('Analytics: toplama ayarı uygulanamadı ($e)');
+    }
   }
 }

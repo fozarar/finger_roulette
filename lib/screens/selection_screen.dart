@@ -6,10 +6,12 @@ import '../controllers/game_controller.dart';
 import '../l10n/app_localizations.dart';
 import '../models/game_mode.dart';
 import '../models/input_source.dart';
+import '../services/stats_service.dart';
 import '../widgets/mode_selector.dart';
 import '../widgets/name_list_editor.dart';
 import '../widgets/option_button.dart';
 import '../widgets/segmented_pill.dart';
+import '../widgets/settings_sheet.dart';
 import 'game_text.dart';
 
 /// Oyun başlamadan önce girdinin, modun ve sayıların seçildiği ekran.
@@ -21,7 +23,14 @@ import 'game_text.dart';
 class SelectionScreen extends StatelessWidget {
   final GameController controller;
 
-  const SelectionScreen({super.key, required this.controller});
+  /// Ayarlar sayfası kullanım istatistikleri tercihini buradan okur ve yazar
+  final StatsService stats;
+
+  const SelectionScreen({
+    super.key,
+    required this.controller,
+    required this.stats,
+  });
 
   /// İsim listesinde kaç kazanan seçilebileceğinin üst sınırı. Liste 20 kişiye
   /// kadar çıkabiliyor ama 19 düğmelik bir satırın kimseye faydası yok.
@@ -53,142 +62,167 @@ class SelectionScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFF111111),
-      body: SafeArea(
-        // Klavye açıldığında ya da liste uzadığında taşmasın
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // ── Başlık ──────────────────────────────────────────────────
-              const Text(
-                'FINGER',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 44,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 9,
-                ),
-              ),
-              const Text(
-                'CHOOSER',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w200,
-                  letterSpacing: 11,
-                ),
-              ),
-              const SizedBox(height: 26),
-
-              // ── Katılımcılar nereden geliyor ────────────────────────────
-              SegmentedPill<InputSource>(
-                values: InputSource.values,
-                selected: controller.input,
-                iconFor: (value) => _inputIcons[value]!,
-                labelFor: (value) => inputLabelFor(l10n, value),
-                onSelected: controller.selectInput,
-              ),
-              const SizedBox(height: 22),
-
-              // ── Ne çekiliyor ────────────────────────────────────────────
-              ModeSelector(selected: mode, onSelected: controller.selectMode),
-              const SizedBox(height: 18),
-
-              // ── Seçilenler ne oluyor (yalnızca seç modunda) ─────────────
-              AnimatedOpacity(
-                opacity: mode.picksSubset ? 1.0 : 0.0,
-                duration: const Duration(milliseconds: 250),
-                curve: Curves.easeOut,
-                child: IgnorePointer(
-                  ignoring: !mode.picksSubset,
-                  child: SegmentedPill<PickOutcome>(
-                    values: PickOutcome.values,
-                    selected: controller.outcome,
-                    iconFor: (value) => _outcomeIcons[value]!,
-                    labelFor: (value) => outcomeLabelFor(l10n, value),
-                    onSelected: controller.selectOutcome,
+      body: Stack(
+        children: [
+          SafeArea(
+            // Klavye açıldığında ya da liste uzadığında taşmasın
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // ── Başlık ─────────────────────────────────────────────────
+                  const Text(
+                    'FINGER',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 44,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 9,
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 30),
+                  const Text(
+                    'CHOOSER',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w200,
+                      letterSpacing: 11,
+                    ),
+                  ),
+                  const SizedBox(height: 26),
 
-              // ── Katılımcılar ────────────────────────────────────────────
-              if (isNames)
-                NameListEditor(
-                  names: controller.names,
-                  onChanged: controller.setNames,
-                )
-              else ...[
-                _question(l10n.howManyPlayers),
-                const SizedBox(height: 22),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: mode.playerCounts
-                      .map(
-                        (n) => OptionButton(
-                          label: '$n',
-                          isSelected: controller.pendingPlayerCount == n,
-                          onTap: () => controller.selectPlayerCount(n),
+                  // ── Katılımcılar nereden geliyor ───────────────────────────
+                  SegmentedPill<InputSource>(
+                    values: InputSource.values,
+                    selected: controller.input,
+                    iconFor: (value) => _inputIcons[value]!,
+                    labelFor: (value) => inputLabelFor(l10n, value),
+                    onSelected: controller.selectInput,
+                  ),
+                  const SizedBox(height: 22),
+
+                  // ── Ne çekiliyor ───────────────────────────────────────────
+                  ModeSelector(
+                    selected: mode,
+                    onSelected: controller.selectMode,
+                  ),
+                  const SizedBox(height: 18),
+
+                  // ── Seçilenler ne oluyor (yalnızca seç modunda) ────────────
+                  AnimatedOpacity(
+                    opacity: mode.picksSubset ? 1.0 : 0.0,
+                    duration: const Duration(milliseconds: 250),
+                    curve: Curves.easeOut,
+                    child: IgnorePointer(
+                      ignoring: !mode.picksSubset,
+                      child: SegmentedPill<PickOutcome>(
+                        values: PickOutcome.values,
+                        selected: controller.outcome,
+                        iconFor: (value) => _outcomeIcons[value]!,
+                        labelFor: (value) => outcomeLabelFor(l10n, value),
+                        onSelected: controller.selectOutcome,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+
+                  // ── Katılımcılar ───────────────────────────────────────────
+                  if (isNames)
+                    NameListEditor(
+                      names: controller.names,
+                      onChanged: controller.setNames,
+                    )
+                  else ...[
+                    _question(l10n.howManyPlayers),
+                    const SizedBox(height: 22),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: mode.playerCounts
+                          .map(
+                            (n) => OptionButton(
+                              label: '$n',
+                              isSelected: controller.pendingPlayerCount == n,
+                              onTap: () => controller.selectPlayerCount(n),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ],
+
+                  // ── Kaç kişi seçilecek ─────────────────────────────────────
+                  if (showPickQuestion) ...[
+                    const SizedBox(height: 34),
+                    _question(pickCountQuestionFor(l10n, controller.outcome)),
+                    const SizedBox(height: 22),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(maxPicks, (i) => i + 1)
+                          .map(
+                            (n) => OptionButton(
+                              label: '$n',
+                              // Seçim anında oyun başladığı için seçili hali
+                              // gerekmez
+                              isSelected: false,
+                              onTap: () => controller.selectPickCount(n),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ],
+
+                  // ── Takım ve sırada sorulacak bir şey yok; doğrudan devam ──
+                  if (isNames && !mode.picksSubset) ...[
+                    const SizedBox(height: 34),
+                    ElevatedButton(
+                      onPressed: enoughNames ? controller.confirmNames : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                        disabledBackgroundColor: Colors.white24,
+                        disabledForegroundColor: Colors.white38,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 46,
+                          vertical: 15,
                         ),
-                      )
-                      .toList(),
-                ),
-              ],
-
-              // ── Kaç kişi seçilecek ──────────────────────────────────────
-              if (showPickQuestion) ...[
-                const SizedBox(height: 34),
-                _question(pickCountQuestionFor(l10n, controller.outcome)),
-                const SizedBox(height: 22),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(maxPicks, (i) => i + 1)
-                      .map(
-                        (n) => OptionButton(
-                          label: '$n',
-                          // Seçim anında oyun başladığı için seçili hali gerekmez
-                          isSelected: false,
-                          onTap: () => controller.selectPickCount(n),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
                         ),
-                      )
-                      .toList(),
-                ),
-              ],
+                      ),
+                      child: Text(
+                        l10n.continueLabel,
+                        style: const TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.8,
+                        ),
+                      ),
+                    ),
+                  ],
 
-              // ── Takım ve sırada sorulacak bir şey yok; doğrudan devam ───
-              if (isNames && !mode.picksSubset) ...[
-                const SizedBox(height: 34),
-                ElevatedButton(
-                  onPressed: enoughNames ? controller.confirmNames : null,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
-                    disabledBackgroundColor: Colors.white24,
-                    disabledForegroundColor: Colors.white38,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 46,
-                      vertical: 15,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40),
-                    ),
-                  ),
-                  child: Text(
-                    l10n.continueLabel,
-                    style: const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.8,
-                    ),
-                  ),
-                ),
-              ],
-
-              const SizedBox(height: 24),
-            ],
+                  const SizedBox(height: 24),
+                ],
+              ),
+            ),
           ),
-        ),
+
+          // Ayarlar: oyun ekranlarındaki kapatma butonuyla aynı ölçü ve ton
+          SafeArea(
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8, right: 4),
+                child: IconButton(
+                  icon: const Icon(Icons.settings_outlined),
+                  color: Colors.white70,
+                  iconSize: 20,
+                  tooltip: l10n.settings,
+                  onPressed: () => SettingsSheet.show(context, stats),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

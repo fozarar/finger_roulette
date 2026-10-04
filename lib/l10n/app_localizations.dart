@@ -317,6 +317,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Decided with Finger Chooser'**
   String get shareMessage;
+
+  /// Title of the settings sheet and tooltip of the button that opens it
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// Label of the switch that turns anonymous analytics on or off
+  ///
+  /// In en, this message translates to:
+  /// **'Anonymous usage statistics'**
+  String get usageStats;
+
+  /// Explains the usage statistics switch: what it is for and what is never included
+  ///
+  /// In en, this message translates to:
+  /// **'Helps improve the app. Names and results are never sent.'**
+  String get usageStatsHint;
 }
 
 class _AppLocalizationsDelegate

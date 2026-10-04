@@ -176,5 +176,17 @@
   "shareMessage": "Decided with Finger Chooser",
   "@shareMessage": {
     "description": "Text sent along with the shared result image, followed by the App Store link. Keep the app name Finger Chooser untranslated"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Title of the settings sheet and tooltip of the button that opens it"
+  },
+  "usageStats": "Anonymous usage statistics",
+  "@usageStats": {
+    "description": "Label of the switch that turns anonymous analytics on or off"
+  },
+  "usageStatsHint": "Helps improve the app. Names and results are never sent.",
+  "@usageStatsHint": {
+    "description": "Explains the usage statistics switch: what it is for and what is never included"
   }
 }

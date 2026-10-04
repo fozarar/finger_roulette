@@ -254,7 +254,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       builder: (context, _) {
         // Seçim tamamlanmadan oyun ekranına geçme
         if (_controller.phase == GamePhase.setup) {
-          return SelectionScreen(controller: _controller);
+          return SelectionScreen(
+            controller: _controller,
+            stats: widget.stats,
+          );
         }
         if (_controller.input == InputSource.names) {
           return WheelScreen(

@@ -31,5 +31,8 @@
   "needTwoNames": "En az 2 isim ekle",
   "continueLabel": "Devam",
   "share": "Paylaş",
-  "shareMessage": "Finger Chooser ile karar verdik"
+  "shareMessage": "Finger Chooser ile karar verdik",
+  "settings": "Ayarlar",
+  "usageStats": "Anonim kullanım istatistikleri",
+  "usageStatsHint": "Uygulamayı geliştirmeye yardımcı olur. İsimler ve sonuçlar asla gönderilmez."
 }

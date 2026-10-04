@@ -31,5 +31,8 @@
   "needTwoNames": "名前を2つ以上追加してください",
   "continueLabel": "次へ",
   "share": "共有",
-  "shareMessage": "Finger Chooserで決めました"
+  "shareMessage": "Finger Chooserで決めました",
+  "settings": "設定",
+  "usageStats": "匿名の利用統計",
+  "usageStatsHint": "アプリの改善に役立ちます。名前や結果は送信されません。"
 }

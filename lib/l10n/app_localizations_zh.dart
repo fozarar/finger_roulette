@@ -149,4 +149,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get shareMessage => '用 Finger Chooser 做的决定';
+
+  @override
+  String get settings => '设置';
+
+  @override
+  String get usageStats => '匿名使用统计';
+
+  @override
+  String get usageStatsHint => '帮助改进应用。名字和结果绝不会被发送。';
 }

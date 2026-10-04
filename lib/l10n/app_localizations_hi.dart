@@ -149,4 +149,14 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get shareMessage => 'Finger Chooser से तय किया';
+
+  @override
+  String get settings => 'सेटिंग्स';
+
+  @override
+  String get usageStats => 'अनाम उपयोग आँकड़े';
+
+  @override
+  String get usageStatsHint =>
+      'ऐप को बेहतर बनाने में मदद करते हैं। नाम और नतीजे कभी नहीं भेजे जाते।';
 }

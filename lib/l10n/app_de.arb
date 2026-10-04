@@ -31,5 +31,8 @@
   "needTwoNames": "Mindestens 2 Namen hinzufügen",
   "continueLabel": "Weiter",
   "share": "Teilen",
-  "shareMessage": "Entschieden mit Finger Chooser"
+  "shareMessage": "Entschieden mit Finger Chooser",
+  "settings": "Einstellungen",
+  "usageStats": "Anonyme Nutzungsstatistiken",
+  "usageStatsHint": "Hilft, die App zu verbessern. Namen und Ergebnisse werden nie gesendet."
 }

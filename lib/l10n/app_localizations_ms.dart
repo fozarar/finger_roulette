@@ -149,4 +149,14 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get shareMessage => 'Diputuskan dengan Finger Chooser';
+
+  @override
+  String get settings => 'Tetapan';
+
+  @override
+  String get usageStats => 'Statistik penggunaan tanpa nama';
+
+  @override
+  String get usageStatsHint =>
+      'Membantu menambah baik aplikasi. Nama dan keputusan tidak pernah dihantar.';
 }

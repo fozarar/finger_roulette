@@ -31,5 +31,8 @@
   "needTwoNames": "Tambahkan minimal 2 nama",
   "continueLabel": "Lanjut",
   "share": "Bagikan",
-  "shareMessage": "Diputuskan dengan Finger Chooser"
+  "shareMessage": "Diputuskan dengan Finger Chooser",
+  "settings": "Pengaturan",
+  "usageStats": "Statistik penggunaan anonim",
+  "usageStatsHint": "Membantu meningkatkan aplikasi. Nama dan hasil tidak pernah dikirim."
 }

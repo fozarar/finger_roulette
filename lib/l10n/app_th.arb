@@ -31,5 +31,8 @@
   "needTwoNames": "เพิ่มอย่างน้อย 2 ชื่อ",
   "continueLabel": "ต่อไป",
   "share": "แชร์",
-  "shareMessage": "ตัดสินด้วย Finger Chooser"
+  "shareMessage": "ตัดสินด้วย Finger Chooser",
+  "settings": "การตั้งค่า",
+  "usageStats": "สถิติการใช้งานแบบไม่ระบุตัวตน",
+  "usageStatsHint": "ช่วยปรับปรุงแอป ชื่อและผลลัพธ์จะไม่ถูกส่งออกไป"
 }

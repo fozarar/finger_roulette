@@ -149,4 +149,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get shareMessage => 'Finger Chooser로 결정했어요';
+
+  @override
+  String get settings => '설정';
+
+  @override
+  String get usageStats => '익명 사용 통계';
+
+  @override
+  String get usageStatsHint => '앱 개선에 도움이 됩니다. 이름과 결과는 전송되지 않습니다.';
 }

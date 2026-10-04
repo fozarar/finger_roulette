@@ -31,5 +31,8 @@
   "needTwoNames": "कम से कम 2 नाम जोड़ें",
   "continueLabel": "आगे बढ़ें",
   "share": "शेयर करें",
-  "shareMessage": "Finger Chooser से तय किया"
+  "shareMessage": "Finger Chooser से तय किया",
+  "settings": "सेटिंग्स",
+  "usageStats": "अनाम उपयोग आँकड़े",
+  "usageStatsHint": "ऐप को बेहतर बनाने में मदद करते हैं। नाम और नतीजे कभी नहीं भेजे जाते।"
 }

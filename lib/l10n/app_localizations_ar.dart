@@ -162,4 +162,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get shareMessage => 'تم القرار باستخدام Finger Chooser';
+
+  @override
+  String get settings => 'الإعدادات';
+
+  @override
+  String get usageStats => 'إحصاءات استخدام مجهولة';
+
+  @override
+  String get usageStatsHint =>
+      'تساعد على تحسين التطبيق. لا تُرسَل الأسماء أو النتائج أبدًا.';
 }

@@ -26,6 +26,10 @@ class StatsService {
   static const String _kGamesPlayed = 'stats_games_played';
   static const String _kLaunchCount = 'stats_launch_count';
   static const String _kFirstLaunchMs = 'stats_first_launch_ms';
+  static const String _kAnalyticsEnabled = 'stats_analytics_enabled';
+
+  /// Depolama açılamadıysa tercih en azından bu oturum boyunca tutulsun
+  bool? _analyticsEnabledThisSession;
 
   SharedPreferences? _prefs;
 
@@ -41,6 +45,9 @@ class StatsService {
       return;
     }
     final prefs = _prefs!;
+    // Kullanıcı kapattıysa Firebase'in kendi topladıkları da (oturum, ilk
+    // açılış) dursun; yalnızca bizim olaylarımızı kesmek yetmez
+    await _sink?.setEnabled(analyticsEnabled);
     await prefs.setInt(_kLaunchCount, (prefs.getInt(_kLaunchCount) ?? 0) + 1);
     if (prefs.getInt(_kFirstLaunchMs) == null) {
       await prefs.setInt(
@@ -48,6 +55,20 @@ class StatsService {
         DateTime.now().millisecondsSinceEpoch,
       );
     }
+  }
+
+  /// Anonim kullanım istatistikleri gönderilsin mi. Varsayılan açık;
+  /// kullanıcı ayarlardan kapatabilir.
+  bool get analyticsEnabled =>
+      _analyticsEnabledThisSession ??
+      _prefs?.getBool(_kAnalyticsEnabled) ??
+      true;
+
+  /// Tercihi saklar ve analitik servisine uygular
+  Future<void> setAnalyticsEnabled(bool enabled) async {
+    _analyticsEnabledThisSession = enabled;
+    await _prefs?.setBool(_kAnalyticsEnabled, enabled);
+    await _sink?.setEnabled(enabled);
   }
 
   /// Bugüne kadar sonuna kadar oynanmış oyun sayısı
@@ -106,12 +127,20 @@ class StatsService {
     if (kDebugMode) {
       debugPrint('[analytics] $name $params');
     }
-    _sink?.call(name, {
+    if (!analyticsEnabled) return;
+    _sink?.log(name, {
       for (final MapEntry(:key, :value) in params.entries) key: ?value,
     });
   }
 }
 
-/// Olayları gerçek analitik servisine taşıyan fonksiyon. Değerler yalnızca
-/// metin ya da sayı olmalı — Firebase başka tür kabul etmiyor.
-typedef AnalyticsSink = void Function(String name, Map<String, Object> params);
+/// Olayları gerçek analitik servisine taşıyan uç.
+abstract class AnalyticsSink {
+  /// Değerler yalnızca metin ya da sayı olmalı — Firebase başka tür
+  /// kabul etmiyor.
+  void log(String name, Map<String, Object> params);
+
+  /// Toplamayı tümüyle açar ya da kapatır; servisin kendiliğinden
+  /// topladıkları da buna uymalı.
+  Future<void> setEnabled(bool enabled);
+}

@@ -181,4 +181,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get shareMessage => 'Решено с помощью Finger Chooser';
+
+  @override
+  String get settings => 'Настройки';
+
+  @override
+  String get usageStats => 'Анонимная статистика использования';
+
+  @override
+  String get usageStatsHint =>
+      'Помогает улучшать приложение. Имена и результаты никогда не отправляются.';
 }

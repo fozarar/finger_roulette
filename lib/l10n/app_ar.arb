@@ -31,5 +31,8 @@
   "needTwoNames": "أضف اسمين على الأقل",
   "continueLabel": "متابعة",
   "share": "مشاركة",
-  "shareMessage": "تم القرار باستخدام Finger Chooser"
+  "shareMessage": "تم القرار باستخدام Finger Chooser",
+  "settings": "الإعدادات",
+  "usageStats": "إحصاءات استخدام مجهولة",
+  "usageStatsHint": "تساعد على تحسين التطبيق. لا تُرسَل الأسماء أو النتائج أبدًا."
 }

@@ -149,4 +149,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get shareMessage => 'Décidé avec Finger Chooser';
+
+  @override
+  String get settings => 'Réglages';
+
+  @override
+  String get usageStats => 'Statistiques d’utilisation anonymes';
+
+  @override
+  String get usageStatsHint =>
+      'Aident à améliorer l’app. Les noms et les résultats ne sont jamais envoyés.';
 }
