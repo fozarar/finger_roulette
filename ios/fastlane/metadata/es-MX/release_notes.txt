@@ -1,3 +1,2 @@
 • Nuevo: comparte el resultado como imagen, lista para tu historia
-• Los sonidos ya no detienen tu música y respetan el modo silencio
 • Pequeñas correcciones y mejoras

@@ -1,3 +1,2 @@
 • New: share the result as an image — ready for your story
-• Sound effects no longer stop your music and stay quiet in silent mode
 • Small fixes and improvements
