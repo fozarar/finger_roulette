@@ -164,8 +164,9 @@ class GameController extends ChangeNotifier {
   int get maxTeamCount =>
       (names.length ~/ 2).clamp(2, maxTeamOptions).toInt();
 
-  /// Bu turda kurulacak takım sayısı. Parmakla en fazla 5 kişi oynanabildiği
-  /// için orada hep iki takım var: üçüncü takım tek kişilik kalırdı.
+  /// Bu turda kurulacak takım sayısı. Parmakla hep iki takım var: telefonda
+  /// en fazla 5 kişi oynanabiliyor, üçüncü takım tek kişilik kalırdı. Tablette
+  /// on parmağa çıkılsa da takım sayısı yalnızca isim listesinde soruluyor.
   /// Liste kısaldıysa seçim sessizce mümkün olana iner.
   int get teamCount => input == InputSource.names
       ? min(selectedTeamCount, maxTeamCount)
@@ -540,12 +541,15 @@ class GameController extends ChangeNotifier {
   Color _randomPastelColor() {
     final usedHues =
         pointerColors.values.map((c) => HSLColor.fromColor(c).hue).toList();
+    // Beş oyuncuya kadar 40 derece; tablette on parmak o aralıkla renk
+    // çemberine sığmadığı için oyuncu arttıkça aralık daralıyor
+    final minGap = 200 / max(selectedPlayerCount ?? 0, 5);
     double hue;
     int tries = 0;
     do {
       hue = _random.nextDouble() * 360;
       tries++;
-    } while (usedHues.any((h) => (h - hue).abs() < 40) && tries < 30);
+    } while (usedHues.any((h) => (h - hue).abs() < minGap) && tries < 30);
     return HSLColor.fromAHSL(1.0, hue, 0.65, 0.80).toColor();
   }
 

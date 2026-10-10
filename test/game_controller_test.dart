@@ -367,7 +367,11 @@ void main() {
 
     test('takım modunda herkes dengeli iki takıma dağılır', () {
       fakeAsync((async) {
-        for (final players in GameMode.teams.playerCounts) {
+        // Tabletteki on parmağa kadar: iki takım her sayıda dengeli kalmalı
+        final counts = GameMode.teams.playerCounts(
+          maxPlayers: GameMode.tabletMaxPlayers,
+        );
+        for (final players in counts) {
           final c = build();
           c.selectMode(GameMode.teams);
           c.selectPlayerCount(players);

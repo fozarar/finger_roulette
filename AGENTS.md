@@ -3,7 +3,8 @@
 ## Project
 
 Finger Chooser (formerly Fingerlette) is a Flutter app for a multi-touch party
-game that randomly picks a winner from up to 5 players.
+game that randomly picks a winner from up to 5 players on a phone and up to 10
+on an iPad.
 
 The Dart package name `finger_roulette` and the bundle id
 `com.furkanozarar.fingerroulette` predate the rename. Keep them: App Store
@@ -23,7 +24,9 @@ or review rejects under Guideline 2.3.8.
   `build/screenshots/` (`SCREENSHOT_DIR=...` to change the folder,
   `--dart-define=SCREENSHOT_LOCALE=tr` for another language). A simulator only
   delivers two real touches, so this is the only way to see 3+ player screens;
-  App Store screenshots come from here too.
+  App Store screenshots come from here too. On an iPad simulator
+  (`-d "iPad Pro 13-inch (M5)"`) the same run adds the `17_`–`19_tablet_*`
+  frames with eight and ten fingers.
 - Switching between a device build and a simulator build needs `flutter clean`
   in between. They share `build/`, and the leftover device slice of a plugin
   framework (`objective_c`) makes the simulator app die at launch with
@@ -59,6 +62,11 @@ or review rejects under Guideline 2.3.8.
 
 ## Project Notes
 
+- The iOS target is universal (`TARGETED_DEVICE_FAMILY = "1,2"`). Once a
+  universal build is released, App Store Connect does not allow going back to
+  iPhone-only. The iPad entry in `Info.plist` has to list all four
+  orientations: with fewer, upload validation rejects the build for missing
+  iPad multitasking support.
 - Main app code lives in `lib/`.
 - Sound assets are listed in `pubspec.yaml` under `assets/sounds/`.
 - App icon and splash configuration are managed from `pubspec.yaml`.
@@ -77,9 +85,19 @@ or review rejects under Guideline 2.3.8.
   why they share one mode tile. Every mode shares the finger mechanic, so the
   controller fills exactly one of `pickedPointerIds`, `teamOfPointer` or
   `rankedPointerIds` and exposes `spotlightPointerIds` for the UI.
+- Finger count depends on the window, not the device: `SelectionScreen.maxPlayersFor`
+  offers up to 10 when the shortest side is 600 points or more (an iPhone only
+  reports five touches, an iPad eleven) and 5 otherwise, which includes a
+  narrowed iPad window.
+- The screens are laid out for a phone. On a tablet `TabletScale`, installed in
+  `MaterialApp.builder`, draws the whole app on a smaller logical screen and
+  scales it up (at most 1.5×) instead of each screen adapting itself. Everything
+  below it — pointer positions, `MediaQuery`, bottom sheets — sees the logical
+  size; code that needs the real window size asks `TabletScale.realSizeOf`.
 - Team count is only a choice with a name list: `teamCount` is 2 with fingers
-  (five fingers would leave a third team with one person) and up to 4 with
-  names, as long as every team gets at least two people. The selection screen
+  (five fingers would leave a third team with one person; the iPad's ten still
+  get two teams) and up to 4 with names, as long as every team gets at least
+  two people. The selection screen
   asks only when more than two teams are possible; otherwise it shows the plain
   continue button.
 - Name lists: the controller keeps `lists` and `activeListIndex`, and `names`

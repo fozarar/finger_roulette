@@ -18,10 +18,18 @@ enum GameMode {
   /// Takım ve sıra modları ise her parmağa bir sonuç verir.
   bool get picksSubset => this == pick;
 
-  /// Seçim ekranında sunulan oyuncu sayıları.
+  /// Telefonda parmakla oynayabilecek en fazla kişi: iPhone aynı anda beş
+  /// dokunuştan fazlasını algılamıyor
+  static const int phoneMaxPlayers = 5;
+
+  /// Tablette parmakla oynayabilecek en fazla kişi. iPad 11 dokunuşa kadar
+  /// algılıyor; on, masanın etrafına sığan sayı.
+  static const int tabletMaxPlayers = 10;
+
+  /// Seçim ekranında sunulan oyuncu sayıları, [maxPlayers]'a kadar.
   /// İki kişiyi takımlara bölmek anlamsız olduğundan takım modu 3'ten başlar.
-  List<int> get playerCounts =>
-      this == teams ? const [3, 4, 5] : const [2, 3, 4, 5];
+  List<int> playerCounts({int maxPlayers = phoneMaxPlayers}) =>
+      [for (var n = this == teams ? 3 : 2; n <= maxPlayers; n++) n];
 }
 
 /// Seç modunda seçilenlerin ne olduğu.

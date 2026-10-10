@@ -6,6 +6,7 @@ import '../services/names_service.dart';
 import '../services/review_service.dart';
 import '../services/sound_service.dart';
 import '../services/stats_service.dart';
+import 'tablet_scale.dart';
 
 /// Uygulamanın kök widget'ı — tema ve navigasyon yapılandırması burada
 class FingerRouletteApp extends StatelessWidget {
@@ -33,6 +34,8 @@ class FingerRouletteApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFF111111),
         colorScheme: const ColorScheme.dark(),
       ),
+      // Navigator'ın üstünde: alttan açılan sayfalar da aynı ölçekle çizilsin
+      builder: (context, child) => TabletScale(child: child!),
       home: HomeScreen(
         stats: stats,
         review: review,

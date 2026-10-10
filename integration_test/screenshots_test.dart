@@ -27,13 +27,20 @@ void main() {
   // pump edilen kareler çizilir ve açıklama anı donuk görünür
   binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
-  /// Masanın etrafındaki insanlar gibi dağınık parmak konumları
+  /// Masanın etrafındaki insanlar gibi dağınık parmak konumları, iPhone 14
+  /// ekranının (390×844) noktalarıyla. Başka ekranlarda aynı oranla yayılır;
+  /// ilk beşi telefon turlarının, tamamı tabletteki on parmağın yerleri.
   const fingerSpots = [
     Offset(95, 360),
     Offset(295, 330),
     Offset(320, 560),
     Offset(80, 575),
     Offset(200, 180),
+    Offset(60, 215),
+    Offset(335, 195),
+    Offset(195, 610),
+    Offset(30, 465),
+    Offset(355, 450),
   ];
 
   Future<void> shot(WidgetTester tester, String name) async {
@@ -56,9 +63,12 @@ void main() {
   /// [count] parmağı koyar ve iki kare çeker: döngü dönerken ve açıklamadan
   /// hemen sonra. Ardından seçim ekranına döner.
   Future<void> playRound(WidgetTester tester, String name, int count) async {
+    final screen = tester.view.physicalSize / tester.view.devicePixelRatio;
     final gestures = [
       for (final spot in fingerSpots.take(count))
-        await tester.startGesture(spot),
+        await tester.startGesture(
+          Offset(spot.dx / 390 * screen.width, spot.dy / 844 * screen.height),
+        ),
     ];
     // Kilitlenince (800ms) parmaklar kalkabilir, daireler yerinde kalır.
     // Kaldırmak test çerçevesinin dokunuş işaretlerini de görüntüden siler.
@@ -126,6 +136,25 @@ void main() {
     await shot(tester, '4_order_select');
     await choose(tester, find.text('4'));
     await playRound(tester, '4_order', 4);
+
+    // Tablette parmak sınırı 10. Telefonda bu düğme hiç çıkmıyor, turlar
+    // atlanıyor ve kare numaraları telefon setinde yer tutmuyor.
+    if (find.text('10').evaluate().isEmpty) return;
+    await shot(tester, '17_tablet_order_select');
+    await choose(tester, find.text('8'));
+    await playRound(tester, '17_tablet_order', 8);
+
+    await choose(tester, find.byIcon(Icons.groups_outlined));
+    await choose(tester, find.text('10'));
+    await playRound(tester, '18_tablet_teams', 10);
+
+    // Seç modu, kazanan: 10 oyuncu, 3 kazanan
+    await choose(tester, find.byIcon(Icons.adjust));
+    await choose(tester, find.byIcon(Icons.emoji_events_outlined));
+    await choose(tester, find.text('10'));
+    await shot(tester, '19_tablet_winners_select');
+    await choose(tester, find.text('3').last);
+    await playRound(tester, '19_tablet_winners', 10);
   });
 
   testWidgets('isim listesi ve çark', (tester) async {
