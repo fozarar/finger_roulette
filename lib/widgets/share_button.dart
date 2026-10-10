@@ -8,7 +8,9 @@ import '../services/share_service.dart';
 /// [method] iOS'un bildirdiği hedef (boşsa null)
 typedef ShareCallback = void Function(String status, String? method);
 
-/// Sonuç ekranının sağ üstündeki paylaş butonu — kapatma butonunun eşi.
+/// Sonuç ekranında "tekrar oyna"nın hemen altındaki yazılı paylaş butonu.
+/// Köşedeki küçük bir simgeyken 250 turda iki kez dokunulmuştu; gözün ve
+/// başparmağın zaten durduğu yere, adıyla birlikte indi.
 ///
 /// [captureKey] ekranın paylaşılacak kısmını saran [RepaintBoundary]'nin
 /// anahtarı; butonlar onun dışında kaldığı için görsele girmez.
@@ -16,6 +18,9 @@ class ShareButton extends StatefulWidget {
   final GlobalKey captureKey;
   final ShareService service;
   final ShareCallback? onShared;
+
+  /// Butonun sabit yüksekliği; çark ekranı buton alanını buna göre ayırıyor
+  static const double height = 44;
 
   ShareButton({
     super.key,
@@ -60,11 +65,28 @@ class _ShareButtonState extends State<ShareButton> {
   }
 
   @override
-  Widget build(BuildContext context) => IconButton(
-        icon: const Icon(Icons.ios_share),
-        color: Colors.white,
-        iconSize: 22,
-        tooltip: AppLocalizations.of(context).share,
+  Widget build(BuildContext context) => OutlinedButton.icon(
         onPressed: _busy ? null : _share,
+        icon: const Icon(Icons.ios_share, size: 18),
+        label: Text(
+          AppLocalizations.of(context).share,
+          style: const TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
+        ),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: Colors.white,
+          disabledForegroundColor: Colors.white38,
+          // Parmak ekranında buton bir dairenin üstüne denk gelebiliyor;
+          // koyu zemin olmadan yazı parlak dairede kayboluyor
+          backgroundColor: const Color(0xCC111111),
+          side: const BorderSide(color: Color(0x66FFFFFF)),
+          shape: const StadiumBorder(),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+          minimumSize: const Size(0, ShareButton.height),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
       );
 }

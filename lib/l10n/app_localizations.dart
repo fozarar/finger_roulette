@@ -306,7 +306,7 @@ abstract class AppLocalizations {
   /// **'Continue'**
   String get continueLabel;
 
-  /// Tooltip of the button that shares the result as an image
+  /// Label of the button that shares the result as an image. Sits under the Play Again button, so keep it short
   ///
   /// In en, this message translates to:
   /// **'Share'**

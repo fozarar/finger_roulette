@@ -39,8 +39,9 @@ class WheelScreen extends StatelessWidget {
   });
 
   /// Buton alanının sabit yüksekliği — faz değişince düzen zıplamasın.
-  /// Açıklamadan sonra iki buton alt alta duruyor; ölçü ona göre.
-  static const double _buttonAreaHeight = 122;
+  /// Açıklamadan sonra üç buton alt alta duruyor (tekrar çevir, paylaş,
+  /// ayarları değiştir); ölçü ona göre.
+  static const double _buttonAreaHeight = 122 + ShareButton.height + 6;
 
   @override
   Widget build(BuildContext context) {
@@ -135,19 +136,6 @@ class WheelScreen extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Paylaş butonu kapatma butonunun eşi; sonuç ekranda kalırken
-            if (revealed && controller.showReset)
-              Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8, right: 4),
-                  child: ShareButton(
-                    captureKey: captureKey,
-                    onShared: controller.recordShare,
-                  ),
-                ),
-              ),
           ],
         ),
       ),
@@ -364,7 +352,12 @@ class WheelScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _primaryButton(l10n.spinAgain, controller.spinAgain),
-          const SizedBox(height: 6),
+          const SizedBox(height: 10),
+          ShareButton(
+            captureKey: captureKey,
+            onShared: controller.recordShare,
+          ),
+          const SizedBox(height: 2),
           TextButton(
             onPressed: controller.changeSettings,
             child: Text(

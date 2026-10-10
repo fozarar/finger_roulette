@@ -218,7 +218,14 @@ class GameScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 14),
+                          const SizedBox(height: 12),
+
+                          // Sonucu görsel olarak paylaş
+                          ShareButton(
+                            captureKey: captureKey,
+                            onShared: controller.recordShare,
+                          ),
+                          const SizedBox(height: 2),
 
                           // Mod, oyuncu ve kazanan sayısını değiştir
                           TextButton(
@@ -256,21 +263,6 @@ class GameScreen extends StatelessWidget {
               ),
             ),
           ),
-
-          // ── Paylaş butonu — sağ üst, yalnızca sonuç ekranda kalırken ────
-          if (controller.showReset)
-            SafeArea(
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8, right: 4),
-                  child: ShareButton(
-                    captureKey: captureKey,
-                    onShared: controller.recordShare,
-                  ),
-                ),
-              ),
-            ),
         ],
       ),
     );
