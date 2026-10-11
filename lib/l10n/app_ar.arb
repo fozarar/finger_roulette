@@ -42,5 +42,6 @@
   "newList": "قائمة جديدة",
   "listNameHint": "اسم القائمة",
   "deleteList": "حذف القائمة",
-  "deleteListConfirm": "اضغط مرة أخرى للحذف"
+  "deleteListConfirm": "اضغط مرة أخرى للحذف",
+  "removeName": "حذف {name}"
 }

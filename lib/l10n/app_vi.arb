@@ -42,5 +42,6 @@
   "newList": "Danh sách mới",
   "listNameHint": "Tên danh sách",
   "deleteList": "Xóa danh sách",
-  "deleteListConfirm": "Chạm lần nữa để xóa"
+  "deleteListConfirm": "Chạm lần nữa để xóa",
+  "removeName": "Xóa {name}"
 }

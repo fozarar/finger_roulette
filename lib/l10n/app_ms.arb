@@ -42,5 +42,6 @@
   "newList": "Senarai baharu",
   "listNameHint": "Nama senarai",
   "deleteList": "Padam senarai",
-  "deleteListConfirm": "Ketik sekali lagi untuk padam"
+  "deleteListConfirm": "Ketik sekali lagi untuk padam",
+  "removeName": "Padam {name}"
 }

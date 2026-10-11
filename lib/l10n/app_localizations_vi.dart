@@ -186,4 +186,9 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get deleteListConfirm => 'Chạm lần nữa để xóa';
+
+  @override
+  String removeName(String name) {
+    return 'Xóa $name';
+  }
 }

@@ -42,5 +42,6 @@
   "newList": "รายการใหม่",
   "listNameHint": "ชื่อรายการ",
   "deleteList": "ลบรายการ",
-  "deleteListConfirm": "แตะอีกครั้งเพื่อลบ"
+  "deleteListConfirm": "แตะอีกครั้งเพื่อลบ",
+  "removeName": "ลบ {name}"
 }

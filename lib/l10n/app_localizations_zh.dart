@@ -184,4 +184,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get deleteListConfirm => '再点一次即可删除';
+
+  @override
+  String removeName(String name) {
+    return '删除$name';
+  }
 }

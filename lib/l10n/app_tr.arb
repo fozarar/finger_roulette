@@ -42,5 +42,6 @@
   "newList": "Yeni liste",
   "listNameHint": "Liste adı",
   "deleteList": "Listeyi sil",
-  "deleteListConfirm": "Silmek için tekrar dokun"
+  "deleteListConfirm": "Silmek için tekrar dokun",
+  "removeName": "{name} ismini sil"
 }

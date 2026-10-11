@@ -42,5 +42,6 @@
   "newList": "新しいリスト",
   "listNameHint": "リスト名",
   "deleteList": "リストを削除",
-  "deleteListConfirm": "もう一度タップして削除"
+  "deleteListConfirm": "もう一度タップして削除",
+  "removeName": "{name}を削除"
 }

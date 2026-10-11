@@ -137,6 +137,11 @@ or review rejects under Guideline 2.3.8.
   users; pass `--dart-define=ANALYTICS=true` to try it. Screens are reported by
   hand from `HomeScreen` because all three live in one route, and Firebase's own
   screen tracking is switched off in `Info.plist`.
+- Reduce Motion drops the white reveal flash and the confetti; the spin stays,
+  it is the game. Both screens ask `reduceMotionOf` (`lib/app/reduce_motion.dart`),
+  which reads `AccessibilityFeatures` directly: iOS reports Reduce Motion as
+  `reduceMotion`, which `MediaQuery` does not carry — `MediaQuery.disableAnimations`
+  is only Android's "Remove animations".
 - User-facing strings are never built in the controller — `lib/screens/game_text.dart`
   maps game state to localized text at the UI layer.
 

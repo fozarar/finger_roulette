@@ -186,4 +186,9 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get deleteListConfirm => 'Silmek için tekrar dokun';
+
+  @override
+  String removeName(String name) {
+    return '$name ismini sil';
+  }
 }

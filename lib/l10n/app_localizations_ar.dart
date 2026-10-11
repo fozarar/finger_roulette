@@ -199,4 +199,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get deleteListConfirm => 'اضغط مرة أخرى للحذف';
+
+  @override
+  String removeName(String name) {
+    return 'حذف $name';
+  }
 }

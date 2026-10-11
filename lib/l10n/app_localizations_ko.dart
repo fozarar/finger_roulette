@@ -184,4 +184,9 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get deleteListConfirm => '삭제하려면 다시 탭하세요';
+
+  @override
+  String removeName(String name) {
+    return '$name 삭제';
+  }
 }

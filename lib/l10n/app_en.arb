@@ -225,5 +225,14 @@
   "deleteListConfirm": "Tap again to delete",
   "@deleteListConfirm": {
     "description": "Replaces the delete button's label after the first tap, asking for a second tap to confirm"
+  },
+  "removeName": "Remove {name}",
+  "@removeName": {
+    "description": "Screen reader label of the small × on a name in the list; tapping it removes that name. Never shown on screen",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   }
 }

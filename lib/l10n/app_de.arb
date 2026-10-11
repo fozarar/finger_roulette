@@ -42,5 +42,6 @@
   "newList": "Neue Liste",
   "listNameHint": "Name der Liste",
   "deleteList": "Liste löschen",
-  "deleteListConfirm": "Zum Löschen erneut tippen"
+  "deleteListConfirm": "Zum Löschen erneut tippen",
+  "removeName": "{name} entfernen"
 }

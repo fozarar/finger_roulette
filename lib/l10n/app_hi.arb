@@ -42,5 +42,6 @@
   "newList": "नई सूची",
   "listNameHint": "सूची का नाम",
   "deleteList": "सूची हटाएँ",
-  "deleteListConfirm": "हटाने के लिए फिर से टैप करें"
+  "deleteListConfirm": "हटाने के लिए फिर से टैप करें",
+  "removeName": "{name} को हटाएँ"
 }

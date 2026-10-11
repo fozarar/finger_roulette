@@ -185,4 +185,9 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get deleteListConfirm => 'แตะอีกครั้งเพื่อลบ';
+
+  @override
+  String removeName(String name) {
+    return 'ลบ $name';
+  }
 }

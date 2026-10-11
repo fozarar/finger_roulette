@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../app/reduce_motion.dart';
 import '../controllers/game_controller.dart';
 import '../l10n/app_localizations.dart';
 import '../models/game_phase.dart';
@@ -47,6 +48,9 @@ class GameScreen extends StatelessWidget {
     final statusText = statusTextFor(l10n, controller);
     final spotlight = controller.spotlightIds;
     final labels = resultLabelsFor(controller);
+    // "Hareketi Azalt" açıkken beyaz flaş ve konfeti çizilmez; sonucu büyüyen
+    // daire, ses ve titreşim zaten duyuruyor
+    final reduceMotion = reduceMotionOf(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFF111111),
@@ -158,18 +162,19 @@ class GameScreen extends StatelessWidget {
                   ),
 
                   // ── Arka plan flash efekti ────────────────────────────────
-                  AnimatedBuilder(
-                    animation: flashAnimation,
-                    builder: (context, _) => IgnorePointer(
-                      child: Container(
-                        color: Colors.white
-                            .withAlpha((flashAnimation.value * 255).round()),
+                  if (!reduceMotion)
+                    AnimatedBuilder(
+                      animation: flashAnimation,
+                      builder: (context, _) => IgnorePointer(
+                        child: Container(
+                          color: Colors.white
+                              .withAlpha((flashAnimation.value * 255).round()),
+                        ),
                       ),
                     ),
-                  ),
 
                   // ── Konfeti parçacıkları — öne çıkan dairelerden ──────────
-                  if (spotlight.isNotEmpty)
+                  if (spotlight.isNotEmpty && !reduceMotion)
                     IgnorePointer(
                       child: ParticleOverlay(
                         key: const ValueKey('particles'),
@@ -255,7 +260,12 @@ class GameScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 8, left: 4),
                 child: IconButton(
-                  icon: const Icon(Icons.close),
+                  // Ekran okuyucu için ad. Tooltip değil: basılı tutunca
+                  // balon açar ve köşede bekleyen parmak butonu çalıştıramaz.
+                  icon: Icon(
+                    Icons.close,
+                    semanticLabel: l10n.changeSettings,
+                  ),
                   color: Colors.white70,
                   iconSize: 20,
                   onPressed: controller.changeSettings,

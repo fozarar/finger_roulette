@@ -42,5 +42,6 @@
   "newList": "Новый список",
   "listNameHint": "Название списка",
   "deleteList": "Удалить список",
-  "deleteListConfirm": "Нажмите ещё раз, чтобы удалить"
+  "deleteListConfirm": "Нажмите ещё раз, чтобы удалить",
+  "removeName": "Удалить: {name}"
 }

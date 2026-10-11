@@ -42,5 +42,6 @@
   "newList": "Daftar baru",
   "listNameHint": "Nama daftar",
   "deleteList": "Hapus daftar",
-  "deleteListConfirm": "Ketuk lagi untuk menghapus"
+  "deleteListConfirm": "Ketuk lagi untuk menghapus",
+  "removeName": "Hapus {name}"
 }

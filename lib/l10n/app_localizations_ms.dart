@@ -186,4 +186,9 @@ class AppLocalizationsMs extends AppLocalizations {
 
   @override
   String get deleteListConfirm => 'Ketik sekali lagi untuk padam';
+
+  @override
+  String removeName(String name) {
+    return 'Padam $name';
+  }
 }

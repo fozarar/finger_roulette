@@ -42,5 +42,6 @@
   "newList": "新名单",
   "listNameHint": "名单名称",
   "deleteList": "删除名单",
-  "deleteListConfirm": "再点一次即可删除"
+  "deleteListConfirm": "再点一次即可删除",
+  "removeName": "删除{name}"
 }

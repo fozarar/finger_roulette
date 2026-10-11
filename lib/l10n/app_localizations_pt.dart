@@ -186,4 +186,9 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get deleteListConfirm => 'Toque de novo para excluir';
+
+  @override
+  String removeName(String name) {
+    return 'Remover $name';
+  }
 }

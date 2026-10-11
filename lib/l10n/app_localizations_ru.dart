@@ -218,4 +218,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get deleteListConfirm => 'Нажмите ещё раз, чтобы удалить';
+
+  @override
+  String removeName(String name) {
+    return 'Удалить: $name';
+  }
 }

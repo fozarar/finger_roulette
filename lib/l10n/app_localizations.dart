@@ -383,6 +383,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap again to delete'**
   String get deleteListConfirm;
+
+  /// Screen reader label of the small × on a name in the list; tapping it removes that name. Never shown on screen
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name}'**
+  String removeName(String name);
 }
 
 class _AppLocalizationsDelegate

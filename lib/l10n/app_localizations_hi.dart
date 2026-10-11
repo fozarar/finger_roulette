@@ -186,4 +186,9 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get deleteListConfirm => 'हटाने के लिए फिर से टैप करें';
+
+  @override
+  String removeName(String name) {
+    return '$name को हटाएँ';
+  }
 }

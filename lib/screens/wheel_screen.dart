@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../app/reduce_motion.dart';
 import '../controllers/game_controller.dart';
 import '../l10n/app_localizations.dart';
 import '../models/game_mode.dart';
@@ -51,6 +52,9 @@ class WheelScreen extends StatelessWidget {
     // sıra listesi butonlarla birlikte, o an geçtikten sonra geliyor.
     final showWheel =
         !revealed || controller.mode == GameMode.pick || !controller.showReset;
+    // "Hareketi Azalt" açıkken beyaz flaş ve konfeti çizilmez; sonucu duran
+    // çark, ses ve titreşim zaten duyuruyor
+    final reduceMotion = reduceMotionOf(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFF111111),
@@ -107,21 +111,22 @@ class WheelScreen extends StatelessWidget {
             ),
 
             // ── Açıklama anındaki flash ────────────────────────────────────
-            AnimatedBuilder(
-              animation: flashAnimation,
-              builder: (context, _) => IgnorePointer(
-                child: Container(
-                  color: Colors.white.withValues(alpha: flashAnimation.value),
+            if (!reduceMotion)
+              AnimatedBuilder(
+                animation: flashAnimation,
+                builder: (context, _) => IgnorePointer(
+                  child: Container(
+                    color: Colors.white.withValues(alpha: flashAnimation.value),
+                  ),
                 ),
               ),
-            ),
 
             // Konfeti dekoratif: dokunuşu yutarsa altındaki butonlar ölür.
             // CustomPaint'in varsayılanı dokunuşu üstlenmek olduğu için bunu
             // açıkça kapatmak gerekiyor.
             // Konfeti yalnızca çark ekranda kalırken: takım ve sıra sonucunda
             // parçacıklar listenin üstüne biniyor ve isimleri okutmuyor.
-            if (revealed && controller.mode == GameMode.pick)
+            if (revealed && controller.mode == GameMode.pick && !reduceMotion)
               IgnorePointer(child: _confetti()),
 
             Align(
@@ -129,7 +134,11 @@ class WheelScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 8, left: 4),
                 child: IconButton(
-                  icon: const Icon(Icons.close),
+                  // Ekran okuyucu için ad; parmak ekranındaki butonla aynı
+                  icon: Icon(
+                    Icons.close,
+                    semanticLabel: l10n.changeSettings,
+                  ),
                   color: Colors.white70,
                   iconSize: 20,
                   onPressed: controller.changeSettings,
