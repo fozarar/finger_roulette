@@ -11,6 +11,7 @@ import 'package:finger_roulette/services/review_service.dart';
 import 'package:finger_roulette/services/sound_service.dart';
 import 'package:finger_roulette/services/stats_service.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Platform kanalına dokunmayan ses servisi
@@ -76,17 +77,35 @@ class _FakeNames extends NamesService {
   Future<void> save(NameBook book) async => this.book = book;
 }
 
+/// [nextDouble] için verilen değerleri sırayla döndürür: parmak renginin
+/// tonu buradan geldiği için test hangi tonların deneneceğini seçebiliyor
+class _ScriptedRandom implements Random {
+  _ScriptedRandom(this._doubles);
+
+  final List<double> _doubles;
+  int _next = 0;
+
+  @override
+  double nextDouble() => _doubles[_next++];
+
+  @override
+  int nextInt(int max) => 0;
+
+  @override
+  bool nextBool() => false;
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   late _FakeStats stats;
   late _FakeNames nameStore;
 
-  GameController build({List<String> names = const []}) {
+  GameController build({List<String> names = const [], Random? random}) {
     stats = _FakeStats();
     nameStore = _FakeNames(names);
     return GameController(
-      random: Random(42),
+      random: random ?? Random(42),
       sound: _SilentSound(),
       stats: stats,
       // init() çağrılmadığı için puan isteme sessizce atlanır
@@ -212,6 +231,21 @@ void main() {
         down(c, i, at: Offset(100.0 * i, 300));
       }
       expect(c.activePointers.length, 3);
+      c.dispose();
+    });
+
+    test('renk çemberinin iki ucundaki tonlar birbirine yakın sayılır', () {
+      // İlk parmak 356° alıyor. İkinci için önce 2° deneniyor: çember
+      // üzerinde yalnızca 6° uzakta, reddedilip sıradaki 180° alınmalı.
+      final c = build(random: _ScriptedRandom([356 / 360, 2 / 360, 0.5]));
+      c.selectPlayerCount(3);
+      c.selectPickCount(1);
+      down(c, 1, at: const Offset(100, 300));
+      down(c, 2, at: const Offset(200, 300));
+
+      double hueOf(int id) => HSLColor.fromColor(c.pointerColors[id]!).hue;
+      expect(hueOf(1), closeTo(356, 1));
+      expect(hueOf(2), closeTo(180, 1));
       c.dispose();
     });
   });

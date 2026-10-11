@@ -549,8 +549,15 @@ class GameController extends ChangeNotifier {
     do {
       hue = _random.nextDouble() * 360;
       tries++;
-    } while (usedHues.any((h) => (h - hue).abs() < minGap) && tries < 30);
+    } while (usedHues.any((h) => _hueDistance(h, hue) < minGap) && tries < 30);
     return HSLColor.fromAHSL(1.0, hue, 0.65, 0.80).toColor();
+  }
+
+  /// İki ton arasındaki açı. Ton bir çember: 358° ile 2° arası 356° değil 4°;
+  /// düz fark alınınca iki parmak neredeyse aynı kırmızıyı alabiliyordu.
+  static double _hueDistance(double a, double b) {
+    final diff = (a - b).abs();
+    return min(diff, 360 - diff);
   }
 
   void _cancelAllTimers() {
