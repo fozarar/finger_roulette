@@ -1,4 +1,4 @@
-• Bahagikan senarai nama kepada 3 atau 4 pasukan
-• Simpan beberapa senarai nama dan tukar antara senarai
-• Tetapan baharu: matikan kesan bunyi
-• Statistik penggunaan tanpa nama membantu menambah baik aplikasi — boleh dimatikan dalam Tetapan
+• Kini untuk iPad: sehingga 10 pemain pada skrin besar
+• Kongsi dengan satu ketikan: butang Kongsi kini di bawah Main Semula
+• Label VoiceOver lebih baik, dan Kurangkan Gerakan mematikan kilauan dan konfeti
+• Warna jari lebih mudah dibezakan

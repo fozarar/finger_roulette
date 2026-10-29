@@ -4,7 +4,7 @@ Tartışmayı bitirin. Parmaklarınızı ekrana koyun ya da isimleri yazıp çar
 
 NASIL ÇALIŞIR
 1. Ne lazımsa onu seçin: kazanan, kaybeden, takımlar ya da sıra.
-2. Parmakla: herkes ekrana bir parmak koyup bekler, en fazla 5 kişi.
+2. Parmakla: herkes ekrana bir parmak koyup bekler; iPhone'da 5, iPad'de 10 kişiye kadar.
 3. İsimle: 20 isme kadar yazın; çarkı çevirin ya da 4 takıma kadar bölün.
 
 NEREDE İŞE YARAR
@@ -22,7 +22,7 @@ NEDEN BEĞENECEKSİNİZ
 • Sonuç tek dokunuşla görsel olarak paylaşılır; hikâyeye hazır
 • Anında çalışır; kurulum, hesap ya da internet gerekmez
 • Ses ve titreşim, açıklanmadan önce gerilimi yükseltir
-• Sade, koyu tasarım her telefonda iyi görünür
+• Sade, koyu tasarım; iPhone ve iPad için
 • Ücretsiz ve oyunu bölen reklam yok
 
 Parmağını koy ya da çarkı çevir. Gerisini şansa bırak.

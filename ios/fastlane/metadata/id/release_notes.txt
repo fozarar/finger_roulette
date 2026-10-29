@@ -1,4 +1,4 @@
-• Bagi daftar nama menjadi 3 atau 4 tim
-• Simpan beberapa daftar nama dan beralih di antaranya
-• Pengaturan baru: matikan efek suara
-• Statistik penggunaan anonim membantu meningkatkan aplikasi — bisa dimatikan di Pengaturan
+• Kini untuk iPad: sampai 10 pemain di layar besar
+• Bagikan dengan sekali ketuk: tombol Bagikan ada tepat di bawah Main Lagi
+• Label VoiceOver lebih baik, dan Kurangi Gerakan mematikan kilatan dan konfeti
+• Warna jari kini lebih mudah dibedakan

@@ -1,4 +1,4 @@
-• Chia danh sách tên thành 3 hoặc 4 đội
-• Lưu nhiều danh sách tên và chuyển qua lại
-• Cài đặt mới: tắt hiệu ứng âm thanh
-• Thống kê sử dụng ẩn danh giúp cải thiện ứng dụng — có thể tắt trong Cài đặt
+• Nay dành cho iPad: tối đa 10 người chơi trên màn hình lớn
+• Chia sẻ chỉ với một chạm: nút Chia sẻ nằm ngay dưới Chơi lại
+• Nhãn VoiceOver rõ hơn, và Giảm chuyển động sẽ tắt hiệu ứng chớp sáng và pháo giấy
+• Màu các ngón tay dễ phân biệt hơn

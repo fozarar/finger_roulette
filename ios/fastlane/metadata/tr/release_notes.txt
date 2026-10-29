@@ -1,4 +1,4 @@
-• İsim listesini 3 ya da 4 takıma böl
-• Birden fazla isim listesi tut, aralarında geç
-• Yeni Ayarlar: ses efektlerini kapat
-• Anonim kullanım istatistikleri uygulamayı geliştirmeye yardımcı olur; Ayarlar'dan kapatabilirsin
+• Artık iPad için: büyük ekranda 10 kişiye kadar
+• Tek dokunuşla paylaş: Paylaş düğmesi Tekrar Oyna'nın hemen altında
+• Daha iyi VoiceOver etiketleri; Hareketi Azalt açıkken parlama ve konfeti kapanır
+• Parmak renkleri birbirinden daha kolay ayrılıyor

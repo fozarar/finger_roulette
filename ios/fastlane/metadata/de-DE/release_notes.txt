@@ -1,4 +1,4 @@
-• Teile eine Namensliste in 3 oder 4 Teams
-• Mehrere Namenslisten speichern und zwischen ihnen wechseln
-• Neue Einstellungen: Soundeffekte ausschalten
-• Anonyme Nutzungsstatistiken helfen, die App zu verbessern – in den Einstellungen abschaltbar
+• Jetzt fürs iPad gemacht: bis zu 10 Spieler auf dem großen Bildschirm
+• Teilen mit einem Tippen: die Teilen-Taste sitzt direkt unter „Nochmal spielen“
+• Bessere VoiceOver-Beschriftungen, und „Bewegung reduzieren“ schaltet Blitz und Konfetti ab
+• Die Fingerfarben sind leichter zu unterscheiden

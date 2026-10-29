@@ -1,4 +1,4 @@
-• Divida uma lista de nomes em 3 ou 4 times
-• Guarde várias listas de nomes e alterne entre elas
-• Novos Ajustes: desligue os efeitos sonoros
-• Estatísticas de uso anônimas ajudam a melhorar o app — desative em Ajustes
+• Agora feito para iPad: até 10 jogadores na tela grande
+• Compartilhe com um toque: o botão Compartilhar fica logo abaixo de Jogar de novo
+• Rótulos melhores no VoiceOver, e Reduzir Movimento desliga o brilho e os confetes
+• As cores dos dedos ficaram mais fáceis de distinguir
